@@ -2,6 +2,7 @@ import Link from "next/link"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { Terminal, Brain, BarChart3, Code2, ArrowRight } from "lucide-react"
+import { TypewriterText } from "@/components/ui/TypewriterText"
 
 export default async function LandingPage() {
   const session = await getServerSession(authOptions)
@@ -57,13 +58,13 @@ export default async function LandingPage() {
             <div className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#1F2937] bg-[#111827]/80 text-sm text-[#10B981] mb-6 animate-fade-in">
                 <Code2 className="h-4 w-4" />
-                <span>AI-Powered Python Learning</span>
+                <span>AI-Powered Multi-Language Learning</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-                Your Personal <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#6366F1]">AI Python Tutor</span>
+                Your Personal AI <TypewriterText /> Tutor
               </h1>
               <p className="text-lg sm:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Learn Python at your own pace. Chat with a smart 24/7 AI tutor, take adaptive quizzes that adjust to your mastery score, and target your weak spots.
+                Learn programming at your own pace. Chat with a smart 24/7 AI tutor, take adaptive quizzes that adjust to your mastery score, and target your weak spots.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
