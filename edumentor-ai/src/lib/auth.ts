@@ -23,11 +23,14 @@ export const authOptions: NextAuthOptions = {
         const isValid = await bcrypt.compare(credentials.password, user.password)
         if (!isValid) return null
         
+        // NOTE: Do NOT include avatarUrl/image here.
+        // Base64 images can be 100KB+ which overflows the ~4KB JWT cookie
+        // and causes HTTP 431 "Request Header Too Large" errors.
+        // The Sidebar fetches the avatar directly from /api/settings/profile instead.
         return {
           id: user.id,
           email: user.email,
           name: user.name,
-          image: user.avatarUrl ?? null
         }
       }
     })
@@ -37,19 +40,17 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id
-        token.picture = user.image
       }
-      // Handle session updates from client-side update() calls
+      // Only allow name updates from client-side update() — never image/avatar
+      // to prevent base64 data from bloating the JWT cookie
       if (trigger === "update" && session) {
         if (session.name !== undefined) token.name = session.name
-        if (session.image !== undefined) token.picture = session.image
       }
       return token
     },
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string
-        session.user.image = token.picture as string | null
       }
       return session
     }
