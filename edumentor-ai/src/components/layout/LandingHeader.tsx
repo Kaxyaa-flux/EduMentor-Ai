@@ -20,9 +20,9 @@ export async function LandingHeader() {
 
         {/* Center Nav Links - hidden on mobile */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="#features" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">Features</Link>
-          <Link href="#how-it-works" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">How it works</Link>
-          <Link href="#pricing" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">Pricing</Link>
+          <Link href="/#how-it-works" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">Features</Link>
+          <Link href="/#how-it-works" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">How it works</Link>
+          <Link href="/pricing" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">Pricing</Link>
         </nav>
 
         <div className="flex items-center gap-4">

@@ -50,7 +50,7 @@ export default async function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section className="py-20 bg-[#111827]/40 border-y border-[#1F2937]">
+        <section id="how-it-works" className="py-20 bg-[#111827]/40 border-y border-[#1F2937]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
