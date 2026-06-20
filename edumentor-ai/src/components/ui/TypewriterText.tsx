@@ -6,37 +6,44 @@ const LANGUAGES = ["Python", "JavaScript", "Java", "C", "C++", "HTML/CSS"]
 
 export function TypewriterText() {
   const [text, setText] = useState("")
-  const [index, setIndex] = useState(0)
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [typingSpeed, setTypingSpeed] = useState(150)
 
   useEffect(() => {
+    let currentText = ""
+    let isDeleting = false
+    let loopNum = 0
+    let typingSpeed = 150
     let timer: NodeJS.Timeout
-    const currentLanguage = LANGUAGES[index % LANGUAGES.length]
-    
-    if (!isDeleting) {
-      if (text === currentLanguage) {
-        timer = setTimeout(() => setIsDeleting(true), 2000)
+
+    const tick = () => {
+      const i = loopNum % LANGUAGES.length
+      const fullText = LANGUAGES[i]
+
+      if (isDeleting) {
+        currentText = fullText.substring(0, currentText.length - 1)
+        typingSpeed = 50 // Deletion speed
       } else {
-        timer = setTimeout(() => {
-          setText(currentLanguage.substring(0, text.length + 1))
-          setTypingSpeed(150)
-        }, typingSpeed)
+        currentText = fullText.substring(0, currentText.length + 1)
+        typingSpeed = 150 - Math.random() * 50 // Human-like typing speed variation
       }
-    } else {
-      if (text === "") {
-        setIsDeleting(false)
-        setIndex((prev) => prev + 1)
-      } else {
-        timer = setTimeout(() => {
-          setText(currentLanguage.substring(0, text.length - 1))
-          setTypingSpeed(50)
-        }, typingSpeed)
+
+      setText(currentText)
+
+      if (!isDeleting && currentText === fullText) {
+        typingSpeed = 2000 // Pause when word is complete
+        isDeleting = true
+      } else if (isDeleting && currentText === "") {
+        isDeleting = false
+        loopNum++
+        typingSpeed = 500 // Pause before starting new word
       }
+
+      timer = setTimeout(tick, typingSpeed)
     }
 
+    timer = setTimeout(tick, 500) // Initial delay
+
     return () => clearTimeout(timer)
-  }, [text, isDeleting, index, typingSpeed])
+  }, []) // Empty dependency array ensures smooth timing decoupled from renders
 
   return (
     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#6366F1]">
