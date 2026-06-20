@@ -10,6 +10,7 @@ export const config = {
     "/learn/:path*",
     "/quiz/:path*",
     "/progress/:path*",
-    "/onboarding/:path*"
+    "/onboarding/:path*",
+    "/settings/:path*"
   ]
 }
