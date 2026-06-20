@@ -60,8 +60,9 @@ export default async function LandingPage() {
                 <Code2 className="h-4 w-4" />
                 <span>AI-Powered Multi-Language Learning</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-                Your Personal AI <TypewriterText /> Tutor
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight flex flex-col items-center justify-center gap-3">
+                <span>Your Personal AI Tutor</span>
+                <span className="h-[1.2em] flex items-center justify-center"><TypewriterText /></span>
               </h1>
               <p className="text-lg sm:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
                 Learn programming at your own pace. Chat with a smart 24/7 AI tutor, take adaptive quizzes that adjust to your mastery score, and target your weak spots.
