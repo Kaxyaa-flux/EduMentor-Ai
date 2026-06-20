@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Terminal, Github, Twitter, MessageSquare } from "lucide-react"
+import { Terminal, Globe, Mail, MessageSquare } from "lucide-react"
 
 export function LandingFooter() {
   return (
@@ -22,10 +22,10 @@ export function LandingFooter() {
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-slate-400 hover:text-[#10B981] transition-colors">
-                <Twitter className="h-5 w-5" />
+                <Globe className="h-5 w-5" />
               </a>
               <a href="#" className="text-slate-400 hover:text-[#10B981] transition-colors">
-                <Github className="h-5 w-5" />
+                <Mail className="h-5 w-5" />
               </a>
               <a href="#" className="text-slate-400 hover:text-[#10B981] transition-colors">
                 <MessageSquare className="h-5 w-5" />
