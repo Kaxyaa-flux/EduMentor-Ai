@@ -2,7 +2,8 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
-import { groq, GROQ_MODEL } from "@/lib/groq"
+import Groq from "groq-sdk"
+import { GROQ_MODEL } from "@/lib/groq"
 
 export async function POST(req: Request) {
   try {
@@ -21,6 +22,17 @@ export async function POST(req: Request) {
         { status: 400 }
       )
     }
+
+    // Fetch user's personal Groq key (if any)
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { groqApiKey: true }
+    })
+
+    // Use user's personal key if they have one, otherwise fallback to server key
+    const groqClient = new Groq({
+      apiKey: user?.groqApiKey || process.env.GROQ_API_KEY!
+    })
 
     // 2. Check api_usage — limit to 50 quizGenerations per day
     const today = new Date().toISOString().split('T')[0]
@@ -87,7 +99,7 @@ Return ONLY valid JSON in this exact format:
 Ensure "correct" is a 0-indexed integer corresponding to the index in "options".
 Return ONLY the raw JSON object. Do not include markdown codeblocks or other formatting.`
 
-    const response = await groq.chat.completions.create({
+    const response = await groqClient.chat.completions.create({
       model: GROQ_MODEL,
       messages: [
         {

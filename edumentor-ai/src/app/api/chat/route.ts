@@ -2,7 +2,8 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
-import { groq, GROQ_MODEL } from "@/lib/groq"
+import Groq from "groq-sdk"
+import { GROQ_MODEL } from "@/lib/groq"
 
 export async function POST(req: Request) {
   try {
@@ -12,6 +13,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
     const userId = session.user.id
+
+    // Fetch user's personal Groq key (if any)
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { groqApiKey: true }
+    })
+
+    // Use user's personal key if they have one, otherwise fallback to server key
+    const groqClient = new Groq({
+      apiKey: user?.groqApiKey || process.env.GROQ_API_KEY!
+    })
 
     // 2. Check api_usage — limit to 100 chatRequests per day
     const today = new Date().toISOString().split('T')[0]
@@ -91,8 +103,8 @@ Rules:
       { role: "user" as const, content: message },
     ]
 
-    // 6. Call Groq API
-    const response = await groq.chat.completions.create({
+    // 6. Call Groq API using the appropriate client
+    const response = await groqClient.chat.completions.create({
       model: GROQ_MODEL,
       messages: groqMessages,
       temperature: 0.7,
