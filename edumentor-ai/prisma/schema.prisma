@@ -60,7 +60,7 @@ model Quiz {
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   topic       String
   difficulty  String
-  quizData    Json
+  quizData    String
   createdAt   DateTime     @default(now())
   results     QuizResult[]
 }
@@ -106,7 +106,7 @@ model ApiUsage {
   id               String   @id @default(cuid())
   userId           String
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  usageDate        DateTime @default(now())
+  usageDate        String   @default("")
   chatRequests     Int      @default(0)
   quizGenerations  Int      @default(0)
   createdAt        DateTime @default(now())

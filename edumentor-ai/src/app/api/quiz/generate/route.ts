@@ -23,8 +23,7 @@ export async function POST(req: Request) {
     }
 
     // 2. Check api_usage — limit to 50 quizGenerations per day
-    const today = new Date()
-    today.setUTCHours(0, 0, 0, 0)
+    const today = new Date().toISOString().split('T')[0]
 
     const apiUsage = await prisma.apiUsage.findUnique({
       where: {
@@ -126,7 +125,7 @@ Return ONLY the raw JSON object. Do not include markdown codeblocks or other for
           userId,
           topic,
           difficulty,
-          quizData,
+          quizData: JSON.stringify(quizData),
         },
       }),
       prisma.apiUsage.upsert({
