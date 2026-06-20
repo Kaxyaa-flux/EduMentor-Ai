@@ -29,6 +29,7 @@ export default function SettingsPage() {
 
   // ─── Preferences State ───
   const [skillLevel, setSkillLevel] = useState("Beginner")
+  const [learningTopic, setLearningTopic] = useState("Python")
   const [learningGoal, setLearningGoal] = useState("")
   const [dailyMinutes, setDailyMinutes] = useState("")
   const [prefSaving, setPrefSaving] = useState(false)
@@ -43,6 +44,7 @@ export default function SettingsPage() {
         setAvatarUrl(data.avatarUrl || null)
         if (data.preferences) {
           setSkillLevel(data.preferences.skillLevel || "Beginner")
+          setLearningTopic(data.preferences.learningTopic || "Python")
           setLearningGoal(data.preferences.learningGoal || "")
           setDailyMinutes(data.preferences.dailyStudyMinutes?.toString() || "")
         }
@@ -149,6 +151,7 @@ export default function SettingsPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         skillLevel,
+        learningTopic,
         learningGoal,
         dailyStudyMinutes: dailyMinutes ? parseInt(dailyMinutes) : null,
       })
@@ -352,6 +355,26 @@ export default function SettingsPage() {
       {/* ─── PREFERENCES TAB ─── */}
       {activeTab === "preferences" && (
         <div className="space-y-6">
+          {/* Learning Topic */}
+          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
+            <label className="text-sm font-medium text-white block mb-3">Language / Topic</label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {["Python", "JavaScript", "Java", "C", "C++", "HTML/CSS"].map(topic => (
+                <button
+                  key={topic}
+                  onClick={() => setLearningTopic(topic)}
+                  className={`py-3 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
+                    learningTopic === topic
+                      ? "bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]"
+                      : "border-[#1F2937] text-slate-400 hover:text-white hover:border-[#374151]"
+                  }`}
+                >
+                  {topic}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Skill Level */}
           <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
             <label className="text-sm font-medium text-white block mb-3">Skill Level</label>

@@ -58,6 +58,7 @@ export async function POST(req: Request) {
       where: { userId },
     })
     const skillLevel = preferences?.skillLevel || "Beginner"
+    const language = preferences?.learningTopic || "Python"
 
     const progress = await prisma.progress.findUnique({
       where: {
@@ -78,7 +79,7 @@ export async function POST(req: Request) {
     }
 
     // 4. Call Groq to generate 5 MCQ questions
-    const quizPrompt = `Generate a Python quiz with exactly 5 multiple choice questions.
+    const quizPrompt = `Generate a ${language} quiz with exactly 5 multiple choice questions.
 Topic: ${topic}
 Difficulty: ${difficulty}
 Student level: ${skillLevel}

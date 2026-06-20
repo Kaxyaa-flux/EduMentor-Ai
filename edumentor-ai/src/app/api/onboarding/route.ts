@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     }
     const userId = session.user.id
 
-    const { skillLevel, learningGoal, dailyStudyMinutes } = await req.json()
+    const { skillLevel, learningTopic, learningGoal, dailyStudyMinutes } = await req.json()
 
     if (!skillLevel) {
       return NextResponse.json({ error: "Skill level is required" }, { status: 400 })
@@ -22,12 +22,14 @@ export async function POST(req: Request) {
       where: { userId },
       update: {
         skillLevel,
+        ...(learningTopic && { learningTopic }),
         learningGoal: learningGoal || null,
         dailyStudyMinutes: dailyStudyMinutes ? parseInt(dailyStudyMinutes) : null,
       },
       create: {
         userId,
         skillLevel,
+        learningTopic: learningTopic || "Python",
         learningGoal: learningGoal || null,
         dailyStudyMinutes: dailyStudyMinutes ? parseInt(dailyStudyMinutes) : null,
       },

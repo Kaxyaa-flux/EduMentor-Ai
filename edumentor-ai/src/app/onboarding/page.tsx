@@ -14,6 +14,7 @@ export default function OnboardingPage() {
   const savePreferences = useAppStore((state) => state.savePreferences)
   
   const [skillLevel, setSkillLevel] = useState<"Beginner" | "Intermediate" | "Advanced">("Beginner")
+  const [learningTopic, setLearningTopic] = useState("Python")
   const [learningGoal, setLearningGoal] = useState("")
   const [dailyStudyMinutes, setDailyStudyMinutes] = useState("30")
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -23,8 +24,9 @@ export default function OnboardingPage() {
     setIsSubmitting(true)
 
     const success = await savePreferences({
+      learningTopic,
       skillLevel,
-      learningGoal: learningGoal || "Learn Python fundamentals",
+      learningGoal: learningGoal || `Learn ${learningTopic} fundamentals`,
       dailyStudyMinutes: parseInt(dailyStudyMinutes) || 30,
     })
 
@@ -51,7 +53,7 @@ export default function OnboardingPage() {
           Welcome to EduMentor AI!
         </h2>
         <p className="mt-2 text-center text-slate-400">
-          Let&apos;s personalize your Python learning experience.
+          Let&apos;s personalize your learning experience.
         </p>
       </div>
 
@@ -69,11 +71,38 @@ export default function OnboardingPage() {
             </CardHeader>
 
             <CardContent className="space-y-6">
+              {/* Language Selection */}
+              <div className="space-y-3">
+                <Label className="text-slate-300 text-sm font-semibold flex items-center gap-2">
+                  <Terminal className="h-4 w-4 text-[#10B981]" />
+                  What do you want to learn?
+                </Label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {["Python", "JavaScript", "Java", "C", "C++", "HTML/CSS"].map((lang) => {
+                    const isSelected = learningTopic === lang
+                    return (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setLearningTopic(lang)}
+                        className={`text-center py-2.5 px-3 rounded-xl border transition-all duration-200 ${
+                          isSelected
+                            ? "border-[#10B981] bg-[#10B981]/10 text-[#10B981] font-bold"
+                            : "border-[#1F2937] bg-[#0A0F1E]/50 text-slate-400 hover:border-[#374151] hover:text-slate-200"
+                        }`}
+                      >
+                        {lang}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
               {/* Skill Level Selection */}
               <div className="space-y-3">
                 <Label className="text-slate-300 text-sm font-semibold flex items-center gap-2">
                   <Award className="h-4 w-4 text-[#10B981]" />
-                  What is your current Python level?
+                  What is your current level in {learningTopic}?
                 </Label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[

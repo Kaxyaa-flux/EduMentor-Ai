@@ -8,7 +8,7 @@ export async function PATCH(req: NextRequest) {
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const body = await req.json()
-  const { skillLevel, learningGoal, dailyStudyMinutes } = body
+  const { skillLevel, learningTopic, learningGoal, dailyStudyMinutes } = body
 
   const validLevels = ["Beginner", "Intermediate", "Advanced"]
   if (skillLevel && !validLevels.includes(skillLevel)) {
@@ -19,12 +19,14 @@ export async function PATCH(req: NextRequest) {
     where: { userId: session.user.id },
     update: {
       ...(skillLevel && { skillLevel }),
+      ...(learningTopic && { learningTopic }),
       ...(learningGoal !== undefined && { learningGoal }),
       ...(dailyStudyMinutes !== undefined && { dailyStudyMinutes: Number(dailyStudyMinutes) }),
     },
     create: {
       userId: session.user.id,
       skillLevel: skillLevel || "Beginner",
+      learningTopic: learningTopic || "Python",
       learningGoal,
       dailyStudyMinutes: dailyStudyMinutes ? Number(dailyStudyMinutes) : null,
     }

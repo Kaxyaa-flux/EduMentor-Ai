@@ -72,7 +72,8 @@ export async function POST(req: Request) {
       where: { userId },
     })
     const skillLevel = preferences?.skillLevel || "Beginner"
-    const learningGoal = preferences?.learningGoal || "Python programming"
+    const learningGoal = preferences?.learningGoal || "General programming"
+    const language = preferences?.learningTopic || "Python"
 
     // 4. Get conversation history (last 15 messages only)
     const history = await prisma.message.findMany({
@@ -82,13 +83,13 @@ export async function POST(req: Request) {
     })
 
     // 5. Build system prompt
-    const systemPrompt = `You are EduMentor AI, a friendly and encouraging Python tutor.
+    const systemPrompt = `You are EduMentor AI, a friendly and encouraging ${language} tutor.
 Student skill level: ${skillLevel}
 Learning goal: ${learningGoal}
 
 Rules:
 - Explain concepts clearly and simply
-- Always use Python examples
+- Always use ${language} examples
 - If the student is confused, try a different explanation approach
 - Never give full homework answers — guide with hints
 - Keep responses concise but complete
