@@ -87,7 +87,15 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0A0F1E] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+      <Link 
+        href="/" 
+        className="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors group"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 transition-transform group-hover:-translate-x-1"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        Back to home
+      </Link>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
           <div className="p-2 bg-[#10B981]/10 rounded-lg text-[#10B981]">
@@ -107,7 +115,7 @@ export default function RegisterPage() {
           <CardHeader>
             <CardTitle className="text-white text-lg">Join EduMentor AI</CardTitle>
             <CardDescription className="text-slate-400">
-              Start learning Python with a customized AI tutor today.
+              Start learning with a customized AI tutor today.
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
