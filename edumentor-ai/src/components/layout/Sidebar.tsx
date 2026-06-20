@@ -8,6 +8,7 @@ import {
   GraduationCap,
   BrainCircuit,
   BarChart3,
+  Settings,
   LogOut,
   User,
   Terminal,
@@ -18,6 +19,7 @@ const menuItems = [
   { name: "AI Tutor Chat", href: "/learn", icon: GraduationCap },
   { name: "Adaptive Quiz", href: "/quiz", icon: BrainCircuit },
   { name: "Progress & Mastery", href: "/progress", icon: BarChart3 },
+  { name: "Settings", href: "/settings", icon: Settings },
 ]
 
 export default function Sidebar() {
@@ -63,8 +65,12 @@ export default function Sidebar() {
       {/* User Info & Logout */}
       <div className="p-4 border-t border-[#1F2937] bg-[#0A0F1E]/50">
         <div className="flex items-center gap-3 mb-4 px-2">
-          <div className="h-9 w-9 rounded-full bg-[#6366F1]/10 text-[#6366F1] flex items-center justify-center shrink-0 border border-[#6366F1]/20">
-            <User className="h-4 w-4" />
+          <div className="h-9 w-9 rounded-full bg-[#6366F1]/10 flex items-center justify-center shrink-0 border border-[#6366F1]/20 overflow-hidden">
+            {session?.user?.image ? (
+              <img src={session.user.image} alt="Avatar" className="h-full w-full object-cover" />
+            ) : (
+              <User className="h-4 w-4 text-[#6366F1]" />
+            )}
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-white truncate">
