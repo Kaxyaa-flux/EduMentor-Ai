@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut, useSession } from "next-auth/react"
+import { useState, useEffect } from "react"
 import {
   LayoutDashboard,
   GraduationCap,
@@ -25,6 +26,28 @@ const menuItems = [
 export default function Sidebar() {
   const pathname = usePathname()
   const { data: session } = useSession()
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+
+  // Fetch avatar from DB on mount — avoids relying on JWT cookie
+  // which can't hold large base64 image strings
+  useEffect(() => {
+    if (!session?.user?.id) return
+    fetch("/api/settings/profile")
+      .then(r => r.json())
+      .then(data => {
+        if (data?.avatarUrl) setAvatarUrl(data.avatarUrl)
+      })
+      .catch(() => {}) // silently fail — avatar is cosmetic
+  }, [session?.user?.id])
+
+  // Also listen for a custom event fired by Settings page after a successful save
+  useEffect(() => {
+    const handler = (e: CustomEvent) => {
+      if (e.detail?.avatarUrl !== undefined) setAvatarUrl(e.detail.avatarUrl)
+    }
+    window.addEventListener("avatar-updated", handler as EventListener)
+    return () => window.removeEventListener("avatar-updated", handler as EventListener)
+  }, [])
 
   return (
     <aside className="w-64 border-r border-[#1F2937] bg-[#111827] flex flex-col h-screen fixed left-0 top-0">
@@ -66,8 +89,8 @@ export default function Sidebar() {
       <div className="p-4 border-t border-[#1F2937] bg-[#0A0F1E]/50">
         <div className="flex items-center gap-3 mb-4 px-2">
           <div className="h-9 w-9 rounded-full bg-[#6366F1]/10 flex items-center justify-center shrink-0 border border-[#6366F1]/20 overflow-hidden">
-            {session?.user?.image ? (
-              <img src={session.user.image} alt="Avatar" className="h-full w-full object-cover" />
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="Avatar" className="h-full w-full object-cover" />
             ) : (
               <User className="h-4 w-4 text-[#6366F1]" />
             )}

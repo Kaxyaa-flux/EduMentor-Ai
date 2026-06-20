@@ -92,10 +92,13 @@ export default function SettingsPage() {
       return
     }
 
-    // Update NextAuth session in real time
-    await update({ name: data.name, image: data.avatarUrl })
+    // Only update name in the JWT session — never put base64 image into the cookie
+    // (it overflows the ~4KB cookie limit and causes CLIENT_FETCH_ERROR)
+    await update({ name: data.name })
     setAvatarUrl(data.avatarUrl)
     setAvatarPreview(null)
+    // Notify Sidebar to refresh avatar in real-time (avoids JWT cookie overflow)
+    window.dispatchEvent(new CustomEvent("avatar-updated", { detail: { avatarUrl: data.avatarUrl } }))
     setProfileMsg({ type: "success", text: "Profile updated successfully." })
   }
 
