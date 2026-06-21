@@ -5,6 +5,9 @@ import { Terminal, Brain, BarChart3, Code2, ArrowRight } from "lucide-react"
 import { TypewriterText } from "@/components/ui/TypewriterText"
 import { LandingHeader } from "@/components/layout/LandingHeader"
 import { LandingFooter } from "@/components/layout/LandingFooter"
+import { NeuralBackground } from "@/components/ui/NeuralBackground"
+import { ScrollReveal } from "@/components/ui/ScrollReveal"
+import { AnimatedHeroContent } from "@/components/ui/AnimatedHeroContent"
 
 export default async function LandingPage() {
   const session = await getServerSession(authOptions)
@@ -16,36 +19,10 @@ export default async function LandingPage() {
       {/* Hero Section */}
       <main className="flex-1">
         <section className="relative overflow-hidden pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-28">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#10B981]/10 via-transparent to-transparent pointer-events-none" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="text-center max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#1F2937] bg-[#111827]/80 text-sm text-[#10B981] mb-6 animate-fade-in">
-                <Code2 className="h-4 w-4" />
-                <span>AI-Powered Multi-Language Learning</span>
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight flex flex-col items-center justify-center gap-3">
-                <span>Your Personal AI Tutor</span>
-                <span className="h-[1.2em] flex items-center justify-center"><TypewriterText /></span>
-              </h1>
-              <p className="text-lg sm:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Learn programming at your own pace. Chat with a smart 24/7 AI tutor, take adaptive quizzes that adjust to your mastery score, and target your weak spots.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link
-                  href={session ? "/dashboard" : "/register"}
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold text-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-[#10B981]/15"
-                >
-                  Start Learning Free
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-                <Link
-                  href="/login"
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl border border-[#1F2937] bg-[#111827]/50 hover:bg-[#111827] text-white font-semibold text-lg transition-all"
-                >
-                  Resume Session
-                </Link>
-              </div>
-            </div>
+          <NeuralBackground />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#10B981]/10 via-transparent to-transparent pointer-events-none z-0" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <AnimatedHeroContent hasSession={!!session} />
           </div>
         </section>
 
@@ -63,37 +40,43 @@ export default async function LandingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Feature 1 */}
-              <div className="p-8 rounded-2xl border border-[#1F2937] bg-[#111827]/60 hover:border-[#10B981]/30 hover:bg-[#111827] transition-all duration-300 group">
-                <div className="p-3 bg-[#10B981]/10 rounded-xl text-[#10B981] w-fit mb-6 group-hover:scale-110 transition-transform">
-                  <Terminal className="h-6 w-6" />
+              <ScrollReveal delay={0.1}>
+                <div className="p-8 rounded-2xl border border-[#1F2937] bg-[#111827]/60 hover:border-[#10B981]/30 hover:bg-[#111827] hover:-translate-y-1 transition-all duration-300 group shadow-lg hover:shadow-[#10B981]/5">
+                  <div className="p-3 bg-[#10B981]/10 rounded-xl text-[#10B981] w-fit mb-6 group-hover:scale-110 transition-transform">
+                    <Terminal className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">AI Tutor Chat</h3>
+                  <p className="text-slate-400 leading-relaxed">
+                    Interactive chat with a smart tutor. Ask questions, get simplified explanations, explore examples, and learn step-by-step without stress.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">AI Tutor Chat</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Interactive chat with a smart tutor. Ask questions, get simplified explanations, explore examples, and learn step-by-step without stress.
-                </p>
-              </div>
+              </ScrollReveal>
 
               {/* Feature 2 */}
-              <div className="p-8 rounded-2xl border border-[#1F2937] bg-[#111827]/60 hover:border-[#10B981]/30 hover:bg-[#111827] transition-all duration-300 group">
-                <div className="p-3 bg-[#6366F1]/10 rounded-xl text-[#6366F1] w-fit mb-6 group-hover:scale-110 transition-transform">
-                  <Brain className="h-6 w-6" />
+              <ScrollReveal delay={0.2}>
+                <div className="p-8 rounded-2xl border border-[#1F2937] bg-[#111827]/60 hover:border-[#10B981]/30 hover:bg-[#111827] hover:-translate-y-1 transition-all duration-300 group shadow-lg hover:shadow-[#6366F1]/5">
+                  <div className="p-3 bg-[#6366F1]/10 rounded-xl text-[#6366F1] w-fit mb-6 group-hover:scale-110 transition-transform">
+                    <Brain className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">Adaptive Quizzes</h3>
+                  <p className="text-slate-400 leading-relaxed">
+                    Multiple-choice quizzes generated dynamically. The difficulty automatically scales from beginner to advanced depending on your progress score.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">Adaptive Quizzes</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Multiple-choice quizzes generated dynamically. The difficulty automatically scales from beginner to advanced depending on your progress score.
-                </p>
-              </div>
+              </ScrollReveal>
 
               {/* Feature 3 */}
-              <div className="p-8 rounded-2xl border border-[#1F2937] bg-[#111827]/60 hover:border-[#10B981]/30 hover:bg-[#111827] transition-all duration-300 group">
-                <div className="p-3 bg-[#10B981]/10 rounded-xl text-[#10B981] w-fit mb-6 group-hover:scale-110 transition-transform">
-                  <BarChart3 className="h-6 w-6" />
+              <ScrollReveal delay={0.3}>
+                <div className="p-8 rounded-2xl border border-[#1F2937] bg-[#111827]/60 hover:border-[#10B981]/30 hover:bg-[#111827] hover:-translate-y-1 transition-all duration-300 group shadow-lg hover:shadow-[#10B981]/5">
+                  <div className="p-3 bg-[#10B981]/10 rounded-xl text-[#10B981] w-fit mb-6 group-hover:scale-110 transition-transform">
+                    <BarChart3 className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">Progress Tracking</h3>
+                  <p className="text-slate-400 leading-relaxed">
+                    Advanced mastery analytics. Identify weak spots, view your topic-by-topic progress charts, and watch your coding confidence grow.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">Progress Tracking</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Advanced mastery analytics. Identify weak spots, view your topic-by-topic progress charts, and watch your coding confidence grow.
-                </p>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </section>
