@@ -19,6 +19,9 @@ import {
 import { useAppStore } from "@/store/useAppStore"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { motion, AnimatePresence } from "framer-motion"
+import { slideUpFade } from "@/lib/animations"
+import { Bot } from "lucide-react"
 
 export default function ChatInterface() {
   const {
@@ -245,37 +248,57 @@ export default function ChatInterface() {
                   </p>
                 </div>
               ) : (
-                activeMessages.map((msg) => {
-                  const isUser = msg.role === "user"
-                  return (
-                    <div
-                      key={msg.id}
-                      className={`flex ${isUser ? "justify-end" : "justify-start"} animate-fade-in`}
-                    >
-                      <div
-                        className={`max-w-[85%] rounded-2xl px-5 py-3.5 leading-relaxed text-sm ${
-                          isUser
-                            ? "bg-[#10B981] text-[#0A0F1E] font-semibold"
-                            : "bg-[#1F2937] text-slate-100 border border-[#374151]"
-                        }`}
+                <AnimatePresence initial={false}>
+                  {activeMessages.map((msg) => {
+                    const isUser = msg.role === "user"
+                    return (
+                      <motion.div
+                        key={msg.id}
+                        variants={slideUpFade}
+                        initial="initial"
+                        animate="animate"
+                        className={`flex ${isUser ? "justify-end" : "justify-start"}`}
                       >
-                        {renderMessageContent(msg.content)}
-                      </div>
-                    </div>
-                  )
-                })
+                        <div
+                          className={`max-w-[85%] rounded-2xl px-5 py-3.5 leading-relaxed text-sm ${
+                            isUser
+                              ? "bg-[#10B981] text-[#0A0F1E] font-semibold shadow-lg shadow-[#10B981]/10"
+                              : "bg-[#1F2937] text-slate-100 border border-[#374151] shadow-lg shadow-black/10"
+                          }`}
+                        >
+                          {renderMessageContent(msg.content)}
+                        </div>
+                      </motion.div>
+                    )
+                  })}
+                </AnimatePresence>
               )}
 
               {/* Typing Indicator */}
-              {isSendingMessage && (
-                <div className="flex justify-start animate-fade-in">
-                  <div className="bg-[#1F2937] border border-[#374151] rounded-2xl px-5 py-4 flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-[#10B981] typing-dot"></span>
-                    <span className="w-2 h-2 rounded-full bg-[#10B981] typing-dot"></span>
-                    <span className="w-2 h-2 rounded-full bg-[#10B981] typing-dot"></span>
-                  </div>
-                </div>
-              )}
+              <AnimatePresence>
+                {isSendingMessage && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="flex justify-start"
+                  >
+                    <div className="bg-[#1F2937] border border-[#374151] shadow-lg shadow-black/10 rounded-2xl px-5 py-4 flex items-center gap-3">
+                      <motion.div
+                        animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        <Bot className="h-5 w-5 text-[#10B981]" />
+                      </motion.div>
+                      <div className="flex gap-1.5">
+                        <motion.span animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} className="w-1.5 h-1.5 rounded-full bg-[#10B981]/80"></motion.span>
+                        <motion.span animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} className="w-1.5 h-1.5 rounded-full bg-[#10B981]/80"></motion.span>
+                        <motion.span animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }} className="w-1.5 h-1.5 rounded-full bg-[#10B981]/80"></motion.span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <div ref={messagesEndRef} />
             </div>
 
