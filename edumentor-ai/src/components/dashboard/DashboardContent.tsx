@@ -29,6 +29,9 @@ import {
 import { useAppStore } from "@/store/useAppStore"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { motion } from "framer-motion"
+import { staggerContainer, slideUpFade } from "@/lib/animations"
+import { CountUp } from "@/components/ui/CountUp"
 
 interface DashboardContentProps {
   userName: string
@@ -89,9 +92,14 @@ export default function DashboardContent({
   }
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto">
+    <motion.div 
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+      className="space-y-8 max-w-6xl mx-auto"
+    >
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-2xl border border-[#1F2937] bg-gradient-to-r from-[#111827] via-[#111827]/80 to-[#10B981]/5 p-8">
+      <motion.div variants={slideUpFade} className="relative overflow-hidden rounded-2xl border border-[#1F2937] bg-gradient-to-r from-[#111827] via-[#111827]/80 to-[#10B981]/5 p-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-[#10B981]/5 via-transparent to-transparent pointer-events-none" />
         <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
@@ -115,78 +123,94 @@ export default function DashboardContent({
             New Learning Session
           </Button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Sessions */}
-        <Card className="border-[#1F2937] bg-[#111827]">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
-              Sessions
-            </CardDescription>
-            <MessageSquare className="h-4 w-4 text-[#10B981]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">{stats.totalSessions}</div>
-            <p className="text-xs text-slate-500 mt-1">Persistent rooms</p>
-          </CardContent>
-        </Card>
+        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#10B981]/10 transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+                Sessions
+              </CardDescription>
+              <MessageSquare className="h-4 w-4 text-[#10B981]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">
+                <CountUp end={stats.totalSessions} />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Persistent rooms</p>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Messages */}
-        <Card className="border-[#1F2937] bg-[#111827]">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
-              Tutor Interactions
-            </CardDescription>
-            <GraduationCap className="h-4 w-4 text-[#6366F1]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">{stats.totalMessages}</div>
-            <p className="text-xs text-slate-500 mt-1">AI messages sent</p>
-          </CardContent>
-        </Card>
+        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#6366F1]/10 transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+                Tutor Interactions
+              </CardDescription>
+              <GraduationCap className="h-4 w-4 text-[#6366F1]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">
+                <CountUp end={stats.totalMessages} />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">AI messages sent</p>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Quizzes */}
-        <Card className="border-[#1F2937] bg-[#111827]">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
-              Quizzes Taken
-            </CardDescription>
-            <Brain className="h-4 w-4 text-[#10B981]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">{stats.quizzesCompleted}</div>
-            <p className="text-xs text-slate-500 mt-1">Adaptive assessments</p>
-          </CardContent>
-        </Card>
+        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#10B981]/10 transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+                Quizzes Taken
+              </CardDescription>
+              <Brain className="h-4 w-4 text-[#10B981]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">
+                <CountUp end={stats.quizzesCompleted} />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Adaptive assessments</p>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Avg Quiz Score */}
-        <Card className="border-[#1F2937] bg-[#111827]">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
-              Average Score
-            </CardDescription>
-            <Award className="h-4 w-4 text-[#6366F1]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">
-              {stats.averageScore}%
-            </div>
-            <div className="w-full bg-[#1F2937] h-1.5 rounded-full mt-2 overflow-hidden">
-              <div
-                className="bg-[#10B981] h-full rounded-full transition-all"
-                style={{ width: `${stats.averageScore}%` }}
-              />
-            </div>
-          </CardContent>
-        </Card>
+        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#6366F1]/10 transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+                Average Score
+              </CardDescription>
+              <Award className="h-4 w-4 text-[#6366F1]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">
+                <CountUp end={stats.averageScore} suffix="%" />
+              </div>
+              <div className="w-full bg-[#1F2937] h-1.5 rounded-full mt-2 overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${stats.averageScore}%` }}
+                  transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+                  className="bg-[#10B981] h-full rounded-full"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
 
       {/* Main Grid: Chart & Sessions */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left 2/3: Mastery Bar Chart */}
-        <div className="lg:col-span-2">
+        <motion.div variants={slideUpFade} className="lg:col-span-2">
           <Card className="border-[#1F2937] bg-[#111827] h-full">
             <CardHeader>
               <CardTitle className="text-white text-base">Topic Mastery Overview</CardTitle>
@@ -235,10 +259,10 @@ export default function DashboardContent({
               )}
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
 
         {/* Right 1/3: Recent Sessions */}
-        <div>
+        <motion.div variants={slideUpFade}>
           <Card className="border-[#1F2937] bg-[#111827] h-full flex flex-col">
             <CardHeader>
               <CardTitle className="text-white text-base">Recent Sessions</CardTitle>
@@ -285,61 +309,65 @@ export default function DashboardContent({
               )}
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
 
       {/* Weak Topics & Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Weak Topics */}
         {weakTopics.length > 0 && (
-          <Card className="border-red-500/20 bg-red-500/5">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-red-400 text-sm font-semibold flex items-center gap-2">
-                <AlertCircle className="h-4 w-4" />
-                Focus Suggested
-              </CardTitle>
-              <CardDescription className="text-slate-400 text-xs">
-                Your mastery score is below 60% in these topics.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {weakTopics.map((topic) => (
-                  <span
-                    key={topic}
-                    className="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/10 border border-red-500/20 text-red-400"
-                  >
-                    {topic}
-                  </span>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <motion.div variants={slideUpFade}>
+            <Card className="border-red-500/20 bg-red-500/5">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-red-400 text-sm font-semibold flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4" />
+                  Focus Suggested
+                </CardTitle>
+                <CardDescription className="text-slate-400 text-xs">
+                  Your mastery score is below 60% in these topics.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {weakTopics.map((topic) => (
+                    <span
+                      key={topic}
+                      className="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/10 border border-red-500/20 text-red-400"
+                    >
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         )}
 
         {/* Quick Actions Card */}
-        <Card className={`border-[#1F2937] bg-[#111827] ${weakTopics.length === 0 ? "md:col-span-2" : ""}`}>
-          <CardHeader>
-            <CardTitle className="text-white text-base">Quick Shortcuts</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-4">
-            <Link
-              href="/learn"
-              className="p-4 rounded-xl border border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#10B981]/20 hover:bg-[#111827] transition-all text-center flex flex-col items-center gap-2 group"
-            >
-              <MessageSquare className="h-6 w-6 text-[#10B981] group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-semibold text-white">Tutor Chat</span>
-            </Link>
-            <Link
-              href="/quiz"
-              className="p-4 rounded-xl border border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#6366F1]/20 hover:bg-[#111827] transition-all text-center flex flex-col items-center gap-2 group"
-            >
-              <Brain className="h-6 w-6 text-[#6366F1] group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-semibold text-white">Take Quiz</span>
-            </Link>
-          </CardContent>
-        </Card>
+        <motion.div variants={slideUpFade} className={weakTopics.length === 0 ? "md:col-span-2" : ""}>
+          <Card className="border-[#1F2937] bg-[#111827] h-full">
+            <CardHeader>
+              <CardTitle className="text-white text-base">Quick Shortcuts</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-2 gap-4">
+              <Link
+                href="/learn"
+                className="p-4 rounded-xl border border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#10B981]/20 hover:bg-[#111827] transition-all text-center flex flex-col items-center gap-2 group"
+              >
+                <MessageSquare className="h-6 w-6 text-[#10B981] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-semibold text-white">Tutor Chat</span>
+              </Link>
+              <Link
+                href="/quiz"
+                className="p-4 rounded-xl border border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#6366F1]/20 hover:bg-[#111827] transition-all text-center flex flex-col items-center gap-2 group"
+              >
+                <Brain className="h-6 w-6 text-[#6366F1] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-semibold text-white">Take Quiz</span>
+              </Link>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }
