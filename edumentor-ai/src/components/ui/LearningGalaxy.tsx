@@ -73,6 +73,7 @@ const DEMO_PLANETS: Planet[] = [
       { id: "m12", label: "CSS", completed: true },
       { id: "m13", label: "React", completed: false },
     ],
+  },
 ]
 
 function MoonOrbit({ moon, index, total, orbitRadius }: { moon: Moon; index: number; total: number; orbitRadius: number }) {
