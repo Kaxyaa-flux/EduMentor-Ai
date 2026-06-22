@@ -24,6 +24,8 @@ import { slideUpFade } from "@/lib/animations"
 import { Bot } from "lucide-react"
 import { HologramOrb } from "@/components/ui/HologramOrb"
 import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 export default function ChatInterface() {
   const {
@@ -91,52 +93,7 @@ export default function ChatInterface() {
     setIsChatSidebarOpen(false)
   }
 
-  // Custom text formatter to handle code blocks and inline code
-  const renderMessageContent = (content: string) => {
-    const parts = content.split(/(```[\s\S]*?```)/g)
-    return parts.map((part, index) => {
-      if (part.startsWith("```")) {
-        const match = part.match(/```(\w*)\n([\s\S]*?)```/)
-        const language = match ? match[1] : ""
-        const code = match ? match[2] : part.slice(3, -3)
-        return (
-          <div
-            key={index}
-            className="my-3 rounded-xl overflow-hidden border border-border bg-background font-mono text-xs max-w-full"
-          >
-            <div className="bg-card px-4 py-2 text-muted-foreground border-b border-border flex items-center justify-between text-[10px]">
-              <span className="font-semibold text-muted-foreground uppercase">
-                {language || "code"}
-              </span>
-            </div>
-            <pre className="p-4 overflow-x-auto text-primary whitespace-pre max-w-full">
-              <code>{code.trim()}</code>
-            </pre>
-          </div>
-        )
-      }
 
-      // Inline code formatter
-      const inlineParts = part.split(/(`[^`]+`)/g)
-      return (
-        <span key={index} className="whitespace-pre-wrap break-words">
-          {inlineParts.map((subPart, subIdx) => {
-            if (subPart.startsWith("`") && subPart.endsWith("`")) {
-              return (
-                <code
-                  key={subIdx}
-                  className="px-1.5 py-0.5 rounded bg-accent text-secondary font-mono text-xs break-all"
-                >
-                  {subPart.slice(1, -1)}
-                </code>
-              )
-            }
-            return subPart
-          })}
-        </span>
-      )
-    })
-  }
 
   return (
     <div className="flex h-[calc(100vh-6rem)] md:h-[calc(100vh-8rem)] rounded-2xl border border-border overflow-hidden bg-card/40 max-w-6xl mx-auto relative">
@@ -305,7 +262,72 @@ export default function ChatInterface() {
                               : "bg-accent text-foreground border border-[#374151] shadow-lg shadow-black/10"
                           }`}
                         >
-                          {renderMessageContent(msg.content)}
+                          <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                              code({ node, inline, className, children, ...props }: any) {
+                                const match = /language-(\w+)/.exec(className || "")
+                                if (!inline && match) {
+                                  return (
+                                    <div className="my-3 rounded-xl overflow-hidden border border-border bg-background font-mono text-xs max-w-full">
+                                      <div className="bg-card px-4 py-2 text-muted-foreground border-b border-border flex items-center justify-between text-[10px]">
+                                        <span className="font-semibold text-muted-foreground uppercase">
+                                          {match[1]}
+                                        </span>
+                                      </div>
+                                      <pre className="p-4 overflow-x-auto text-primary whitespace-pre max-w-full">
+                                        <code {...props}>{String(children).replace(/\n$/, "")}</code>
+                                      </pre>
+                                    </div>
+                                  )
+                                } else if (!inline) {
+                                  return (
+                                    <div className="my-3 rounded-xl overflow-hidden border border-border bg-background font-mono text-xs max-w-full">
+                                      <div className="bg-card px-4 py-2 text-muted-foreground border-b border-border flex items-center justify-between text-[10px]">
+                                        <span className="font-semibold text-muted-foreground uppercase">
+                                          code
+                                        </span>
+                                      </div>
+                                      <pre className="p-4 overflow-x-auto text-primary whitespace-pre max-w-full">
+                                        <code {...props}>{String(children).replace(/\n$/, "")}</code>
+                                      </pre>
+                                    </div>
+                                  )
+                                }
+                                return (
+                                  <code className="px-1.5 py-0.5 rounded bg-accent text-secondary font-mono text-[11px] break-all" {...props}>
+                                    {children}
+                                  </code>
+                                )
+                              },
+                              p({ children }) {
+                                return <p className="mb-2 last:mb-0 whitespace-pre-wrap break-words">{children}</p>
+                              },
+                              strong({ children }) {
+                                return <strong className="font-bold text-foreground/90">{children}</strong>
+                              },
+                              ul({ children }) {
+                                return <ul className="list-disc pl-5 mb-2 space-y-1">{children}</ul>
+                              },
+                              ol({ children }) {
+                                return <ol className="list-decimal pl-5 mb-2 space-y-1">{children}</ol>
+                              },
+                              li({ children }) {
+                                return <li>{children}</li>
+                              },
+                              h1({ children }) {
+                                return <h1 className="text-lg font-bold mt-4 mb-2">{children}</h1>
+                              },
+                              h2({ children }) {
+                                return <h2 className="text-base font-bold mt-3 mb-2">{children}</h2>
+                              },
+                              h3({ children }) {
+                                return <h3 className="text-sm font-bold mt-2 mb-1">{children}</h3>
+                              }
+                            }}
+                          >
+                            {msg.content}
+                          </ReactMarkdown>
                         </div>
                       </motion.div>
                     )
