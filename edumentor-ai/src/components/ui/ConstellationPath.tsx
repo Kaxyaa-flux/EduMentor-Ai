@@ -13,9 +13,10 @@ interface Star {
 }
 
 interface ConstellationPathProps {
-  stars: Star[]
+  stars?: Star[]
   className?: string
 }
+
 
 function TwinklingStar({ star, index, totalStars }: { star: Star; index: number; totalStars: number }) {
   const [hovered, setHovered] = useState(false)
