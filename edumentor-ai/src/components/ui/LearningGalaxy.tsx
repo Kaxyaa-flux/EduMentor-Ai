@@ -73,7 +73,6 @@ const DEMO_PLANETS: Planet[] = [
       { id: "m12", label: "CSS", completed: true },
       { id: "m13", label: "React", completed: false },
     ],
-  },
 ]
 
 function MoonOrbit({ moon, index, total, orbitRadius }: { moon: Moon; index: number; total: number; orbitRadius: number }) {
@@ -184,10 +183,28 @@ function PlanetCard({ planet, isSelected, onClick, cx, cy }: {
   )
 }
 
-export function LearningGalaxy({ className = "" }: { className?: string }) {
+export function LearningGalaxy({ activeTopic = "Python", globalMastery = 0, className = "" }: { activeTopic?: string; globalMastery?: number; className?: string }) {
   const [selected, setSelected] = useState<Planet | null>(null)
   const [svgSize, setSvgSize] = useState({ w: 700, h: 400 })
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Dynamically update the planets to reflect the activeTopic's real mastery and ensure it's prominent
+  const planets = DEMO_PLANETS.map(p => {
+    if (p.name.toLowerCase() === activeTopic.toLowerCase() || 
+        (activeTopic === "HTML/CSS" && p.id === "web") ||
+        (activeTopic === "C++" && p.id === "python") || 
+        (activeTopic === "C" && p.id === "python") ||
+        (activeTopic === "Java" && p.id === "python")) {
+      // Repurpose the Python planet for C/C++/Java if selected, just for the UI visualization
+      return { 
+        ...p, 
+        name: activeTopic,
+        emoji: activeTopic === "C++" ? "⚡" : activeTopic === "Java" ? "☕" : "💻",
+        progress: globalMastery 
+      }
+    }
+    return p
+  })
 
   useEffect(() => {
     const ro = new ResizeObserver((entries) => {
@@ -236,7 +253,7 @@ export function LearningGalaxy({ className = "" }: { className?: string }) {
 
       {/* Galaxy SVG */}
       <svg width={svgSize.w} height={svgSize.h} className="relative z-10">
-        {DEMO_PLANETS.map((planet, i) => (
+        {planets.map((planet, i) => (
           <PlanetCard
             key={planet.id}
             planet={planet}

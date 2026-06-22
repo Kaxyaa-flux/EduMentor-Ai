@@ -40,6 +40,7 @@ import { ConstellationPath } from "@/components/ui/ConstellationPath"
 interface DashboardContentProps {
   userName: string
   skillLevel: string
+  learningTopic: string
   learningGoal: string
   stats: {
     totalSessions: number
@@ -63,6 +64,7 @@ interface DashboardContentProps {
 export default function DashboardContent({
   userName,
   skillLevel,
+  learningTopic,
   learningGoal,
   stats,
   recentSessions,
@@ -328,12 +330,19 @@ export default function DashboardContent({
           <span className="text-foreground font-bold text-base">🌌 Learning Galaxy</span>
           <span className="text-muted-foreground text-sm">Your subject universe — click planets to explore</span>
         </div>
-        <LearningGalaxy className="h-80" />
+        <LearningGalaxy 
+          activeTopic={learningTopic} 
+          globalMastery={stats.averageScore} 
+          className="h-80" 
+        />
       </motion.div>
 
       {/* Constellation Learning Path */}
       <motion.div variants={slideUpFade}>
-        <ConstellationPath />
+        <ConstellationPath 
+          activeTopic={learningTopic}
+          progressData={progressData}
+        />
       </motion.div>
 
       {/* Weak Topics & Quick Actions */}

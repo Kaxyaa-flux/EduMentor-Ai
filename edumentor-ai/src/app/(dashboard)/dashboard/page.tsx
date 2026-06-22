@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import DashboardContent from "@/components/dashboard/DashboardContent"
+import { getCurriculumForTopic } from "@/lib/curriculum"
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
@@ -55,14 +56,18 @@ export default async function DashboardPage() {
   })
 
   // Seed default topics if user has zero progress records
+  const userTopic = preferences?.learningTopic || "Python"
   if (topicProgress.length === 0) {
-    topicProgress = [
-      { id: "1", userId, topic: "Variables & Types", masteryScore: 0, quizzesCompleted: 0, averageScore: 0, updatedAt: new Date() },
-      { id: "2", userId, topic: "Control Flow (Loops & Ifs)", masteryScore: 0, quizzesCompleted: 0, averageScore: 0, updatedAt: new Date() },
-      { id: "3", userId, topic: "Lists & Tuples", masteryScore: 0, quizzesCompleted: 0, averageScore: 0, updatedAt: new Date() },
-      { id: "4", userId, topic: "Functions & Scope", masteryScore: 0, quizzesCompleted: 0, averageScore: 0, updatedAt: new Date() },
-      { id: "5", userId, topic: "Dictionaries & Sets", masteryScore: 0, quizzesCompleted: 0, averageScore: 0, updatedAt: new Date() },
-    ]
+    const curriculum = getCurriculumForTopic(userTopic)
+    topicProgress = curriculum.map((topic, index) => ({
+      id: String(index + 1),
+      userId,
+      topic,
+      masteryScore: 0,
+      quizzesCompleted: 0,
+      averageScore: 0,
+      updatedAt: new Date(),
+    }))
   }
 
   // 5. Identify weak topics (mastery < 60%)
@@ -74,6 +79,7 @@ export default async function DashboardPage() {
     <DashboardContent
       userName={session.user.name || "Student"}
       skillLevel={preferences?.skillLevel || "Beginner"}
+      learningTopic={userTopic}
       learningGoal={preferences?.learningGoal || "Software development"}
       stats={{
         totalSessions,

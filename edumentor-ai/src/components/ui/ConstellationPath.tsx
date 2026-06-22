@@ -13,7 +13,8 @@ interface Star {
 }
 
 interface ConstellationPathProps {
-  stars?: Star[]
+  activeTopic?: string
+  progressData?: Array<{ topic: string; mastery: number; quizzes: number }>
   className?: string
 }
 
@@ -127,7 +128,7 @@ const DEFAULT_STARS: Star[] = [
   { id: "7", label: "APIs", completed: false, x: 640, y: 90, description: "External services" },
 ]
 
-export function ConstellationPath({ stars = DEFAULT_STARS, className = "" }: ConstellationPathProps) {
+export function ConstellationPath({ activeTopic = "Python", progressData = [], className = "" }: ConstellationPathProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const [svgWidth, setSvgWidth] = useState(700)
 
@@ -139,6 +140,20 @@ export function ConstellationPath({ stars = DEFAULT_STARS, className = "" }: Con
     return () => ro.disconnect()
   }, [])
 
+  const yPattern = [100, 60, 90, 55, 85, 50, 90]
+
+  // Convert progressData to stars
+  const stars: Star[] = progressData.length > 0 
+    ? progressData.map((item, index) => ({
+        id: String(index + 1),
+        label: item.topic,
+        completed: item.mastery >= 60,
+        x: 60 + index * 100,
+        y: yPattern[index % yPattern.length],
+        description: `Mastery: ${item.mastery}%`,
+      }))
+    : DEFAULT_STARS
+
   // Scale stars to fit svg width
   const maxX = Math.max(...stars.map((s) => s.x))
   const scale = (svgWidth - 60) / maxX
@@ -148,7 +163,7 @@ export function ConstellationPath({ stars = DEFAULT_STARS, className = "" }: Con
   return (
     <div className={`w-full rounded-2xl border border-border bg-card overflow-hidden p-4 ${className}`}>
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-primary text-sm font-semibold">✨ Learning Constellation</span>
+        <span className="text-primary text-sm font-semibold">✨ {activeTopic} Constellation</span>
         <span className="text-xs text-muted-foreground">Your path through the curriculum</span>
       </div>
 
