@@ -42,45 +42,91 @@
 }
 
 :root {
-  /* EduMentor AI Custom Dark Theme by default */
-  --background: #0A0F1E;
-  --foreground: #F9FAFB;
+  /* Light Mode Palette */
+  --background: #F8FAFC;
+  --foreground: #0F172A;
   
-  --card: #111827;
-  --card-foreground: #F9FAFB;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  
+  --primary: #7C3AED;
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #2563EB;
+  --secondary-foreground: #FFFFFF;
+  
+  --muted: #F1F5F9;
+  --muted-foreground: #475569;
+  
+  --accent: #F1F5F9;
+  --accent-foreground: #0F172A;
+  
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+
+  --success: #059669;
+  --warning: #D97706;
+  
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #7C3AED;
+  
+  --radius: 0.75rem;
+  
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #475569;
+  --sidebar-primary: #7C3AED;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F1F5F9;
+  --sidebar-accent-foreground: #0F172A;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #7C3AED;
+}
+
+.dark {
+  /* Dark Mode Palette */
+  --background: #070B14;
+  --foreground: #F8FAFC;
+  
+  --card: #1A2236;
+  --card-foreground: #F8FAFC;
   
   --popover: #111827;
-  --popover-foreground: #F9FAFB;
+  --popover-foreground: #F8FAFC;
   
-  --primary: #10B981;
-  --primary-foreground: #0A0F1E;
+  --primary: #8B5CF6;
+  --primary-foreground: #FFFFFF;
   
-  --secondary: #1F2937;
-  --secondary-foreground: #F9FAFB;
+  --secondary: #3B82F6;
+  --secondary-foreground: #FFFFFF;
   
-  --muted: #1F2937;
-  --muted-foreground: #9CA3AF;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
   
-  --accent: #6366F1;
-  --accent-foreground: #F9FAFB;
+  --accent: #1E293B;
+  --accent-foreground: #F8FAFC;
   
   --destructive: #EF4444;
-  --destructive-foreground: #F9FAFB;
+  --destructive-foreground: #FFFFFF;
+
+  --success: #10B981;
+  --warning: #F59E0B;
   
-  --border: #1F2937;
-  --input: #1F2937;
-  --ring: #10B981;
-  
-  --radius: 0.75rem; /* rounded-xl for cards, rounded-lg for buttons */
+  --border: #2A3447;
+  --input: #2A3447;
+  --ring: #8B5CF6;
   
   --sidebar: #111827;
-  --sidebar-foreground: #9CA3AF;
-  --sidebar-primary: #10B981;
-  --sidebar-primary-foreground: #0A0F1E;
-  --sidebar-accent: #1F2937;
-  --sidebar-accent-foreground: #F9FAFB;
-  --sidebar-border: #1F2937;
-  --sidebar-ring: #10B981;
+  --sidebar-foreground: #94A3B8;
+  --sidebar-primary: #8B5CF6;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1E293B;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: #2A3447;
+  --sidebar-ring: #8B5CF6;
 }
 
 @layer base {
@@ -88,7 +134,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased transition-colors duration-300 ease-in-out;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   html {
@@ -139,9 +185,8 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1F2937;
-  border-radius: 9999px;
+  @apply bg-muted-foreground/30 rounded-full transition-colors duration-300;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  @apply bg-muted-foreground/50;
 }

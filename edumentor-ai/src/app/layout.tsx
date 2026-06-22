@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import NextAuthProvider from "@/components/providers/NextAuthProvider"
+import { ThemeProvider } from "@/components/providers/ThemeProvider"
 
 export const metadata: Metadata = {
   title: "EduMentor AI - Personalized AI Python Tutor",
@@ -14,9 +15,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className="antialiased min-h-screen bg-[#0A0F1E] text-slate-100">
-        <NextAuthProvider>{children}</NextAuthProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased min-h-screen transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextAuthProvider>{children}</NextAuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
