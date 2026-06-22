@@ -124,9 +124,9 @@ export default function ProgressPage() {
       {/* Overview Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Streak */}
-        <Card className="border-[#1F2937] bg-[#111827]">
+        <Card className="border-border bg-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+            <CardDescription className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
               Learning Streak
             </CardDescription>
           </CardHeader>
@@ -136,34 +136,34 @@ export default function ProgressPage() {
         </Card>
 
         {/* Total Quizzes */}
-        <Card className="border-[#1F2937] bg-[#111827]">
+        <Card className="border-border bg-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+            <CardDescription className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
               Quizzes Evaluated
             </CardDescription>
-            <CheckCircle className="h-5 w-5 text-[#10B981]" />
+            <CheckCircle className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-extrabold text-white">
+            <div className="text-3xl font-extrabold text-foreground">
               {progressData?.analytics.totalQuizzes || 0}
             </div>
-            <p className="text-xs text-slate-500 mt-1">Adaptive tests completed</p>
+            <p className="text-xs text-muted-foreground mt-1">Adaptive tests completed</p>
           </CardContent>
         </Card>
 
         {/* Global Average */}
-        <Card className="border-[#1F2937] bg-[#111827]">
+        <Card className="border-border bg-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+            <CardDescription className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
               Average Accuracy
             </CardDescription>
-            <Award className="h-5 w-5 text-[#6366F1]" />
+            <Award className="h-5 w-5 text-secondary" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-extrabold text-white">
+            <div className="text-3xl font-extrabold text-foreground">
               {Math.round(progressData?.analytics.averageQuizScore || 0)}%
             </div>
-            <p className="text-xs text-slate-500 mt-1">Across all topic quiz history</p>
+            <p className="text-xs text-muted-foreground mt-1">Across all topic quiz history</p>
           </CardContent>
         </Card>
       </div>
@@ -172,23 +172,23 @@ export default function ProgressPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Chart */}
         <div className="lg:col-span-2">
-          <Card className="border-[#1F2937] bg-[#111827] h-full">
+          <Card className="border-border bg-card h-full">
             <CardHeader>
-              <CardTitle className="text-white text-base">Topic Mastery Analytics</CardTitle>
+              <CardTitle className="text-foreground text-base">Topic Mastery Analytics</CardTitle>
             </CardHeader>
             <CardContent className="h-80 pb-4">
               {isLoadingProgress ? (
                 <div className="h-full flex items-center justify-center">
-                  <Loader2 className="h-6 w-6 text-[#10B981] animate-spin" />
+                  <Loader2 className="h-6 w-6 text-primary animate-spin" />
                 </div>
               ) : chartData.length === 0 ? (
-                <div className="h-full flex items-center justify-center text-slate-500 text-sm">
+                <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
                   Complete a quiz to generate mastery charts.
                 </div>
               ) : mounted ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1F2937" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                     <XAxis
                       dataKey="topic"
                       stroke="#9CA3AF"
@@ -203,16 +203,16 @@ export default function ProgressPage() {
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "#111827",
-                        borderColor: "#1F2937",
+                        backgroundColor: "var(--card)",
+                        borderColor: "var(--border)",
                         borderRadius: "8px",
                         color: "#fff",
                       }}
-                      itemStyle={{ color: "#10B981" }}
+                      itemStyle={{ color: "var(--primary)" }}
                     />
                     <Bar
                       dataKey="mastery"
-                      fill="#10B981"
+                      fill="var(--primary)"
                       radius={[4, 4, 0, 0]}
                       name="Mastery (%)"
                     />
@@ -225,21 +225,21 @@ export default function ProgressPage() {
 
         {/* Weak Spots & Action Box */}
         <div>
-          <Card className="border-[#1F2937] bg-[#111827] h-full flex flex-col">
+          <Card className="border-border bg-card h-full flex flex-col">
             <CardHeader>
-              <CardTitle className="text-white text-base">Weak Areas</CardTitle>
-              <CardDescription className="text-slate-400 text-xs">
+              <CardTitle className="text-foreground text-base">Weak Areas</CardTitle>
+              <CardDescription className="text-muted-foreground text-xs">
                 Topics below 60% mastery requiring study focus.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow space-y-4">
               {isLoadingProgress ? (
                 <div className="flex justify-center items-center py-8">
-                  <Loader2 className="h-5 w-5 text-slate-500 animate-spin" />
+                  <Loader2 className="h-5 w-5 text-muted-foreground animate-spin" />
                 </div>
               ) : !progressData?.weakTopics || progressData.weakTopics.length === 0 ? (
-                <div className="text-center py-8 text-slate-500 text-xs space-y-2">
-                  <CheckCircle className="h-8 w-8 text-[#10B981] mx-auto mb-2" />
+                <div className="text-center py-8 text-muted-foreground text-xs space-y-2">
+                  <CheckCircle className="h-8 w-8 text-primary mx-auto mb-2" />
                   <p>Excellent! All evaluated topics have &gt; 60% mastery score.</p>
                 </div>
               ) : (
@@ -250,7 +250,7 @@ export default function ProgressPage() {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <p className="text-sm font-semibold text-white">
+                        <p className="text-sm font-semibold text-foreground">
                           {item.topic}
                         </p>
                         <p className="text-xs text-red-400 mt-0.5">
@@ -265,7 +265,7 @@ export default function ProgressPage() {
                       onClick={() => handleAskAboutTopic(item.topic)}
                       disabled={isCreatingSession}
                       size="sm"
-                      className="w-full bg-[#111827] border border-[#1F2937] hover:border-[#10B981]/30 hover:bg-[#10B981]/5 text-slate-300 hover:text-[#10B981] transition-all text-xs"
+                      className="w-full bg-card border border-border hover:border-primary/30 hover:bg-primary/5 text-muted-foreground hover:text-primary transition-all text-xs"
                     >
                       Ask Tutor About This
                     </Button>
@@ -278,26 +278,26 @@ export default function ProgressPage() {
       </div>
 
       {/* Quiz History Table */}
-      <Card className="border-[#1F2937] bg-[#111827]">
+      <Card className="border-border bg-card">
         <CardHeader>
-          <CardTitle className="text-white text-base">Quiz Performance History</CardTitle>
-          <CardDescription className="text-slate-400 text-xs">
+          <CardTitle className="text-foreground text-base">Quiz Performance History</CardTitle>
+          <CardDescription className="text-muted-foreground text-xs">
             Review your accuracy details for completed adaptive quizzes.
           </CardDescription>
         </CardHeader>
         <CardContent className="overflow-x-auto pb-6">
           {isLoadingProgress ? (
             <div className="flex justify-center items-center py-8">
-              <Loader2 className="h-6 w-6 text-[#10B981] animate-spin" />
+              <Loader2 className="h-6 w-6 text-primary animate-spin" />
             </div>
           ) : !progressData?.quizResults || progressData.quizResults.length === 0 ? (
-            <div className="text-center py-8 text-slate-500 text-sm">
+            <div className="text-center py-8 text-muted-foreground text-sm">
               No quiz history records found.
             </div>
           ) : (
             <table className="w-full text-left text-sm border-collapse min-w-[500px]">
               <thead>
-                <tr className="border-b border-[#1F2937] text-slate-400 text-xs uppercase font-semibold">
+                <tr className="border-b border-border text-muted-foreground text-xs uppercase font-semibold">
                   <th className="py-3 px-4">Topic</th>
                   <th className="py-3 px-4">Difficulty</th>
                   <th className="py-3 px-4">Questions</th>
@@ -305,24 +305,24 @@ export default function ProgressPage() {
                   <th className="py-3 px-4">Submitted At</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1F2937] text-slate-300">
+              <tbody className="divide-y divide-[#1F2937] text-muted-foreground">
                 {progressData.quizResults.map((result) => (
-                  <tr key={result.id} className="hover:bg-[#1F2937]/20 transition-colors">
-                    <td className="py-3.5 px-4 font-medium text-white">
+                  <tr key={result.id} className="hover:bg-accent/20 transition-colors">
+                    <td className="py-3.5 px-4 font-medium text-foreground">
                       {result.quiz?.topic}
                     </td>
                     <td className="py-3.5 px-4">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#1F2937] border border-[#374151]">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-accent border border-[#374151]">
                         {result.quiz?.difficulty}
                       </span>
                     </td>
                     <td className="py-3.5 px-4">
                       {result.totalQuestions}
                     </td>
-                    <td className="py-3.5 px-4 font-semibold text-[#10B981]">
+                    <td className="py-3.5 px-4 font-semibold text-primary">
                       {result.score} / {result.totalQuestions} ({result.percentage}%)
                     </td>
-                    <td className="py-3.5 px-4 text-xs text-slate-500">
+                    <td className="py-3.5 px-4 text-xs text-muted-foreground">
                       {new Date(result.submittedAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}
                     </td>
                   </tr>

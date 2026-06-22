@@ -24,7 +24,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] text-slate-100 flex">
+    <div className="min-h-screen bg-background text-foreground flex">
       <Sidebar />
       <div className="flex-1 flex flex-col pl-64 min-h-screen">
         <TopNav />

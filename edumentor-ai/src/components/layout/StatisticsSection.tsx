@@ -12,21 +12,21 @@ export function StatisticsSection() {
   ]
 
   return (
-    <section className="py-20 bg-[#0A0F1E] border-y border-[#1F2937]">
+    <section className="py-20 bg-background border-y border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => {
             const Icon = stat.icon
             return (
               <ScrollReveal key={index} variant="slideUp" delay={index * 0.1}>
-                <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-[#111827]/40 border border-[#1F2937] hover:border-[#10B981]/30 transition-colors">
-                  <div className="p-3 bg-[#10B981]/10 rounded-full text-[#10B981] mb-4">
+                <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-card/40 border border-border hover:border-primary/30 transition-colors">
+                  <div className="p-3 bg-primary/10 rounded-full text-primary mb-4">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">
+                  <div className="text-3xl font-bold text-foreground mb-2">
                     <CountUp end={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-sm text-slate-400 font-medium">{stat.label}</div>
+                  <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
                 </div>
               </ScrollReveal>
             )

@@ -109,25 +109,25 @@ export default function DashboardContent({
         className="relative z-10 space-y-8 max-w-6xl mx-auto"
     >
       {/* Welcome Banner */}
-      <motion.div variants={slideUpFade} className="relative overflow-hidden rounded-2xl border border-[#1F2937] bg-gradient-to-r from-[#111827] via-[#111827]/80 to-[#10B981]/5 p-8">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-[#10B981]/5 via-transparent to-transparent pointer-events-none" />
+      <motion.div variants={slideUpFade} className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-r from-card via-card/80 to-primary/5 p-8">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none" />
         <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#10B981]/10 text-xs font-semibold text-[#10B981] mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-xs font-semibold text-primary mb-3">
               <Sparkles className="h-3.5 w-3.5" />
               <span>Level: {skillLevel}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
               Welcome back, {userName}!
             </h2>
-            <p className="text-slate-400 text-sm max-w-xl">
+            <p className="text-muted-foreground text-sm max-w-xl">
               Goal: &ldquo;{learningGoal}&rdquo;. Ask your tutor a question or take an adaptive quiz to raise your mastery scores.
             </p>
           </div>
           <Button
             onClick={handleStartNewSession}
             disabled={isCreatingSession}
-            className="bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold self-start md:self-center"
+            className="bg-primary hover:bg-[#059669] text-primary-foreground font-bold self-start md:self-center"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Learning Session
@@ -139,77 +139,77 @@ export default function DashboardContent({
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Sessions */}
         <motion.div variants={slideUpFade} {...cardHover} className="h-full">
-          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#10B981]/10 transition-shadow">
+          <Card className="border-border bg-card h-full shadow-lg hover:shadow-primary/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+              <CardDescription className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
                 Sessions
               </CardDescription>
-              <MessageSquare className="h-4 w-4 text-[#10B981]" />
+              <MessageSquare className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-foreground">
                 <CountUp end={stats.totalSessions} />
               </div>
-              <p className="text-xs text-slate-500 mt-1">Persistent rooms</p>
+              <p className="text-xs text-muted-foreground mt-1">Persistent rooms</p>
             </CardContent>
           </Card>
         </motion.div>
 
         {/* Messages */}
         <motion.div variants={slideUpFade} {...cardHover} className="h-full">
-          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#6366F1]/10 transition-shadow">
+          <Card className="border-border bg-card h-full shadow-lg hover:shadow-secondary/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+              <CardDescription className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
                 Tutor Interactions
               </CardDescription>
-              <GraduationCap className="h-4 w-4 text-[#6366F1]" />
+              <GraduationCap className="h-4 w-4 text-secondary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-foreground">
                 <CountUp end={stats.totalMessages} />
               </div>
-              <p className="text-xs text-slate-500 mt-1">AI messages sent</p>
+              <p className="text-xs text-muted-foreground mt-1">AI messages sent</p>
             </CardContent>
           </Card>
         </motion.div>
 
         {/* Quizzes */}
         <motion.div variants={slideUpFade} {...cardHover} className="h-full">
-          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#10B981]/10 transition-shadow">
+          <Card className="border-border bg-card h-full shadow-lg hover:shadow-primary/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+              <CardDescription className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
                 Quizzes Taken
               </CardDescription>
-              <Brain className="h-4 w-4 text-[#10B981]" />
+              <Brain className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-foreground">
                 <CountUp end={stats.quizzesCompleted} />
               </div>
-              <p className="text-xs text-slate-500 mt-1">Adaptive assessments</p>
+              <p className="text-xs text-muted-foreground mt-1">Adaptive assessments</p>
             </CardContent>
           </Card>
         </motion.div>
 
         {/* Avg Quiz Score */}
         <motion.div variants={slideUpFade} {...cardHover} className="h-full">
-          <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#6366F1]/10 transition-shadow">
+          <Card className="border-border bg-card h-full shadow-lg hover:shadow-secondary/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+              <CardDescription className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
                 Average Score
               </CardDescription>
-              <Award className="h-4 w-4 text-[#6366F1]" />
+              <Award className="h-4 w-4 text-secondary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-foreground">
                 <CountUp end={stats.averageScore} suffix="%" />
               </div>
-              <div className="w-full bg-[#1F2937] h-1.5 rounded-full mt-2 overflow-hidden">
+              <div className="w-full bg-accent h-1.5 rounded-full mt-2 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${stats.averageScore}%` }}
                   transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-                  className="bg-[#10B981] h-full rounded-full"
+                  className="bg-primary h-full rounded-full"
                 />
               </div>
             </CardContent>
@@ -221,10 +221,10 @@ export default function DashboardContent({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left 2/3: Mastery Bar Chart */}
         <motion.div variants={slideUpFade} className="lg:col-span-2">
-          <Card className="border-[#1F2937] bg-[#111827] h-full">
+          <Card className="border-border bg-card h-full">
             <CardHeader>
-              <CardTitle className="text-white text-base">Topic Mastery Overview</CardTitle>
-              <CardDescription className="text-slate-400 text-xs">
+              <CardTitle className="text-foreground text-base">Topic Mastery Overview</CardTitle>
+              <CardDescription className="text-muted-foreground text-xs">
                 Your Python mastery score is calculated based on quiz correctness and completion rates.
               </CardDescription>
             </CardHeader>
@@ -232,7 +232,7 @@ export default function DashboardContent({
               {mounted ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={progressData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1F2937" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                     <XAxis
                       dataKey="topic"
                       stroke="#9CA3AF"
@@ -247,23 +247,23 @@ export default function DashboardContent({
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "#111827",
-                        borderColor: "#1F2937",
+                        backgroundColor: "var(--card)",
+                        borderColor: "var(--border)",
                         borderRadius: "8px",
                         color: "#fff",
                       }}
-                      itemStyle={{ color: "#10B981" }}
+                      itemStyle={{ color: "var(--primary)" }}
                     />
                     <Bar
                       dataKey="mastery"
-                      fill="#10B981"
+                      fill="var(--primary)"
                       radius={[4, 4, 0, 0]}
                       name="Mastery Score (%)"
                     />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-full flex items-center justify-center text-slate-500 text-sm">
+                <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
                   Loading analytics...
                 </div>
               )}
@@ -273,22 +273,22 @@ export default function DashboardContent({
 
         {/* Right 1/3: Recent Sessions */}
         <motion.div variants={slideUpFade}>
-          <Card className="border-[#1F2937] bg-[#111827] h-full flex flex-col">
+          <Card className="border-border bg-card h-full flex flex-col">
             <CardHeader>
-              <CardTitle className="text-white text-base">Recent Sessions</CardTitle>
-              <CardDescription className="text-slate-400 text-xs">
+              <CardTitle className="text-foreground text-base">Recent Sessions</CardTitle>
+              <CardDescription className="text-muted-foreground text-xs">
                 Resume your previous learning chats.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow space-y-4">
               {recentSessions.length === 0 ? (
-                <div className="text-center py-8 text-slate-500 text-sm space-y-3">
+                <div className="text-center py-8 text-muted-foreground text-sm space-y-3">
                   <p>No active sessions yet.</p>
                   <Button
                     onClick={handleStartNewSession}
                     disabled={isCreatingSession}
                     variant="outline"
-                    className="border-[#1F2937] text-[#10B981]"
+                    className="border-border text-primary"
                   >
                     Start First Chat
                   </Button>
@@ -297,20 +297,20 @@ export default function DashboardContent({
                 recentSessions.map((session) => (
                   <div
                     key={session.id}
-                    className="p-4 rounded-xl border border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#10B981]/20 transition-all flex items-center justify-between group"
+                    className="p-4 rounded-xl border border-border bg-background/50 hover:border-primary/20 transition-all flex items-center justify-between group"
                   >
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-white truncate">
+                      <p className="text-sm font-semibold text-foreground truncate">
                         {session.title}
                       </p>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-muted-foreground mt-0.5">
                         Active {new Date(session.updatedAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}
                       </p>
                     </div>
                     <Button
                       onClick={() => handleResumeSession(session.id)}
                       size="sm"
-                      className="bg-[#1F2937] hover:bg-[#10B981] hover:text-[#0A0F1E] text-slate-300 transition-colors"
+                      className="bg-accent hover:bg-primary hover:text-primary-foreground text-muted-foreground transition-colors"
                     >
                       <Play className="h-3.5 w-3.5" />
                     </Button>
@@ -325,8 +325,8 @@ export default function DashboardContent({
       {/* Learning Galaxy */}
       <motion.div variants={slideUpFade}>
         <div className="flex items-center gap-2 mb-3">
-          <span className="text-white font-bold text-base">🌌 Learning Galaxy</span>
-          <span className="text-slate-400 text-sm">Your subject universe — click planets to explore</span>
+          <span className="text-foreground font-bold text-base">🌌 Learning Galaxy</span>
+          <span className="text-muted-foreground text-sm">Your subject universe — click planets to explore</span>
         </div>
         <LearningGalaxy className="h-80" />
       </motion.div>
@@ -347,7 +347,7 @@ export default function DashboardContent({
                   <AlertCircle className="h-4 w-4" />
                   Focus Suggested
                 </CardTitle>
-                <CardDescription className="text-slate-400 text-xs">
+                <CardDescription className="text-muted-foreground text-xs">
                   Your mastery score is below 60% in these topics.
                 </CardDescription>
               </CardHeader>
@@ -369,24 +369,24 @@ export default function DashboardContent({
 
         {/* Quick Actions Card */}
         <motion.div variants={slideUpFade} className={weakTopics.length === 0 ? "md:col-span-2" : ""}>
-          <Card className="border-[#1F2937] bg-[#111827] h-full">
+          <Card className="border-border bg-card h-full">
             <CardHeader>
-              <CardTitle className="text-white text-base">Quick Shortcuts</CardTitle>
+              <CardTitle className="text-foreground text-base">Quick Shortcuts</CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-4">
               <Link
                 href="/learn"
-                className="p-4 rounded-xl border border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#10B981]/20 hover:bg-[#111827] transition-all text-center flex flex-col items-center gap-2 group"
+                className="p-4 rounded-xl border border-border bg-background/50 hover:border-primary/20 hover:bg-card transition-all text-center flex flex-col items-center gap-2 group"
               >
-                <MessageSquare className="h-6 w-6 text-[#10B981] group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-semibold text-white">Tutor Chat</span>
+                <MessageSquare className="h-6 w-6 text-primary group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-semibold text-foreground">Tutor Chat</span>
               </Link>
               <Link
                 href="/quiz"
-                className="p-4 rounded-xl border border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#6366F1]/20 hover:bg-[#111827] transition-all text-center flex flex-col items-center gap-2 group"
+                className="p-4 rounded-xl border border-border bg-background/50 hover:border-secondary/20 hover:bg-card transition-all text-center flex flex-col items-center gap-2 group"
               >
-                <Brain className="h-6 w-6 text-[#6366F1] group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-semibold text-white">Take Quiz</span>
+                <Brain className="h-6 w-6 text-secondary group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-semibold text-foreground">Take Quiz</span>
               </Link>
             </CardContent>
           </Card>

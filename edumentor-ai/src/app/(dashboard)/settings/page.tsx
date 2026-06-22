@@ -172,11 +172,11 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-8 px-4">
-      <h1 className="text-2xl font-bold text-white mb-1">Settings</h1>
-      <p className="text-slate-400 text-sm mb-8">Manage your profile, AI configuration, and preferences</p>
+      <h1 className="text-2xl font-bold text-foreground mb-1">Settings</h1>
+      <p className="text-muted-foreground text-sm mb-8">Manage your profile, AI configuration, and preferences</p>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-8 bg-[#111827] border border-[#1F2937] rounded-xl p-1">
+      <div className="flex gap-1 mb-8 bg-card border border-border rounded-xl p-1">
         {[
           { id: "profile", label: "Profile", icon: User },
           { id: "ai-config", label: "AI Config", icon: Key },
@@ -189,8 +189,8 @@ export default function SettingsPage() {
               onClick={() => setActiveTab(tab.id as Tab)}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                 activeTab === tab.id
-                  ? "bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-primary/10 text-primary border border-primary/20"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -204,22 +204,22 @@ export default function SettingsPage() {
       {activeTab === "profile" && (
         <div className="space-y-6">
           {/* Avatar */}
-          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
-            <p className="text-sm font-medium text-white mb-4">Profile Picture</p>
+          <div className="bg-card border border-border rounded-2xl p-6">
+            <p className="text-sm font-medium text-foreground mb-4">Profile Picture</p>
             <div className="flex items-center gap-6">
               <div className="relative">
-                <div className="h-20 w-20 rounded-full border-2 border-[#1F2937] overflow-hidden bg-[#6366F1]/10 flex items-center justify-center">
+                <div className="h-20 w-20 rounded-full border-2 border-border overflow-hidden bg-secondary/10 flex items-center justify-center">
                   {currentAvatar ? (
                     <img src={currentAvatar} alt="Avatar" className="h-full w-full object-cover" />
                   ) : (
-                    <User className="h-8 w-8 text-[#6366F1]" />
+                    <User className="h-8 w-8 text-secondary" />
                   )}
                 </div>
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full bg-[#10B981] flex items-center justify-center cursor-pointer hover:bg-[#059669] transition-colors"
+                  className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-[#059669] transition-colors"
                 >
-                  <Camera className="h-3.5 w-3.5 text-white" />
+                  <Camera className="h-3.5 w-3.5 text-foreground" />
                 </button>
                 <input
                   ref={fileInputRef}
@@ -230,21 +230,21 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <p className="text-sm text-white font-medium">{name || session?.user?.name}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{session?.user?.email}</p>
+                <p className="text-sm text-foreground font-medium">{name || session?.user?.name}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{session?.user?.email}</p>
                 <p className="text-xs text-slate-600 mt-2">JPG, PNG or GIF — max 500KB</p>
               </div>
             </div>
           </div>
 
           {/* Name */}
-          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
-            <label className="text-sm font-medium text-white block mb-3">Display Name</label>
+          <div className="bg-card border border-border rounded-2xl p-6">
+            <label className="text-sm font-medium text-foreground block mb-3">Display Name</label>
             <input
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="Your name"
-              className="w-full px-4 py-3 rounded-xl bg-[#0A0F1E] border border-[#1F2937] text-white placeholder:text-slate-600 focus:outline-none focus:border-[#10B981]/50 transition-colors text-sm"
+              className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-slate-600 focus:outline-none focus:border-primary/50 transition-colors text-sm"
             />
           </div>
 
@@ -252,7 +252,7 @@ export default function SettingsPage() {
           {profileMsg && (
             <div className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm ${
               profileMsg.type === "success"
-                ? "bg-[#10B981]/10 border border-[#10B981]/20 text-[#10B981]"
+                ? "bg-primary/10 border border-primary/20 text-primary"
                 : "bg-red-500/10 border border-red-500/20 text-red-400"
             }`}>
               {profileMsg.type === "success" ? <Check className="h-4 w-4 shrink-0" /> : <X className="h-4 w-4 shrink-0" />}
@@ -263,7 +263,7 @@ export default function SettingsPage() {
           <button
             onClick={handleProfileSave}
             disabled={profileSaving}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-semibold text-sm transition-colors disabled:opacity-60 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-primary hover:bg-[#059669] text-foreground font-semibold text-sm transition-colors disabled:opacity-60 cursor-pointer"
           >
             <Save className="h-4 w-4" />
             {profileSaving ? "Saving..." : "Save Profile"}
@@ -275,27 +275,27 @@ export default function SettingsPage() {
       {activeTab === "ai-config" && (
         <div className="space-y-6">
           {/* Status */}
-          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
+          <div className="bg-card border border-border rounded-2xl p-6">
             <div className="flex items-center justify-between mb-1">
-              <p className="text-sm font-medium text-white">Groq API Key</p>
+              <p className="text-sm font-medium text-foreground">Groq API Key</p>
               {hasKey && (
-                <span className="text-xs px-2 py-0.5 rounded-full bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 font-medium">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">
                   Active
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-500 mb-4">
+            <p className="text-xs text-muted-foreground mb-4">
               Add your own Groq key to use your personal quota. Get one free at{" "}
-              <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" className="text-[#10B981] hover:underline">
+              <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                 console.groq.com
               </a>
             </p>
 
             {/* Current key display */}
             {hasKey && maskedKey && (
-              <div className="flex items-center gap-3 mb-4 px-4 py-3 bg-[#0A0F1E] border border-[#1F2937] rounded-xl">
-                <Key className="h-4 w-4 text-[#10B981] shrink-0" />
-                <span className="text-sm text-slate-400 font-mono flex-1">{maskedKey}</span>
+              <div className="flex items-center gap-3 mb-4 px-4 py-3 bg-background border border-border rounded-xl">
+                <Key className="h-4 w-4 text-primary shrink-0" />
+                <span className="text-sm text-muted-foreground font-mono flex-1">{maskedKey}</span>
                 <button
                   onClick={handleGroqDelete}
                   className="text-red-400 hover:text-red-300 transition-colors cursor-pointer"
@@ -313,11 +313,11 @@ export default function SettingsPage() {
                 value={groqKey}
                 onChange={e => setGroqKey(e.target.value)}
                 placeholder={hasKey ? "Enter new key to replace..." : "gsk_..."}
-                className="w-full px-4 py-3 pr-12 rounded-xl bg-[#0A0F1E] border border-[#1F2937] text-white placeholder:text-slate-600 focus:outline-none focus:border-[#10B981]/50 transition-colors text-sm font-mono"
+                className="w-full px-4 py-3 pr-12 rounded-xl bg-background border border-border text-foreground placeholder:text-slate-600 focus:outline-none focus:border-primary/50 transition-colors text-sm font-mono"
               />
               <button
                 onClick={() => setShowKey(!showKey)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground transition-colors cursor-pointer"
               >
                 {showKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
@@ -327,7 +327,7 @@ export default function SettingsPage() {
           {groqMsg && (
             <div className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm ${
               groqMsg.type === "success"
-                ? "bg-[#10B981]/10 border border-[#10B981]/20 text-[#10B981]"
+                ? "bg-primary/10 border border-primary/20 text-primary"
                 : "bg-red-500/10 border border-red-500/20 text-red-400"
             }`}>
               {groqMsg.type === "success" ? <Check className="h-4 w-4 shrink-0" /> : <X className="h-4 w-4 shrink-0" />}
@@ -338,14 +338,14 @@ export default function SettingsPage() {
           <button
             onClick={handleGroqSave}
             disabled={groqSaving || !groqKey.startsWith("gsk_")}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-semibold text-sm transition-colors disabled:opacity-60 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-primary hover:bg-[#059669] text-foreground font-semibold text-sm transition-colors disabled:opacity-60 cursor-pointer"
           >
             <Key className="h-4 w-4" />
             {groqSaving ? "Verifying key..." : "Save & Verify Key"}
           </button>
 
-          <div className="px-4 py-3 bg-[#6366F1]/5 border border-[#6366F1]/20 rounded-xl">
-            <p className="text-xs text-slate-400">
+          <div className="px-4 py-3 bg-secondary/5 border border-secondary/20 rounded-xl">
+            <p className="text-xs text-muted-foreground">
               Your key is verified with Groq before saving. It is stored encrypted and never exposed in the UI. All your tutoring sessions will use this key instead of the shared server key.
             </p>
           </div>
@@ -356,8 +356,8 @@ export default function SettingsPage() {
       {activeTab === "preferences" && (
         <div className="space-y-6">
           {/* Learning Topic */}
-          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
-            <label className="text-sm font-medium text-white block mb-3">Language / Topic</label>
+          <div className="bg-card border border-border rounded-2xl p-6">
+            <label className="text-sm font-medium text-foreground block mb-3">Language / Topic</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {["Python", "JavaScript", "Java", "C", "C++", "HTML/CSS"].map(topic => (
                 <button
@@ -365,8 +365,8 @@ export default function SettingsPage() {
                   onClick={() => setLearningTopic(topic)}
                   className={`py-3 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
                     learningTopic === topic
-                      ? "bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]"
-                      : "border-[#1F2937] text-slate-400 hover:text-white hover:border-[#374151]"
+                      ? "bg-primary/10 border-primary/30 text-primary"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-[#374151]"
                   }`}
                 >
                   {topic}
@@ -376,8 +376,8 @@ export default function SettingsPage() {
           </div>
 
           {/* Skill Level */}
-          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
-            <label className="text-sm font-medium text-white block mb-3">Skill Level</label>
+          <div className="bg-card border border-border rounded-2xl p-6">
+            <label className="text-sm font-medium text-foreground block mb-3">Skill Level</label>
             <div className="grid grid-cols-3 gap-3">
               {["Beginner", "Intermediate", "Advanced"].map(level => (
                 <button
@@ -385,8 +385,8 @@ export default function SettingsPage() {
                   onClick={() => setSkillLevel(level)}
                   className={`py-3 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
                     skillLevel === level
-                      ? "bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]"
-                      : "border-[#1F2937] text-slate-400 hover:text-white hover:border-[#374151]"
+                      ? "bg-primary/10 border-primary/30 text-primary"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-[#374151]"
                   }`}
                 >
                   {level}
@@ -396,20 +396,20 @@ export default function SettingsPage() {
           </div>
 
           {/* Learning Goal */}
-          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
-            <label className="text-sm font-medium text-white block mb-3">Learning Goal</label>
+          <div className="bg-card border border-border rounded-2xl p-6">
+            <label className="text-sm font-medium text-foreground block mb-3">Learning Goal</label>
             <textarea
               value={learningGoal}
               onChange={e => setLearningGoal(e.target.value)}
               placeholder="e.g. Get a job as a Python developer, build web apps, learn data science..."
               rows={3}
-              className="w-full px-4 py-3 rounded-xl bg-[#0A0F1E] border border-[#1F2937] text-white placeholder:text-slate-600 focus:outline-none focus:border-[#10B981]/50 transition-colors text-sm resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-slate-600 focus:outline-none focus:border-primary/50 transition-colors text-sm resize-none"
             />
           </div>
 
           {/* Daily Study Time */}
-          <div className="bg-[#111827] border border-[#1F2937] rounded-2xl p-6">
-            <label className="text-sm font-medium text-white block mb-3">Daily Study Time (minutes)</label>
+          <div className="bg-card border border-border rounded-2xl p-6">
+            <label className="text-sm font-medium text-foreground block mb-3">Daily Study Time (minutes)</label>
             <div className="grid grid-cols-4 gap-3 mb-3">
               {["15", "30", "60", "90"].map(min => (
                 <button
@@ -417,8 +417,8 @@ export default function SettingsPage() {
                   onClick={() => setDailyMinutes(min)}
                   className={`py-3 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
                     dailyMinutes === min
-                      ? "bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]"
-                      : "border-[#1F2937] text-slate-400 hover:text-white hover:border-[#374151]"
+                      ? "bg-primary/10 border-primary/30 text-primary"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-[#374151]"
                   }`}
                 >
                   {min}m
@@ -430,14 +430,14 @@ export default function SettingsPage() {
               value={dailyMinutes}
               onChange={e => setDailyMinutes(e.target.value)}
               placeholder="Or enter custom minutes..."
-              className="w-full px-4 py-3 rounded-xl bg-[#0A0F1E] border border-[#1F2937] text-white placeholder:text-slate-600 focus:outline-none focus:border-[#10B981]/50 transition-colors text-sm"
+              className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-slate-600 focus:outline-none focus:border-primary/50 transition-colors text-sm"
             />
           </div>
 
           {prefMsg && (
             <div className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm ${
               prefMsg.type === "success"
-                ? "bg-[#10B981]/10 border border-[#10B981]/20 text-[#10B981]"
+                ? "bg-primary/10 border border-primary/20 text-primary"
                 : "bg-red-500/10 border border-red-500/20 text-red-400"
             }`}>
               {prefMsg.type === "success" ? <Check className="h-4 w-4 shrink-0" /> : <X className="h-4 w-4 shrink-0" />}
@@ -448,7 +448,7 @@ export default function SettingsPage() {
           <button
             onClick={handlePrefSave}
             disabled={prefSaving}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-semibold text-sm transition-colors disabled:opacity-60 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-primary hover:bg-[#059669] text-foreground font-semibold text-sm transition-colors disabled:opacity-60 cursor-pointer"
           >
             <Save className="h-4 w-4" />
             {prefSaving ? "Saving..." : "Save Preferences"}

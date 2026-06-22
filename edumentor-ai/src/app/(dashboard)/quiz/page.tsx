@@ -120,21 +120,21 @@ export default function QuizPage() {
     return (
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Brain className="h-10 w-10 text-[#10B981] mx-auto" />
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">
+          <Brain className="h-10 w-10 text-primary mx-auto" />
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
             Personalized Practice Quizzes
           </h2>
-          <p className="text-slate-400 text-sm">
+          <p className="text-muted-foreground text-sm">
             Our adaptive algorithm scales the difficulty dynamically. As your mastery score increases, the quiz questions will adapt to challenge you.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Topic Select List */}
-          <Card className="border-[#1F2937] bg-[#111827] md:col-span-2">
+          <Card className="border-border bg-card md:col-span-2">
             <CardHeader>
-              <CardTitle className="text-white text-base">Select Python Topic</CardTitle>
-              <CardDescription className="text-slate-400 text-xs">
+              <CardTitle className="text-foreground text-base">Select Python Topic</CardTitle>
+              <CardDescription className="text-muted-foreground text-xs">
                 Select a topic to start your personalized assessment.
               </CardDescription>
             </CardHeader>
@@ -151,27 +151,27 @@ export default function QuizPage() {
                     onClick={() => setSelectedTopic(topic)}
                     className={`w-full text-left p-4 rounded-xl border transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer ${
                       isSelected
-                        ? "border-[#10B981] bg-[#10B981]/5"
-                        : "border-[#1F2937] bg-[#0A0F1E]/50 hover:border-[#374151]"
+                        ? "border-primary bg-primary/5"
+                        : "border-border bg-background/50 hover:border-[#374151]"
                     }`}
                   >
                     <div className="space-y-1">
-                      <p className={`font-semibold text-sm ${isSelected ? "text-[#10B981]" : "text-slate-200"}`}>
+                      <p className={`font-semibold text-sm ${isSelected ? "text-primary" : "text-slate-200"}`}>
                         {topic}
                       </p>
-                      <p className="text-xs text-slate-500">
-                        Adaptive Mode: <span className="text-slate-400 font-medium">{difficulty}</span>
+                      <p className="text-xs text-muted-foreground">
+                        Adaptive Mode: <span className="text-muted-foreground font-medium">{difficulty}</span>
                       </p>
                     </div>
 
                     <div className="flex items-center gap-6 self-start sm:self-center">
                       <div className="text-right space-y-1">
-                        <span className="text-xs text-slate-500">Mastery Score</span>
-                        <p className="text-sm font-bold text-white">{mastery}%</p>
+                        <span className="text-xs text-muted-foreground">Mastery Score</span>
+                        <p className="text-sm font-bold text-foreground">{mastery}%</p>
                       </div>
-                      <div className="w-24 bg-[#1F2937] h-2 rounded-full overflow-hidden shrink-0">
+                      <div className="w-24 bg-accent h-2 rounded-full overflow-hidden shrink-0">
                         <div
-                          className="bg-[#10B981] h-full rounded-full transition-all"
+                          className="bg-primary h-full rounded-full transition-all"
                           style={{ width: `${mastery}%` }}
                         />
                       </div>
@@ -184,7 +184,7 @@ export default function QuizPage() {
               <Button
                 onClick={handleStartQuiz}
                 disabled={!selectedTopic || isLoadingQuiz}
-                className="w-full bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold py-6"
+                className="w-full bg-primary hover:bg-[#059669] text-primary-foreground font-bold py-6"
               >
                 {isLoadingQuiz ? (
                   <>
@@ -216,21 +216,21 @@ export default function QuizPage() {
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Progress Header */}
         <div className="space-y-2">
-          <div className="flex justify-between items-center text-xs text-slate-400">
-            <span>Topic: <span className="text-[#10B981] font-semibold">{activeQuiz.topic}</span></span>
+          <div className="flex justify-between items-center text-xs text-muted-foreground">
+            <span>Topic: <span className="text-primary font-semibold">{activeQuiz.topic}</span></span>
             <span>Question {currentQuestionIdx + 1} of {totalQ}</span>
           </div>
-          <Progress value={progressVal} className="h-1.5 bg-[#1F2937] [&>div]:bg-[#10B981]" />
+          <Progress value={progressVal} className="h-1.5 bg-accent [&>div]:bg-primary" />
         </div>
 
         {/* Question Card */}
-        <Card className="border-[#1F2937] bg-[#111827]">
+        <Card className="border-border bg-card">
           <CardHeader>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#10B981]/10 text-[10px] font-semibold text-[#10B981] w-fit mb-3">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-[10px] font-semibold text-primary w-fit mb-3">
               <Sparkles className="h-3 w-3" />
               <span>Difficulty: {activeQuiz.difficulty}</span>
             </div>
-            <CardTitle className="text-white text-base leading-relaxed">
+            <CardTitle className="text-foreground text-base leading-relaxed">
               {currentQuestion?.question}
             </CardTitle>
           </CardHeader>
@@ -243,15 +243,15 @@ export default function QuizPage() {
                   onClick={() => handleSelectOption(idx)}
                   className={`w-full text-left p-4 rounded-xl border text-sm transition-all duration-150 flex items-center gap-3 cursor-pointer ${
                     isSelected
-                      ? "border-[#10B981] bg-[#10B981]/5 text-white"
-                      : "border-[#1F2937] bg-[#0A0F1E]/50 text-slate-300 hover:border-[#374151]"
+                      ? "border-primary bg-primary/5 text-foreground"
+                      : "border-border bg-background/50 text-muted-foreground hover:border-[#374151]"
                   }`}
                 >
                   <div
                     className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 ${
                       isSelected
-                        ? "border-[#10B981] text-[#10B981] font-bold"
-                        : "border-[#374151] text-slate-500"
+                        ? "border-primary text-primary font-bold"
+                        : "border-[#374151] text-muted-foreground"
                     }`}
                   >
                     {String.fromCharCode(65 + idx)}
@@ -262,7 +262,7 @@ export default function QuizPage() {
             })}
           </CardContent>
           <CardFooter className="flex justify-between gap-4">
-            <span className="text-xs text-slate-500 flex items-center gap-1">
+            <span className="text-xs text-muted-foreground flex items-center gap-1">
               <HelpCircle className="h-3.5 w-3.5" />
               Select an option to proceed
             </span>
@@ -270,7 +270,7 @@ export default function QuizPage() {
               <Button
                 onClick={handleNextQuestion}
                 disabled={selectedOption === null}
-                className="bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-semibold"
+                className="bg-primary hover:bg-[#059669] text-primary-foreground font-semibold"
               >
                 Next Question
                 <ChevronRight className="ml-1 h-4 w-4" />
@@ -279,7 +279,7 @@ export default function QuizPage() {
               <Button
                 onClick={handleSubmit}
                 disabled={selectedOption === null || isSubmittingQuiz}
-                className="bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold px-6"
+                className="bg-primary hover:bg-[#059669] text-primary-foreground font-bold px-6"
               >
                 {isSubmittingQuiz ? (
                   <>
@@ -302,24 +302,24 @@ export default function QuizPage() {
     return (
       <div className="max-w-3xl mx-auto space-y-8">
         {/* Results Banner */}
-        <Card className="border-[#1F2937] bg-[#111827] overflow-hidden relative">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-[#10B981]/5 via-transparent to-transparent pointer-events-none" />
+        <Card className="border-border bg-card overflow-hidden relative">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none" />
           <CardContent className="py-8 text-center space-y-4">
-            <Award className="h-12 w-12 text-[#10B981] mx-auto" />
+            <Award className="h-12 w-12 text-primary mx-auto" />
             <div className="space-y-1">
-              <span className="text-xs uppercase tracking-widest text-slate-500 font-bold">
+              <span className="text-xs uppercase tracking-widest text-muted-foreground font-bold">
                 Assessment Completed
               </span>
-              <h3 className="text-3xl font-extrabold text-white">
-                Score: <span className="text-[#10B981]">{quizResults.score} / {quizResults.totalQuestions}</span>
+              <h3 className="text-3xl font-extrabold text-foreground">
+                Score: <span className="text-primary">{quizResults.score} / {quizResults.totalQuestions}</span>
               </h3>
-              <p className="text-slate-400 text-sm">
-                You achieved a score of <span className="text-white font-semibold">{quizResults.percentage}%</span> on this topic.
+              <p className="text-muted-foreground text-sm">
+                You achieved a score of <span className="text-foreground font-semibold">{quizResults.percentage}%</span> on this topic.
               </p>
             </div>
             <Button
               onClick={handleCloseResults}
-              className="bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-semibold"
+              className="bg-primary hover:bg-[#059669] text-primary-foreground font-semibold"
             >
               Back to Topic List
             </Button>
@@ -328,27 +328,27 @@ export default function QuizPage() {
 
         {/* Detailed Review */}
         <div className="space-y-4">
-          <h4 className="text-white font-bold text-base">Question Review</h4>
+          <h4 className="text-foreground font-bold text-base">Question Review</h4>
           {quizResults.results.map((result, idx) => (
-            <Card key={result.id} className="border-[#1F2937] bg-[#111827]">
+            <Card key={result.id} className="border-border bg-card">
               <CardHeader className="pb-3">
                 <div className="flex justify-between items-start gap-4">
-                  <span className="text-xs text-slate-500 font-semibold uppercase">
+                  <span className="text-xs text-muted-foreground font-semibold uppercase">
                     Question {idx + 1}
                   </span>
                   {result.isCorrect ? (
-                    <span className="inline-flex items-center gap-1 text-[#10B981] text-xs font-semibold bg-[#10B981]/10 px-2 py-0.5 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-primary text-xs font-semibold bg-primary/10 px-2 py-0.5 rounded-full">
                       <CheckCircle className="h-3.5 w-3.5" />
                       Correct
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-[#EF4444] text-xs font-semibold bg-[#EF4444]/10 px-2 py-0.5 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-destructive text-xs font-semibold bg-destructive/10 px-2 py-0.5 rounded-full">
                       <XCircle className="h-3.5 w-3.5" />
                       Incorrect
                     </span>
                   )}
                 </div>
-                <CardTitle className="text-white text-sm font-semibold leading-relaxed mt-2">
+                <CardTitle className="text-foreground text-sm font-semibold leading-relaxed mt-2">
                   {result.question}
                 </CardTitle>
               </CardHeader>
@@ -358,12 +358,12 @@ export default function QuizPage() {
                   {result.options.map((option, oIdx) => {
                     const isCorrectOption = oIdx === result.correct
                     const isSelectedOption = oIdx === result.selected
-                    let optionStyle = "border-[#1F2937] bg-[#0A0F1E]/30 text-slate-400"
+                    let optionStyle = "border-border bg-background/30 text-muted-foreground"
                     
                     if (isCorrectOption) {
-                      optionStyle = "border-[#10B981]/50 bg-[#10B981]/5 text-white"
+                      optionStyle = "border-primary/50 bg-primary/5 text-foreground"
                     } else if (isSelectedOption && !result.isCorrect) {
-                      optionStyle = "border-red-500/50 bg-red-500/5 text-white"
+                      optionStyle = "border-red-500/50 bg-red-500/5 text-foreground"
                     }
 
                     return (
@@ -374,10 +374,10 @@ export default function QuizPage() {
                         <div
                           className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 text-[10px] font-bold ${
                             isCorrectOption
-                              ? "border-[#10B981] text-[#10B981]"
+                              ? "border-primary text-primary"
                               : isSelectedOption
                               ? "border-red-500 text-red-500"
-                              : "border-[#374151] text-slate-500"
+                              : "border-[#374151] text-muted-foreground"
                           }`}
                         >
                           {String.fromCharCode(65 + oIdx)}
@@ -389,12 +389,12 @@ export default function QuizPage() {
                 </div>
 
                 {/* Explanation */}
-                <div className="mt-4 p-4 rounded-xl bg-[#0A0F1E]/50 border border-[#1F2937] space-y-1.5">
-                  <span className="text-[10px] uppercase font-bold text-[#10B981] tracking-wider flex items-center gap-1">
+                <div className="mt-4 p-4 rounded-xl bg-background/50 border border-border space-y-1.5">
+                  <span className="text-[10px] uppercase font-bold text-primary tracking-wider flex items-center gap-1">
                     <GraduationCap className="h-3.5 w-3.5" />
                     Tutor Explanation
                   </span>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     {result.explanation}
                   </p>
                 </div>

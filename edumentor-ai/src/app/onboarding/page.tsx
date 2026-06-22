@@ -40,33 +40,33 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] text-slate-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <ScrollReveal variant="slideUp" className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
-          <div className="p-2 bg-[#10B981]/10 rounded-lg text-[#10B981]">
+          <div className="p-2 bg-primary/10 rounded-lg text-primary">
             <Terminal className="h-6 w-6" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-white">
-            EduMentor<span className="text-[#10B981]">AI</span>
+          <span className="font-bold text-xl tracking-tight text-foreground">
+            EduMentor<span className="text-primary">AI</span>
           </span>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
+        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
           Welcome to EduMentor AI!
         </h2>
-        <p className="mt-2 text-center text-slate-400">
+        <p className="mt-2 text-center text-muted-foreground">
           Let&apos;s personalize your learning experience.
         </p>
       </ScrollReveal>
 
       <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
-        <Card className="border-[#1F2937] bg-[#111827]">
+        <Card className="border-border bg-card">
           <form onSubmit={handleSubmit}>
             <CardHeader>
-              <CardTitle className="text-white text-lg flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-[#10B981]" />
+              <CardTitle className="text-foreground text-lg flex items-center gap-2">
+                <BookOpen className="h-5 w-5 text-primary" />
                 Personalize Your Path
               </CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-muted-foreground">
                 These settings will shape how your AI tutor explains concepts and decides quiz difficulties.
               </CardDescription>
             </CardHeader>
@@ -74,8 +74,8 @@ export default function OnboardingPage() {
             <CardContent className="space-y-6">
               {/* Language Selection */}
               <div className="space-y-3">
-                <Label className="text-slate-300 text-sm font-semibold flex items-center gap-2">
-                  <Terminal className="h-4 w-4 text-[#10B981]" />
+                <Label className="text-muted-foreground text-sm font-semibold flex items-center gap-2">
+                  <Terminal className="h-4 w-4 text-primary" />
                   What do you want to learn?
                 </Label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -88,8 +88,8 @@ export default function OnboardingPage() {
                         onClick={() => setLearningTopic(lang)}
                         className={`text-center py-2.5 px-3 rounded-xl border transition-all duration-200 ${
                           isSelected
-                            ? "border-[#10B981] bg-[#10B981]/10 text-[#10B981] font-bold"
-                            : "border-[#1F2937] bg-[#0A0F1E]/50 text-slate-400 hover:border-[#374151] hover:text-slate-200"
+                            ? "border-primary bg-primary/10 text-primary font-bold"
+                            : "border-border bg-background/50 text-muted-foreground hover:border-[#374151] hover:text-slate-200"
                         }`}
                       >
                         {lang}
@@ -101,8 +101,8 @@ export default function OnboardingPage() {
 
               {/* Skill Level Selection */}
               <div className="space-y-3">
-                <Label className="text-slate-300 text-sm font-semibold flex items-center gap-2">
-                  <Award className="h-4 w-4 text-[#10B981]" />
+                <Label className="text-muted-foreground text-sm font-semibold flex items-center gap-2">
+                  <Award className="h-4 w-4 text-primary" />
                   What is your current level in {learningTopic}?
                 </Label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -128,15 +128,15 @@ export default function OnboardingPage() {
                         onClick={() => setSkillLevel(level.name as any)}
                         className={`text-left p-4 rounded-xl border transition-all duration-200 ${
                           isSelected
-                            ? "border-[#10B981] bg-[#10B981]/5 text-white"
-                            : "border-[#1F2937] bg-[#0A0F1E]/50 text-slate-400 hover:border-[#374151]"
+                            ? "border-primary bg-primary/5 text-foreground"
+                            : "border-border bg-background/50 text-muted-foreground hover:border-[#374151]"
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <span className={`font-semibold ${isSelected ? "text-[#10B981]" : "text-slate-200"}`}>
+                          <span className={`font-semibold ${isSelected ? "text-primary" : "text-slate-200"}`}>
                             {level.name}
                           </span>
-                          {isSelected && <Check className="h-4 w-4 text-[#10B981]" />}
+                          {isSelected && <Check className="h-4 w-4 text-primary" />}
                         </div>
                         <span className="text-xs leading-relaxed block">{level.desc}</span>
                       </button>
@@ -147,14 +147,14 @@ export default function OnboardingPage() {
 
               {/* Learning Goals */}
               <div className="space-y-2">
-                <Label htmlFor="goal" className="text-slate-300 text-sm font-semibold">
+                <Label htmlFor="goal" className="text-muted-foreground text-sm font-semibold">
                   What is your main learning goal?
                 </Label>
                 <Input
                   id="goal"
                   type="text"
                   placeholder="e.g. Build web scrapers, pass my college exam, build machine learning models"
-                  className="border-[#1F2937] bg-[#0A0F1E] text-white focus-visible:ring-[#10B981]"
+                  className="border-border bg-background text-foreground focus-visible:ring-primary"
                   value={learningGoal}
                   onChange={(e) => setLearningGoal(e.target.value)}
                   disabled={isSubmitting}
@@ -163,8 +163,8 @@ export default function OnboardingPage() {
 
               {/* Study Time */}
               <div className="space-y-3">
-                <Label htmlFor="studyTime" className="text-slate-300 text-sm font-semibold flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-[#10B981]" />
+                <Label htmlFor="studyTime" className="text-muted-foreground text-sm font-semibold flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-primary" />
                   How much time do you want to dedicate daily?
                 </Label>
                 <div className="flex items-center gap-4">
@@ -173,12 +173,12 @@ export default function OnboardingPage() {
                     type="number"
                     min="5"
                     max="180"
-                    className="w-24 border-[#1F2937] bg-[#0A0F1E] text-white focus-visible:ring-[#10B981]"
+                    className="w-24 border-border bg-background text-foreground focus-visible:ring-primary"
                     value={dailyStudyMinutes}
                     onChange={(e) => setDailyStudyMinutes(e.target.value)}
                     disabled={isSubmitting}
                   />
-                  <span className="text-slate-400 text-sm">minutes per day</span>
+                  <span className="text-muted-foreground text-sm">minutes per day</span>
                 </div>
               </div>
             </CardContent>
@@ -187,7 +187,7 @@ export default function OnboardingPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold py-6 text-base"
+                className="w-full bg-primary hover:bg-[#059669] text-primary-foreground font-bold py-6 text-base"
               >
                 {isSubmitting ? (
                   "Saving Preferences..."

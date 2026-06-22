@@ -3,24 +3,24 @@ import { LandingFooter } from "@/components/layout/LandingFooter"
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#0A0F1E] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <LandingHeader />
 
       <main className="flex-1 pb-24 pt-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">Privacy Policy</h1>
-          <p className="text-slate-400 mb-12">Last updated: 22 Jun 2026</p>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-2">Privacy Policy</h1>
+          <p className="text-muted-foreground mb-12">Last updated: 22 Jun 2026</p>
           
-          <div className="space-y-8 text-slate-300 leading-relaxed">
+          <div className="space-y-8 text-muted-foreground leading-relaxed">
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">1. Information We Collect</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-4">1. Information We Collect</h2>
               <p>
                 We collect information you provide directly to us, such as when you create or modify your account, request on-demand services, contact customer support, or otherwise communicate with us. This information may include: name, email, avatar image, and learning preferences.
               </p>
             </section>
             
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">2. How We Use Your Information</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-4">2. How We Use Your Information</h2>
               <p>
                 We use the information we collect about you to:
               </p>
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
             </section>
             
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">3. Data Storage and Security</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-4">3. Data Storage and Security</h2>
               <p>
                 We use industry standard security measures to protect your data. Your personal API keys (if provided) are stored securely and used only for communicating directly with the AI providers on your behalf.
               </p>

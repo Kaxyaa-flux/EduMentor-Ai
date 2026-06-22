@@ -5,15 +5,15 @@ import { LandingFooter } from "@/components/layout/LandingFooter"
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-[#0A0F1E] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <LandingHeader />
 
       <main className="flex-1 pb-24">
         <div className="pt-20 pb-16 text-center px-4">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Choose the plan that fits your learning goals. Upgrade anytime to accelerate your progress with our advanced AI features.
           </p>
         </div>
@@ -21,13 +21,13 @@ export default function PricingPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           
           {/* Free Plan */}
-          <div className="p-8 rounded-3xl border border-[#1F2937] bg-[#111827]/50 flex flex-col">
+          <div className="p-8 rounded-3xl border border-border bg-card/50 flex flex-col">
             <div className="mb-8">
-              <h3 className="text-2xl font-bold text-white mb-2">Hobby</h3>
-              <p className="text-slate-400">Perfect for trying out EduMentor AI and learning the basics.</p>
+              <h3 className="text-2xl font-bold text-foreground mb-2">Hobby</h3>
+              <p className="text-muted-foreground">Perfect for trying out EduMentor AI and learning the basics.</p>
               <div className="mt-6 flex items-baseline gap-2">
-                <span className="text-5xl font-bold text-white">$0</span>
-                <span className="text-slate-400 font-medium">/month</span>
+                <span className="text-5xl font-bold text-foreground">$0</span>
+                <span className="text-muted-foreground font-medium">/month</span>
               </div>
             </div>
             
@@ -38,8 +38,8 @@ export default function PricingPage() {
                 "Basic adaptive quizzes",
                 "Community support",
               ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-slate-300">
-                  <Check className="h-5 w-5 text-[#10B981] shrink-0 mt-0.5" />
+                <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                  <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -47,27 +47,27 @@ export default function PricingPage() {
 
             <Link
               href="/register"
-              className="w-full py-4 rounded-xl border border-[#1F2937] bg-transparent hover:bg-[#1F2937] text-white font-semibold text-center transition-all"
+              className="w-full py-4 rounded-xl border border-border bg-transparent hover:bg-accent text-foreground font-semibold text-center transition-all"
             >
               Get Started for Free
             </Link>
           </div>
 
           {/* Pro Plan */}
-          <div className="p-8 rounded-3xl border border-[#10B981]/30 bg-[#10B981]/5 flex flex-col relative overflow-hidden">
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#10B981] to-[#6366F1]" />
+          <div className="p-8 rounded-3xl border border-primary/30 bg-primary/5 flex flex-col relative overflow-hidden">
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary to-secondary" />
             <div className="absolute top-6 right-8">
-              <span className="bg-[#10B981]/10 text-[#10B981] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              <span className="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                 Most Popular
               </span>
             </div>
             
             <div className="mb-8">
-              <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
-              <p className="text-slate-400">For serious learners who want to master coding faster.</p>
+              <h3 className="text-2xl font-bold text-foreground mb-2">Pro</h3>
+              <p className="text-muted-foreground">For serious learners who want to master coding faster.</p>
               <div className="mt-6 flex items-baseline gap-2">
-                <span className="text-5xl font-bold text-white">$15</span>
-                <span className="text-slate-400 font-medium">/month</span>
+                <span className="text-5xl font-bold text-foreground">$15</span>
+                <span className="text-muted-foreground font-medium">/month</span>
               </div>
             </div>
             
@@ -79,8 +79,8 @@ export default function PricingPage() {
                 "Priority email support",
                 "Custom learning roadmaps",
               ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-slate-300">
-                  <Check className="h-5 w-5 text-[#10B981] shrink-0 mt-0.5" />
+                <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                  <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -88,7 +88,7 @@ export default function PricingPage() {
 
             <Link
               href="/register"
-              className="w-full py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold text-center transition-all shadow-lg shadow-[#10B981]/15"
+              className="w-full py-4 rounded-xl bg-primary hover:bg-[#059669] text-primary-foreground font-bold text-center transition-all shadow-lg shadow-primary/15"
             >
               Upgrade to Pro
             </Link>

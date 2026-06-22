@@ -1,5 +1,3 @@
-"use client"
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut, useSession } from "next-auth/react"
@@ -14,6 +12,7 @@ import {
   User,
   Terminal,
 } from "lucide-react"
+import { ThemeToggle } from "@/components/ui/ThemeToggle"
 
 const menuItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -28,8 +27,7 @@ export default function Sidebar() {
   const { data: session } = useSession()
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
 
-  // Fetch avatar from DB on mount — avoids relying on JWT cookie
-  // which can't hold large base64 image strings
+  // Fetch avatar from DB on mount
   useEffect(() => {
     if (!session?.user?.id) return
     fetch("/api/settings/profile")
@@ -37,10 +35,10 @@ export default function Sidebar() {
       .then(data => {
         if (data?.avatarUrl) setAvatarUrl(data.avatarUrl)
       })
-      .catch(() => {}) // silently fail — avatar is cosmetic
+      .catch(() => {})
   }, [session?.user?.id])
 
-  // Also listen for a custom event fired by Settings page after a successful save
+  // Listen for custom event
   useEffect(() => {
     const handler = (e: CustomEvent) => {
       if (e.detail?.avatarUrl !== undefined) setAvatarUrl(e.detail.avatarUrl)
@@ -50,14 +48,14 @@ export default function Sidebar() {
   }, [])
 
   return (
-    <aside className="w-64 border-r border-[#1F2937] bg-[#111827] flex flex-col h-screen fixed left-0 top-0">
+    <aside className="w-64 border-r border-sidebar-border bg-sidebar flex flex-col h-screen fixed left-0 top-0">
       {/* Brand Logo */}
-      <div className="h-16 flex items-center gap-2 px-6 border-b border-[#1F2937]">
-        <div className="p-1.5 bg-[#10B981]/10 rounded-md text-[#10B981]">
+      <div className="h-16 flex items-center gap-2 px-6 border-b border-sidebar-border">
+        <div className="p-1.5 bg-sidebar-primary/10 rounded-md text-sidebar-primary">
           <Terminal className="h-5 w-5" />
         </div>
-        <span className="font-bold text-lg tracking-tight text-white">
-          EduMentor<span className="text-[#10B981]">AI</span>
+        <span className="font-bold text-lg tracking-tight text-sidebar-foreground">
+          EduMentor<span className="text-sidebar-primary">AI</span>
         </span>
       </div>
 
@@ -74,8 +72,8 @@ export default function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-[#10B981]/10 text-[#10B981]"
-                  : "text-slate-400 hover:text-white hover:bg-[#1F2937]/50"
+                  ? "bg-sidebar-primary/10 text-sidebar-primary"
+                  : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent"
               }`}
             >
               <Icon className="h-5 w-5" />
@@ -85,32 +83,39 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* User Info & Logout */}
-      <div className="p-4 border-t border-[#1F2937] bg-[#0A0F1E]/50">
-        <div className="flex items-center gap-3 mb-4 px-2">
-          <div className="h-9 w-9 rounded-full bg-[#6366F1]/10 flex items-center justify-center shrink-0 border border-[#6366F1]/20 overflow-hidden">
+      {/* User Info & Actions */}
+      <div className="p-4 border-t border-sidebar-border bg-sidebar-accent/50 space-y-3">
+        <div className="flex items-center gap-3 px-2">
+          <div className="h-9 w-9 rounded-full bg-sidebar-primary/10 flex items-center justify-center shrink-0 border border-sidebar-primary/20 overflow-hidden">
             {avatarUrl ? (
               <img src={avatarUrl} alt="Avatar" className="h-full w-full object-cover" />
             ) : (
-              <User className="h-4 w-4 text-[#6366F1]" />
+              <User className="h-4 w-4 text-sidebar-primary" />
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-white truncate">
+            <p className="text-sm font-semibold text-sidebar-foreground truncate">
               {session?.user?.name || "Student"}
             </p>
-            <p className="text-xs text-slate-500 truncate">
+            <p className="text-xs text-sidebar-foreground/60 truncate">
               {session?.user?.email}
             </p>
           </div>
         </div>
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-[#1F2937] hover:border-red-500/30 text-slate-400 hover:text-red-400 bg-transparent hover:bg-red-500/5 transition-all duration-200 text-sm font-semibold cursor-pointer"
-        >
-          <LogOut className="h-4 w-4" />
-          <span>Sign Out</span>
-        </button>
+        
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-sidebar-border hover:border-destructive/30 text-sidebar-foreground/70 hover:text-destructive bg-transparent hover:bg-destructive/10 transition-all duration-200 text-sm font-semibold cursor-pointer"
+          >
+            <LogOut className="h-4 w-4" />
+            <span>Sign Out</span>
+          </button>
+          
+          <div className="flex-shrink-0">
+            <ThemeToggle />
+          </div>
+        </div>
       </div>
     </aside>
   )

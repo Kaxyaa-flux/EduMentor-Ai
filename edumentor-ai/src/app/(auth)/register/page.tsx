@@ -88,10 +88,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
       <Link 
         href="/" 
-        className="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors group"
+        className="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 transition-transform group-hover:-translate-x-1"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
         Back to home
@@ -99,92 +99,92 @@ export default function RegisterPage() {
 
       <ScrollReveal variant="slideUp" className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
-          <div className="p-2 bg-[#10B981]/10 rounded-lg text-[#10B981]">
+          <div className="p-2 bg-primary/10 rounded-lg text-primary">
             <Terminal className="h-6 w-6" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-white">
-            EduMentor<span className="text-[#10B981]">AI</span>
+          <span className="font-bold text-xl tracking-tight text-foreground">
+            EduMentor<span className="text-primary">AI</span>
           </span>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
+        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
           Create your account
         </h2>
       </ScrollReveal>
 
       <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <Card className="border-[#1F2937] bg-[#111827]">
+        <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle className="text-white text-lg">Join the Platform</CardTitle>
-            <CardDescription className="text-slate-400">
+            <CardTitle className="text-foreground text-lg">Join the Platform</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Enter your details to start your personalized learning journey.
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
             <CardContent className="space-y-4">
               {error && (
-                <div className="p-3 bg-red-500/10 border border-red-500/20 text-[#EF4444] rounded-lg text-sm flex items-center gap-2">
+                <div className="p-3 bg-red-500/10 border border-red-500/20 text-destructive rounded-lg text-sm flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4 shrink-0" />
                   <span>{error}</span>
                 </div>
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-slate-300">
+                <Label htmlFor="name" className="text-muted-foreground">
                   Full Name
                 </Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-slate-500" />
+                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="name"
                     type="text"
                     placeholder="John Doe"
-                    className="pl-10 border-[#1F2937] bg-[#0A0F1E] text-white focus-visible:ring-[#10B981]"
+                    className="pl-10 border-border bg-background text-foreground focus-visible:ring-primary"
                     {...register("name")}
                     disabled={isLoading}
                   />
                 </div>
                 {errors.name && (
-                  <p className="text-xs text-[#EF4444]">{errors.name.message}</p>
+                  <p className="text-xs text-destructive">{errors.name.message}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-300">
+                <Label htmlFor="email" className="text-muted-foreground">
                   Email address
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-500" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="name@example.com"
-                    className="pl-10 border-[#1F2937] bg-[#0A0F1E] text-white focus-visible:ring-[#10B981]"
+                    className="pl-10 border-border bg-background text-foreground focus-visible:ring-primary"
                     {...register("email")}
                     disabled={isLoading}
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-xs text-[#EF4444]">{errors.email.message}</p>
+                  <p className="text-xs text-destructive">{errors.email.message}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-slate-300">
+                <Label htmlFor="password" className="text-muted-foreground">
                   Password
                 </Label>
                 <div className="relative">
-                  <Key className="absolute left-3 top-3 h-4 w-4 text-slate-500" />
+                  <Key className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
                     type="password"
                     placeholder="••••••••"
-                    className="pl-10 border-[#1F2937] bg-[#0A0F1E] text-white focus-visible:ring-[#10B981]"
+                    className="pl-10 border-border bg-background text-foreground focus-visible:ring-primary"
                     {...register("password")}
                     disabled={isLoading}
                   />
                 </div>
                 {errors.password && (
-                  <p className="text-xs text-[#EF4444]">
+                  <p className="text-xs text-destructive">
                     {errors.password.message}
                   </p>
                 )}
@@ -194,7 +194,7 @@ export default function RegisterPage() {
             <CardFooter className="flex flex-col gap-4">
               <Button
                 type="submit"
-                className="w-full bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-semibold"
+                className="w-full bg-primary hover:bg-[#059669] text-primary-foreground font-semibold"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -206,11 +206,11 @@ export default function RegisterPage() {
                   "Sign Up"
                 )}
               </Button>
-              <div className="text-center text-sm text-slate-400">
+              <div className="text-center text-sm text-muted-foreground">
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="text-[#10B981] hover:underline"
+                  className="text-primary hover:underline"
                 >
                   Sign in
                 </Link>
