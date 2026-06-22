@@ -53,6 +53,7 @@ interface AppState {
   
   fetchPreferences: () => Promise<UserPreference | null>
   savePreferences: (data: {
+    learningTopic: string
     skillLevel: string
     learningGoal?: string
     dailyStudyMinutes?: number
