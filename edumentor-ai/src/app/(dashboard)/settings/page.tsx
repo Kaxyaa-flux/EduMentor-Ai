@@ -401,7 +401,7 @@ export default function SettingsPage() {
             <textarea
               value={learningGoal}
               onChange={e => setLearningGoal(e.target.value)}
-              placeholder="e.g. Get a job as a Python developer, build web apps, learn data science..."
+              placeholder="e.g. Get a software engineering job, build web apps, learn data science..."
               rows={3}
               className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-slate-600 focus:outline-none focus:border-primary/50 transition-colors text-sm resize-none"
             />
