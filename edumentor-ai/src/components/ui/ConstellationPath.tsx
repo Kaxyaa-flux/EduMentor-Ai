@@ -34,7 +34,7 @@ function TwinklingStar({ star, index, totalStars }: { star: Star; index: number;
           y1={star.y}
           x2={star.x} // placeholder, overridden by next star
           y2={star.y}
-          stroke={star.completed ? "#10B981" : "#374151"}
+          stroke={star.completed ? "var(--primary)" : "var(--muted-foreground)"}
           strokeWidth={1}
           strokeDasharray="4 4"
           animate={!prefersReduced ? { strokeDashoffset: [-20, 0] } : {}}
@@ -49,7 +49,7 @@ function TwinklingStar({ star, index, totalStars }: { star: Star; index: number;
           cy={star.y}
           r={18}
           fill="none"
-          stroke="#10B981"
+          stroke="var(--primary)"
           strokeWidth={0.8}
           animate={{ r: [14, 22, 14], opacity: [0.6, 0, 0.6] }}
           transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.4 }}
@@ -61,15 +61,15 @@ function TwinklingStar({ star, index, totalStars }: { star: Star; index: number;
         cx={star.x}
         cy={star.y}
         r={hovered ? 13 : 10}
-        fill={star.completed ? "#10B981" : "#111827"}
-        stroke={star.completed ? "#34D399" : hovered ? "#6B7280" : "#374151"}
+        fill={star.completed ? "var(--primary)" : "var(--card)"}
+        stroke={star.completed ? "var(--success)" : hovered ? "var(--muted-foreground)" : "var(--border)"}
         strokeWidth={star.completed ? 2 : 1.5}
         style={{
           cursor: "pointer",
-          filter: star.completed ? "drop-shadow(0 0 8px #10B98180)" : "none",
+          filter: star.completed ? "drop-shadow(0 0 8px var(--primary))" : "none",
         }}
         animate={!prefersReduced && star.completed
-          ? { fill: ["#10B981", "#34D399", "#10B981"] }
+          ? { fill: ["var(--primary)", "var(--success)", "var(--primary)"] }
           : {}}
         transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
         onMouseEnter={() => setHovered(true)}
@@ -78,14 +78,14 @@ function TwinklingStar({ star, index, totalStars }: { star: Star; index: number;
 
       {/* Star checkmark for completed */}
       {star.completed && (
-        <text x={star.x} y={star.y} textAnchor="middle" dominantBaseline="central" fontSize={10} fill="white" style={{ pointerEvents: "none" }}>
+        <text x={star.x} y={star.y} textAnchor="middle" dominantBaseline="central" fontSize={10} fill="var(--primary-foreground)" style={{ pointerEvents: "none" }}>
           ✓
         </text>
       )}
 
       {/* Star number for incomplete */}
       {!star.completed && (
-        <text x={star.x} y={star.y} textAnchor="middle" dominantBaseline="central" fontSize={9} fill="#6B7280" style={{ pointerEvents: "none" }}>
+        <text x={star.x} y={star.y} textAnchor="middle" dominantBaseline="central" fontSize={9} fill="var(--muted-foreground)" style={{ pointerEvents: "none" }}>
           {index + 1}
         </text>
       )}
@@ -96,7 +96,7 @@ function TwinklingStar({ star, index, totalStars }: { star: Star; index: number;
         y={star.y + 20}
         textAnchor="middle"
         fontSize={9}
-        fill={star.completed ? "#10B981" : "#6B7280"}
+        fill={star.completed ? "var(--primary)" : "var(--muted-foreground)"}
         fontWeight={star.completed ? "600" : "400"}
         style={{ pointerEvents: "none" }}
       >
@@ -106,8 +106,8 @@ function TwinklingStar({ star, index, totalStars }: { star: Star; index: number;
       {/* Hover tooltip */}
       {hovered && star.description && (
         <g>
-          <rect x={star.x - 50} y={star.y - 48} width={100} height={30} rx={6} fill="#1F2937" stroke="#374151" />
-          <text x={star.x} y={star.y - 30} textAnchor="middle" fontSize={9} fill="#D1D5DB">
+          <rect x={star.x - 50} y={star.y - 48} width={100} height={30} rx={6} fill="var(--card)" stroke="var(--border)" />
+          <text x={star.x} y={star.y - 30} textAnchor="middle" fontSize={9} fill="var(--foreground)">
             {star.description}
           </text>
         </g>
@@ -145,10 +145,10 @@ export function ConstellationPath({ stars = DEFAULT_STARS, className = "" }: Con
   const scaledStars = stars.map((s) => ({ ...s, x: s.x * scale + 20, y: s.y }))
 
   return (
-    <div className={`w-full rounded-2xl border border-[#1F2937] bg-[#080D1A] overflow-hidden p-4 ${className}`}>
+    <div className={`w-full rounded-2xl border border-border bg-card overflow-hidden p-4 ${className}`}>
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-[#10B981] text-sm font-semibold">✨ Learning Constellation</span>
-        <span className="text-xs text-slate-500">Your path through the curriculum</span>
+        <span className="text-primary text-sm font-semibold">✨ Learning Constellation</span>
+        <span className="text-xs text-muted-foreground">Your path through the curriculum</span>
       </div>
 
       <svg ref={svgRef} width="100%" height={140} viewBox={`0 0 ${svgWidth} 140`}>
@@ -163,7 +163,7 @@ export function ConstellationPath({ stars = DEFAULT_STARS, className = "" }: Con
               y1={star.y}
               x2={next.x}
               y2={next.y}
-              stroke={star.completed && next.completed ? "#10B981" : "#1F2937"}
+              stroke={star.completed && next.completed ? "var(--primary)" : "var(--border)"}
               strokeWidth={1}
               strokeDasharray="5 5"
               initial={{ pathLength: 0 }}
@@ -181,15 +181,15 @@ export function ConstellationPath({ stars = DEFAULT_STARS, className = "" }: Con
 
       {/* Legend */}
       <div className="flex items-center gap-4 mt-2 px-2">
-        <div className="flex items-center gap-1.5 text-xs text-slate-400">
-          <div className="w-3 h-3 rounded-full bg-[#10B981]" />
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <div className="w-3 h-3 rounded-full bg-primary" />
           Completed
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-slate-400">
-          <div className="w-3 h-3 rounded-full bg-[#111827] border border-[#374151]" />
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <div className="w-3 h-3 rounded-full bg-card border border-border" />
           Upcoming
         </div>
-        <div className="ml-auto text-xs text-slate-500">
+        <div className="ml-auto text-xs text-muted-foreground">
           {stars.filter((s) => s.completed).length}/{stars.length} complete
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTheme } from "next-themes"
 
 interface Node {
   x: number
@@ -18,11 +19,17 @@ interface Pulse {
   speed: number
 }
 
+function hexToRgb(hex: string) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex.trim())
+  return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : "139, 92, 246"
+}
+
 export function NeuralNetworkBackground({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef = useRef<number>(0)
   const nodesRef = useRef<Node[]>([])
   const pulsesRef = useRef<Pulse[]>([])
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -57,6 +64,11 @@ export function NeuralNetworkBackground({ className = "" }: { className?: string
       const nodes = nodesRef.current
       const pulses = pulsesRef.current
 
+      // Determine color from theme
+      const computedStyle = getComputedStyle(document.documentElement)
+      const primaryHex = computedStyle.getPropertyValue("--primary") || "#8B5CF6"
+      const rgbColor = hexToRgb(primaryHex)
+
       // Occasionally spawn a new pulse
       if (timestamp - lastPulseTime > 1800 && nodes.length >= 2) {
         lastPulseTime = timestamp
@@ -85,7 +97,7 @@ export function NeuralNetworkBackground({ className = "" }: { className?: string
           if (dist < MAX_DIST) {
             const alpha = (1 - dist / MAX_DIST) * 0.15
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`
+            ctx.strokeStyle = `rgba(${rgbColor}, ${alpha})`
             ctx.lineWidth = 0.8
             ctx.moveTo(nodes[i].x, nodes[i].y)
             ctx.lineTo(nodes[j].x, nodes[j].y)
@@ -108,8 +120,8 @@ export function NeuralNetworkBackground({ className = "" }: { className?: string
         const px = a.x + (b.x - a.x) * pulse.progress
         const py = a.y + (b.y - a.y) * pulse.progress
         const grad = ctx.createRadialGradient(px, py, 0, px, py, 8)
-        grad.addColorStop(0, "rgba(16, 185, 129, 0.8)")
-        grad.addColorStop(1, "rgba(16, 185, 129, 0)")
+        grad.addColorStop(0, `rgba(${rgbColor}, 0.8)`)
+        grad.addColorStop(1, `rgba(${rgbColor}, 0)`)
         ctx.beginPath()
         ctx.fillStyle = grad
         ctx.arc(px, py, 8, 0, Math.PI * 2)
@@ -123,15 +135,15 @@ export function NeuralNetworkBackground({ className = "" }: { className?: string
         const glow = Math.sin(n.pulsePhase) * 0.5 + 0.5
         const r = n.radius + glow * 1.5
         const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 3)
-        grad.addColorStop(0, `rgba(16, 185, 129, ${0.5 + glow * 0.3})`)
-        grad.addColorStop(1, "rgba(16, 185, 129, 0)")
+        grad.addColorStop(0, `rgba(${rgbColor}, ${0.5 + glow * 0.3})`)
+        grad.addColorStop(1, `rgba(${rgbColor}, 0)`)
         ctx.beginPath()
         ctx.fillStyle = grad
         ctx.arc(n.x, n.y, r * 3, 0, Math.PI * 2)
         ctx.fill()
 
         ctx.beginPath()
-        ctx.fillStyle = `rgba(16, 185, 129, ${0.6 + glow * 0.3})`
+        ctx.fillStyle = `rgba(${rgbColor}, ${0.6 + glow * 0.3})`
         ctx.arc(n.x, n.y, r, 0, Math.PI * 2)
         ctx.fill()
       })
@@ -148,7 +160,7 @@ export function NeuralNetworkBackground({ className = "" }: { className?: string
       cancelAnimationFrame(rafRef.current)
       ro.disconnect()
     }
-  }, [])
+  }, [theme])
 
   return (
     <canvas

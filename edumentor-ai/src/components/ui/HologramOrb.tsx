@@ -28,7 +28,7 @@ export function HologramOrb({ state = "idle", size = 56, className = "", onClick
     >
       {/* Outer pulse ring */}
       <motion.div
-        className="absolute rounded-full border border-emerald-500/20"
+        className="absolute rounded-full border border-primary/20"
         style={{ width: outerSize, height: outerSize }}
         animate={
           state === "responding"
@@ -42,7 +42,7 @@ export function HologramOrb({ state = "idle", size = 56, className = "", onClick
 
       {/* Rotating ring */}
       <motion.div
-        className="absolute rounded-full border border-dashed border-emerald-400/30"
+        className="absolute rounded-full border border-dashed border-primary/30"
         style={{ width: ringSize, height: ringSize }}
         animate={{ rotate: state === "thinking" ? 360 : state === "responding" ? -720 : 360 }}
         transition={{
@@ -60,16 +60,16 @@ export function HologramOrb({ state = "idle", size = 56, className = "", onClick
           height: orbSize,
           background:
             state === "responding"
-              ? "radial-gradient(circle at 35% 35%, #34d399, #059669, #064e3b)"
+              ? "radial-gradient(circle at 35% 35%, #a78bfa, #7c3aed, #4c1d95)"
               : state === "thinking"
-              ? "radial-gradient(circle at 35% 35%, #6ee7b7, #10b981, #065f46)"
-              : "radial-gradient(circle at 35% 35%, #6ee7b7, #10b981, #064e3b)",
+              ? "radial-gradient(circle at 35% 35%, #c4b5fd, #8b5cf6, #5b21b6)"
+              : "radial-gradient(circle at 35% 35%, #c4b5fd, #8b5cf6, #4c1d95)",
           boxShadow:
             state === "responding"
-              ? "0 0 30px #10b98180, 0 0 60px #10b98140"
+              ? "0 0 30px #8b5cf680, 0 0 60px #8b5cf640"
               : state === "thinking"
-              ? "0 0 20px #10b98160, 0 0 40px #10b98130"
-              : "0 0 15px #10b98140, 0 0 30px #10b98120",
+              ? "0 0 20px #8b5cf660, 0 0 40px #8b5cf630"
+              : "0 0 15px #8b5cf640, 0 0 30px #8b5cf620",
         }}
         animate={
           state === "responding"
@@ -97,7 +97,7 @@ export function HologramOrb({ state = "idle", size = 56, className = "", onClick
           Array.from({ length: 4 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 rounded-full bg-emerald-300"
+              className="absolute w-1 h-1 rounded-full bg-primary"
               style={{ top: "50%", left: "50%" }}
               animate={{
                 x: Math.cos((i * Math.PI) / 2) * 40,
@@ -118,7 +118,7 @@ export function HologramOrb({ state = "idle", size = 56, className = "", onClick
       {/* State label */}
       {state === "thinking" && (
         <motion.div
-          className="absolute -bottom-6 text-[9px] font-semibold text-emerald-400/70 whitespace-nowrap"
+          className="absolute -bottom-6 text-[9px] font-semibold text-primary/70 whitespace-nowrap"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 1, repeat: Infinity }}
         >

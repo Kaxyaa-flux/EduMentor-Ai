@@ -137,7 +137,7 @@ export function AchievementPortal({ achievement, onComplete }: AchievementPortal
             >
               {achievement.title}
             </div>
-            <p className="text-[10px] text-slate-400 max-w-[100px]">{achievement.description}</p>
+            <p className="text-[10px] text-muted-foreground max-w-[100px]">{achievement.description}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -172,7 +172,7 @@ export function AchievementUnlock({ achievement }: { achievement: Achievement })
       {!showing && (
         <button
           onClick={() => setShowing(true)}
-          className="px-4 py-2 rounded-lg text-sm font-semibold text-white"
+          className="px-4 py-2 rounded-lg text-sm font-semibold text-foreground"
           style={{ background: `${achievement.color}20`, border: `1px solid ${achievement.color}40` }}
         >
           🏆 {achievement.title} — Unlock

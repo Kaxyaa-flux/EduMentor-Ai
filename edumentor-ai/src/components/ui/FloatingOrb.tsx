@@ -31,19 +31,19 @@ export function FloatingOrb() {
               opacity: isHovered ? 0.8 : [0.4, 0.6, 0.4]
             }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="absolute inset-0 bg-[#10B981] rounded-full blur-xl"
+            className="absolute inset-0 bg-primary rounded-full blur-xl"
           />
           
           {/* Inner sphere */}
-          <div className="relative h-14 w-14 rounded-full bg-gradient-to-br from-[#10B981] to-[#047857] flex items-center justify-center shadow-lg shadow-[#10B981]/50 border border-white/10">
-            <Bot className="h-6 w-6 text-white" />
+          <div className="relative h-14 w-14 rounded-full bg-gradient-to-br from-primary to-primary-foreground flex items-center justify-center shadow-lg shadow-primary/50 border border-white/10">
+            <Bot className="h-6 w-6 text-foreground" />
           </div>
 
           {/* Tooltip */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : 20 }}
-            className="absolute right-full mr-4 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[#111827] text-white px-3 py-1.5 rounded-lg text-sm border border-[#1F2937] shadow-xl pointer-events-none"
+            className="absolute right-full mr-4 top-1/2 -translate-y-1/2 whitespace-nowrap bg-card text-foreground px-3 py-1.5 rounded-lg text-sm border border-border shadow-xl pointer-events-none"
           >
             Chat with AI Tutor
           </motion.div>

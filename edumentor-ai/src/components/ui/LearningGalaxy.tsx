@@ -25,7 +25,7 @@ const DEMO_PLANETS: Planet[] = [
     id: "python",
     name: "Python",
     emoji: "🐍",
-    color: "#10B981",
+    color: "var(--primary)",
     description: "Variables, loops, functions, OOP",
     progress: 70,
     moons: [
@@ -40,7 +40,7 @@ const DEMO_PLANETS: Planet[] = [
     id: "js",
     name: "JavaScript",
     emoji: "⚡",
-    color: "#F59E0B",
+    color: "var(--warning)",
     description: "DOM, events, async, frameworks",
     progress: 30,
     moons: [
@@ -53,7 +53,7 @@ const DEMO_PLANETS: Planet[] = [
     id: "data",
     name: "Data Science",
     emoji: "📊",
-    color: "#6366F1",
+    color: "var(--secondary)",
     description: "NumPy, Pandas, Matplotlib",
     progress: 10,
     moons: [
@@ -65,7 +65,7 @@ const DEMO_PLANETS: Planet[] = [
     id: "web",
     name: "Web Dev",
     emoji: "🌐",
-    color: "#EC4899",
+    color: "var(--destructive)", // Using destructive or secondary as an accent
     description: "HTML, CSS, React, Next.js",
     progress: 50,
     moons: [
@@ -86,8 +86,8 @@ function MoonOrbit({ moon, index, total, orbitRadius }: { moon: Moon; index: num
         cx={x}
         cy={y}
         r={moon.completed ? 7 : 5}
-        fill={moon.completed ? "#10B981" : "#1F2937"}
-        stroke={moon.completed ? "#34D399" : "#374151"}
+        fill={moon.completed ? "var(--primary)" : "var(--border)"}
+        stroke={moon.completed ? "var(--success)" : "var(--muted-foreground)"}
         strokeWidth={1.5}
         animate={{ opacity: moon.completed ? [0.8, 1, 0.8] : [0.4, 0.6, 0.4] }}
         transition={{ duration: 2 + index * 0.5, repeat: Infinity }}
@@ -98,7 +98,7 @@ function MoonOrbit({ moon, index, total, orbitRadius }: { moon: Moon; index: num
           cy={y}
           r={12}
           fill="none"
-          stroke="#10B981"
+          stroke="var(--primary)"
           strokeWidth={0.8}
           animate={{ r: [10, 16, 10], opacity: [0.6, 0, 0.6] }}
           transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
@@ -129,7 +129,8 @@ function PlanetCard({ planet, isSelected, onClick, cx, cy }: {
         cy={cy}
         r={orbitRadius}
         fill="none"
-        stroke={`${planet.color}20`}
+        stroke={planet.color}
+        style={{ strokeOpacity: 0.2 }}
         strokeWidth={1}
         strokeDasharray="4 6"
       />
@@ -152,7 +153,7 @@ function PlanetCard({ planet, isSelected, onClick, cx, cy }: {
           filter: isSelected ? ["blur(0px)", "blur(1px)", "blur(0px)"] : [],
         }}
         transition={{ duration: 2.5, repeat: Infinity }}
-        style={{ filter: `drop-shadow(0 0 ${isSelected ? 20 : 10}px ${planet.color}80)` }}
+        style={{ filter: `drop-shadow(0 0 ${isSelected ? 20 : 10}px ${planet.color})` }}
       />
 
       {/* Planet emoji text */}
@@ -209,7 +210,7 @@ export function LearningGalaxy({ className = "" }: { className?: string }) {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full overflow-hidden rounded-2xl border border-[#1F2937] bg-[#080D1A] ${className}`}
+      className={`relative w-full overflow-hidden rounded-2xl border border-border bg-card ${className}`}
       style={{ minHeight: 340 }}
     >
       <NeuralNetworkBackground />
@@ -219,15 +220,15 @@ export function LearningGalaxy({ className = "" }: { className?: string }) {
         {Array.from({ length: 60 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-white"
+            className="absolute rounded-full bg-foreground"
             style={{
               width: Math.random() * 2 + 0.5,
               height: Math.random() * 2 + 0.5,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.5 + 0.1,
+              opacity: Math.random() * 0.3 + 0.05,
             }}
-            animate={{ opacity: [null, Math.random() * 0.8 + 0.1, null] }}
+            animate={{ opacity: [null, Math.random() * 0.5 + 0.1, null] }}
             transition={{ duration: 2 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5 }}
           />
         ))}
@@ -256,24 +257,23 @@ export function LearningGalaxy({ className = "" }: { className?: string }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="absolute bottom-4 right-4 w-56 rounded-xl p-4 z-20"
+            className="absolute bottom-4 right-4 w-56 rounded-xl p-4 z-20 bg-popover/90 backdrop-blur-md"
             style={{
-              background: `linear-gradient(135deg, ${selected.color}15, #111827ee)`,
-              border: `1px solid ${selected.color}40`,
+              border: `1px solid ${selected.color}`,
               boxShadow: `0 0 24px ${selected.color}30`,
             }}
           >
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xl">{selected.emoji}</span>
-              <span className="font-bold text-white text-sm">{selected.name}</span>
+              <span className="font-bold text-foreground text-sm">{selected.name}</span>
             </div>
-            <p className="text-xs text-slate-400 mb-3">{selected.description}</p>
+            <p className="text-xs text-muted-foreground mb-3">{selected.description}</p>
             <div className="space-y-1">
-              <div className="flex justify-between text-xs text-slate-400">
+              <div className="flex justify-between text-xs text-muted-foreground">
                 <span>Progress</span>
                 <span style={{ color: selected.color }}>{selected.progress}%</span>
               </div>
-              <div className="w-full h-1.5 bg-[#1F2937] rounded-full overflow-hidden">
+              <div className="w-full h-1.5 bg-accent rounded-full overflow-hidden">
                 <motion.div
                   className="h-full rounded-full"
                   style={{ background: selected.color }}
@@ -289,9 +289,9 @@ export function LearningGalaxy({ className = "" }: { className?: string }) {
                   key={m.id}
                   className="text-[10px] px-2 py-0.5 rounded-full font-medium"
                   style={{
-                    background: m.completed ? `${selected.color}20` : "#1F2937",
-                    color: m.completed ? selected.color : "#6B7280",
-                    border: `1px solid ${m.completed ? `${selected.color}40` : "#374151"}`,
+                    background: m.completed ? `${selected.color}20` : "transparent",
+                    color: m.completed ? selected.color : "var(--muted-foreground)",
+                    border: `1px solid ${m.completed ? `${selected.color}40` : "var(--border)"}`,
                   }}
                 >
                   {m.completed ? "✓ " : ""}{m.label}
@@ -302,7 +302,7 @@ export function LearningGalaxy({ className = "" }: { className?: string }) {
         )}
       </AnimatePresence>
 
-      <div className="absolute top-3 left-4 text-xs text-slate-500 font-medium z-10">
+      <div className="absolute top-3 left-4 text-xs text-muted-foreground font-medium z-10">
         🌌 Learning Galaxy — click a planet to explore
       </div>
     </div>

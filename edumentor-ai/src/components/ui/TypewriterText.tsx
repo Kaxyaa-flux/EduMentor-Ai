@@ -46,9 +46,9 @@ export function TypewriterText() {
   }, []) // Empty dependency array ensures smooth timing decoupled from renders
 
   return (
-    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#6366F1]">
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
       {text}
-      <span className="animate-pulse text-[#10B981] ml-1 opacity-70">|</span>
+      <span className="animate-pulse text-primary ml-1 opacity-70">|</span>
     </span>
   )
 }

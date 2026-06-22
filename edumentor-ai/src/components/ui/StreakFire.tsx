@@ -78,7 +78,7 @@ export function StreakFire({ streak, onMilestone, className = "" }: StreakFirePr
     return (
       <div className={`flex flex-col items-center gap-1 ${className}`}>
         <span className="text-3xl opacity-30">🔥</span>
-        <span className="text-xs text-slate-500">No streak yet</span>
+        <span className="text-xs text-muted-foreground">No streak yet</span>
       </div>
     )
   }
@@ -138,8 +138,8 @@ export function StreakFire({ streak, onMilestone, className = "" }: StreakFirePr
         animate={{ scale: 1, opacity: 1 }}
         className="flex flex-col items-center"
       >
-        <span className="text-2xl font-extrabold text-white">{streak}</span>
-        <span className="text-xs text-slate-400 font-medium">day streak</span>
+        <span className="text-2xl font-extrabold text-foreground">{streak}</span>
+        <span className="text-xs text-muted-foreground font-medium">day streak</span>
       </motion.div>
 
       {/* Milestone popup */}
@@ -149,9 +149,9 @@ export function StreakFire({ streak, onMilestone, className = "" }: StreakFirePr
             initial={{ opacity: 0, scale: 0.5, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: -10 }}
-            className="absolute -top-16 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 rounded-xl text-sm font-bold text-white z-50"
+            className="absolute -top-16 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 rounded-xl text-sm font-bold text-foreground z-50"
             style={{
-              background: `linear-gradient(135deg, ${glowColor}20, #111827)`,
+              background: `linear-gradient(135deg, ${glowColor}20, var(--card))`,
               border: `1px solid ${glowColor}60`,
               boxShadow: `0 0 20px ${glowColor}40`,
             }}
