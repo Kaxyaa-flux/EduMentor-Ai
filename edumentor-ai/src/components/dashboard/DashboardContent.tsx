@@ -82,7 +82,7 @@ export default function DashboardContent({
 
   const handleStartNewSession = async () => {
     setIsCreatingSession(true)
-    const newSessionId = await createConversation("Python Basics")
+    const newSessionId = await createConversation("Learning Basics")
     if (newSessionId) {
       router.push("/learn")
     } else {
@@ -225,7 +225,7 @@ export default function DashboardContent({
             <CardHeader>
               <CardTitle className="text-foreground text-base">Topic Mastery Overview</CardTitle>
               <CardDescription className="text-muted-foreground text-xs">
-                Your Python mastery score is calculated based on quiz correctness and completion rates.
+                Your mastery score is calculated based on quiz correctness and completion rates.
               </CardDescription>
             </CardHeader>
             <CardContent className="h-80 pb-4">

@@ -87,7 +87,7 @@ export default function ChatInterface() {
   }
 
   const handleCreateNewSession = async () => {
-    await createConversation("New Python Session")
+    await createConversation("New Session")
     setIsChatSidebarOpen(false)
   }
 
@@ -353,7 +353,7 @@ export default function ChatInterface() {
                   Explain Simpler
                 </button>
                 <button
-                  onClick={() => handleQuickAction("Can you show me a Python example of this?")}
+                  onClick={() => handleQuickAction("Can you show me a code example of this?")}
                   className="px-3 py-1.5 rounded-lg border border-border hover:border-primary/30 bg-background/50 hover:bg-card text-xs text-muted-foreground hover:text-foreground transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Code2 className="h-3 w-3 text-primary" />
@@ -372,7 +372,7 @@ export default function ChatInterface() {
               <form onSubmit={handleSend} className="flex gap-2">
                 <Input
                   className="flex-grow border-border bg-background text-foreground focus-visible:ring-primary"
-                  placeholder="Ask your tutor something... (e.g. What is a class in Python?)"
+                  placeholder="Ask your tutor something... (e.g. What is a class?)"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   disabled={isSendingMessage}

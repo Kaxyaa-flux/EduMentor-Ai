@@ -99,7 +99,7 @@ export default function LoginPage() {
           <CardHeader>
             <CardTitle className="text-foreground text-lg">Welcome Back</CardTitle>
             <CardDescription className="text-muted-foreground">
-              Enter your credentials to resume your Python tutoring sessions.
+              Enter your credentials to resume your tutoring sessions.
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit(onSubmit)}>

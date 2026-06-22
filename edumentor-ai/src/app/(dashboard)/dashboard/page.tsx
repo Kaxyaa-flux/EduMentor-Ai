@@ -74,7 +74,7 @@ export default async function DashboardPage() {
     <DashboardContent
       userName={session.user.name || "Student"}
       skillLevel={preferences?.skillLevel || "Beginner"}
-      learningGoal={preferences?.learningGoal || "Python development"}
+      learningGoal={preferences?.learningGoal || "Software development"}
       stats={{
         totalSessions,
         totalMessages,

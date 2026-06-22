@@ -133,7 +133,7 @@ export default function QuizPage() {
           {/* Topic Select List */}
           <Card className="border-border bg-card md:col-span-2">
             <CardHeader>
-              <CardTitle className="text-foreground text-base">Select Python Topic</CardTitle>
+              <CardTitle className="text-foreground text-base">Select Topic</CardTitle>
               <CardDescription className="text-muted-foreground text-xs">
                 Select a topic to start your personalized assessment.
               </CardDescription>

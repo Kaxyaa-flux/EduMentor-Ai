@@ -11,7 +11,7 @@ export default function TopNav() {
 
   const getPageTitle = () => {
     if (pathname.startsWith("/dashboard")) return "Dashboard Overview"
-    if (pathname.startsWith("/learn")) return "AI Python Tutor"
+    if (pathname.startsWith("/learn")) return "AI Tutor"
     if (pathname.startsWith("/quiz")) return "Adaptive Practice Quiz"
     if (pathname.startsWith("/progress")) return "Mastery & Analytics"
     return "EduMentor AI"

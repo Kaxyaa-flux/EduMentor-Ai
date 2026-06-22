@@ -109,7 +109,7 @@ export default function OnboardingPage() {
                   {[
                     {
                       name: "Beginner",
-                      desc: "New to programming, or never touched Python.",
+                      desc: "New to programming, or never touched the language.",
                     },
                     {
                       name: "Intermediate",

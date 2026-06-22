@@ -5,7 +5,7 @@ import { Quote } from "lucide-react"
 export function TestimonialsSection() {
   const testimonials = [
     {
-      quote: "EduMentor AI completely changed how I learn Python. The adaptive quizzes know exactly where my weak spots are.",
+      quote: "EduMentor AI completely changed how I learn programming. The adaptive quizzes know exactly where my weak spots are.",
       author: "Sarah J.",
       role: "Software Engineering Student"
     },

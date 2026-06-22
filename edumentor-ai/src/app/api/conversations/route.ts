@@ -61,7 +61,7 @@ export async function POST(req: Request) {
       prisma.conversation.create({
         data: {
           userId,
-          title: title || "New Python Session",
+          title: title || "New Learning Session",
         },
       }),
       prisma.learningAnalytics.upsert({
