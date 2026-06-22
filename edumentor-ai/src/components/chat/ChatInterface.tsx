@@ -218,13 +218,7 @@ export default function ChatInterface() {
           </Button>
         </div>
 
-        {/* AI Orb status indicator */}
-        <div className="absolute top-3 right-3 z-20">
-          <HologramOrb
-            state={isSendingMessage ? "responding" : activeConversationId ? "idle" : "thinking"}
-            size={36}
-          />
-        </div>
+
         {activeConversationId ? (
           <>
             {/* Messages Scroll Area */}
