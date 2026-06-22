@@ -82,6 +82,17 @@ export async function POST(req: Request) {
       take: 15,
     })
 
+    // Fetch top recurring mistakes for context
+    const topMistakes = await prisma.mistakePattern.findMany({
+      where: { userId, language },
+      orderBy: { occurrences: "desc" },
+      take: 3,
+    })
+
+    const mistakesContext = topMistakes.length > 0
+      ? `\n\nThis student's known recurring mistakes in ${language}:\n${topMistakes.map(m => `- ${m.concept}: ${m.description} (seen ${m.occurrences} times)`).join("\n")}\nIf relevant to the current topic, proactively address these patterns.`
+      : ""
+
     // 5. Build system prompt
     const systemPrompt = `You are EduMentor AI, an expert and dedicated tutor strictly focused on teaching ${language}.
 IMPORTANT: You are a ${language} tutor. Do not claim to be a tutor for any other language (e.g., do not say you are a Python tutor unless ${language} is Python).
@@ -95,7 +106,7 @@ Rules:
 - If the student is confused, try a different explanation approach.
 - Never give full homework answers — guide with hints.
 - Keep responses concise but complete.
-- End with a follow-up question to check understanding.`
+- End with a follow-up question to check understanding.${mistakesContext}`
 
     const groqMessages: any[] = [
       { role: "system" as const, content: systemPrompt },
@@ -158,6 +169,13 @@ Rules:
         },
       }),
     ])
+
+    // Fire-and-forget mistake detection (don't await — keeps chat fast)
+    fetch(`${process.env.NEXTAUTH_URL}/api/mistakes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Cookie: (req as any).headers?.get?.("cookie") || "" },
+      body: JSON.stringify({ userMessage: message, aiResponse: reply, language }),
+    }).catch(() => {})
 
     return NextResponse.json({ reply })
   } catch (error: any) {

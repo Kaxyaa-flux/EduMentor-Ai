@@ -25,6 +25,8 @@ model User {
   progress         Progress[]
   learningAnalytics LearningAnalytics?
   apiUsage         ApiUsage[]
+  mistakePatterns  MistakePattern[]
+  dailyCompletions DailyCompletion[]
 }
 
 model UserPreference {
@@ -125,4 +127,46 @@ model KnowledgeChunk {
   // Storing as JSON string in SQLite since pgvector isn't supported
   embedding String?
   createdAt DateTime @default(now())
+}
+
+model MistakePattern {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  language    String
+  concept     String
+  description String
+  occurrences Int      @default(1)
+  lastSeen    DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, language, concept])
+}
+
+model DailyChallenge {
+  id          String   @id @default(cuid())
+  language    String
+  date        String
+  title       String
+  description String
+  starterCode String
+  difficulty  String
+  hints       String
+  solution    String
+  createdAt   DateTime @default(now())
+
+  completions DailyCompletion[]
+
+  @@unique([language, date])
+}
+
+model DailyCompletion {
+  id               String         @id @default(cuid())
+  userId           String
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dailyChallengeId String
+  dailyChallenge   DailyChallenge @relation(fields: [dailyChallengeId], references: [id], onDelete: Cascade)
+  completedAt      DateTime       @default(now())
+
+  @@unique([userId, dailyChallengeId])
 }

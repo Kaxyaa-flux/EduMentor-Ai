@@ -98,3 +98,48 @@ export interface ProgressData {
     quizzesCompleted: number
   }>
 }
+
+// ─── Code Analyzer ───
+export interface CodeAnalysis {
+  language: string
+  summary: string
+  lines: Array<{
+    lineNumber: number
+    code: string
+    explanation: string
+    type: "logic" | "syntax" | "comment" | "declaration" | "control" | "function" | "import"
+  }>
+  improvements: string[]
+  concepts: string[]
+  overallFeedback: string
+}
+
+// ─── Mistake Patterns ───
+export interface MistakePattern {
+  id: string
+  language: string
+  concept: string
+  description: string
+  occurrences: number
+  lastSeen: string
+}
+
+// ─── Daily Challenge ───
+export interface DailyChallenge {
+  id: string
+  language: string
+  date: string
+  title: string
+  description: string
+  starterCode: string
+  difficulty: string
+  hints: string[]
+  solution: string
+}
+
+export interface DailyStatus {
+  challenge: DailyChallenge | null
+  isCompleted: boolean
+  streak: number
+}
+

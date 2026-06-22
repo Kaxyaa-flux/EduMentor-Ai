@@ -11,6 +11,8 @@ export const config = {
     "/quiz/:path*",
     "/progress/:path*",
     "/onboarding/:path*",
-    "/settings/:path*"
+    "/settings/:path*",
+    "/analyze/:path*",
+    "/challenge/:path*",
   ]
 }

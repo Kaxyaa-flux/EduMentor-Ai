@@ -15,6 +15,8 @@ import {
   Brain,
   AlertCircle,
   HelpCircle,
+  Code2,
+  Flame,
 } from "lucide-react"
 import {
   BarChart,
@@ -396,6 +398,20 @@ export default function DashboardContent({
               >
                 <Brain className="h-6 w-6 text-secondary group-hover:scale-110 transition-transform" />
                 <span className="text-sm font-semibold text-foreground">Take Quiz</span>
+              </Link>
+              <Link
+                href="/analyze"
+                className="p-4 rounded-xl border border-border bg-background/50 hover:border-blue-500/20 hover:bg-card transition-all text-center flex flex-col items-center gap-2 group"
+              >
+                <Code2 className="h-6 w-6 text-blue-400 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-semibold text-foreground">Code Analyzer</span>
+              </Link>
+              <Link
+                href="/challenge"
+                className="p-4 rounded-xl border border-border bg-background/50 hover:border-orange-500/20 hover:bg-card transition-all text-center flex flex-col items-center gap-2 group"
+              >
+                <Flame className="h-6 w-6 text-orange-400 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-semibold text-foreground">Daily Challenge</span>
               </Link>
             </CardContent>
           </Card>

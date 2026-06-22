@@ -15,12 +15,16 @@ import {
   User,
   Terminal,
   X,
+  Code2,
+  Flame,
 } from "lucide-react"
 import { ThemeToggle } from "@/components/ui/ThemeToggle"
 
 const menuItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "AI Tutor Chat", href: "/learn", icon: GraduationCap },
+  { name: "Code Analyzer", href: "/analyze", icon: Code2 },
+  { name: "Daily Challenge", href: "/challenge", icon: Flame },
   { name: "Adaptive Quiz", href: "/quiz", icon: BrainCircuit },
   { name: "Progress & Mastery", href: "/progress", icon: BarChart3 },
   { name: "Settings", href: "/settings", icon: Settings },

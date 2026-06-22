@@ -35,10 +35,11 @@ import {
 } from "@/components/ui/card"
 import { StreakFire } from "@/components/ui/StreakFire"
 import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
+import MistakePatterns from "@/components/dashboard/MistakePatterns"
 
 export default function ProgressPage() {
   const router = useRouter()
-  const { progressData, isLoadingProgress, fetchProgress, createConversation } =
+  const { progressData, isLoadingProgress, fetchProgress, createConversation, preferences, fetchPreferences } =
     useAppStore()
   
   const [mounted, setMounted] = useState(false)
@@ -47,7 +48,8 @@ export default function ProgressPage() {
   useEffect(() => {
     setMounted(true)
     fetchProgress()
-  }, [fetchProgress])
+    fetchPreferences()
+  }, [fetchProgress, fetchPreferences])
 
   // Calculate learning streak from quiz results dates
   const calculateStreak = (results: any[]) => {
@@ -276,6 +278,9 @@ export default function ProgressPage() {
           </Card>
         </div>
       </div>
+
+      {/* Mistake Patterns */}
+      <MistakePatterns language={preferences?.learningTopic || "Python"} />
 
       {/* Quiz History Table */}
       <Card className="border-border bg-card">
