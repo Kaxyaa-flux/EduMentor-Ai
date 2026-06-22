@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut, useSession } from "next-auth/react"
 import { useState, useEffect } from "react"
+import { useAppStore } from "@/store/useAppStore"
 import {
   LayoutDashboard,
   GraduationCap,
@@ -13,6 +14,7 @@ import {
   LogOut,
   User,
   Terminal,
+  X,
 } from "lucide-react"
 import { ThemeToggle } from "@/components/ui/ThemeToggle"
 
@@ -28,6 +30,7 @@ export default function Sidebar() {
   const pathname = usePathname()
   const { data: session } = useSession()
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+  const { isMobileMenuOpen, setIsMobileMenuOpen } = useAppStore()
 
   // Fetch avatar from DB on mount
   useEffect(() => {
@@ -49,17 +52,40 @@ export default function Sidebar() {
     return () => window.removeEventListener("avatar-updated", handler as EventListener)
   }, [])
 
+  // Close sidebar on route change on mobile
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname, setIsMobileMenuOpen])
+
   return (
-    <aside className="w-64 border-r border-sidebar-border bg-sidebar flex flex-col h-screen fixed left-0 top-0">
-      {/* Brand Logo */}
-      <div className="h-16 flex items-center gap-2 px-6 border-b border-sidebar-border">
-        <div className="p-1.5 bg-sidebar-primary/10 rounded-md text-sidebar-primary">
-          <Terminal className="h-5 w-5" />
+    <>
+      {/* Mobile Backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`w-64 border-r border-sidebar-border bg-sidebar flex flex-col h-screen fixed left-0 top-0 z-50 transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+        {/* Brand Logo */}
+        <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 bg-sidebar-primary/10 rounded-md text-sidebar-primary">
+              <Terminal className="h-5 w-5" />
+            </div>
+            <span className="font-bold text-lg tracking-tight text-sidebar-foreground">
+              EduMentor<span className="text-sidebar-primary">AI</span>
+            </span>
+          </div>
+          <button 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="md:hidden text-muted-foreground hover:text-foreground"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
-        <span className="font-bold text-lg tracking-tight text-sidebar-foreground">
-          EduMentor<span className="text-sidebar-primary">AI</span>
-        </span>
-      </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-4 py-6 space-y-1.5">
@@ -120,5 +146,6 @@ export default function Sidebar() {
         </div>
       </div>
     </aside>
+    </>
   )
 }

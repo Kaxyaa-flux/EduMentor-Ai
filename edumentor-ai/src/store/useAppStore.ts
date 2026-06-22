@@ -63,6 +63,10 @@ interface AppState {
   submitQuiz: (answers: number[]) => Promise<void>
   resetQuizState: () => void
   fetchProgress: () => Promise<void>
+
+  // Layout State
+  isMobileMenuOpen: boolean
+  setIsMobileMenuOpen: (isOpen: boolean) => void
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -84,6 +88,9 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   progressData: null,
   isLoadingProgress: false,
+
+  isMobileMenuOpen: false,
+  setIsMobileMenuOpen: (isOpen) => set({ isMobileMenuOpen: isOpen }),
 
   // Conversations Actions
   fetchConversations: async () => {

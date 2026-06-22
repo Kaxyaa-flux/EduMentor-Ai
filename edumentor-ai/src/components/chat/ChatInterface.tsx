@@ -44,6 +44,7 @@ export default function ChatInterface() {
   const [input, setInput] = useState("")
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editTitle, setEditTitle] = useState("")
+  const [isChatSidebarOpen, setIsChatSidebarOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Fetch conversations on mount
@@ -55,6 +56,11 @@ export default function ChatInterface() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [activeMessages])
+
+  // Close sidebar when active conversation changes on mobile
+  useEffect(() => {
+    setIsChatSidebarOpen(false)
+  }, [activeConversationId])
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault()
@@ -82,6 +88,7 @@ export default function ChatInterface() {
 
   const handleCreateNewSession = async () => {
     await createConversation("New Python Session")
+    setIsChatSidebarOpen(false)
   }
 
   // Custom text formatter to handle code blocks and inline code
@@ -95,14 +102,14 @@ export default function ChatInterface() {
         return (
           <div
             key={index}
-            className="my-3 rounded-xl overflow-hidden border border-border bg-background font-mono text-xs"
+            className="my-3 rounded-xl overflow-hidden border border-border bg-background font-mono text-xs max-w-full"
           >
             <div className="bg-card px-4 py-2 text-muted-foreground border-b border-border flex items-center justify-between text-[10px]">
               <span className="font-semibold text-muted-foreground uppercase">
                 {language || "code"}
               </span>
             </div>
-            <pre className="p-4 overflow-x-auto text-primary whitespace-pre">
+            <pre className="p-4 overflow-x-auto text-primary whitespace-pre max-w-full">
               <code>{code.trim()}</code>
             </pre>
           </div>
@@ -112,13 +119,13 @@ export default function ChatInterface() {
       // Inline code formatter
       const inlineParts = part.split(/(`[^`]+`)/g)
       return (
-        <span key={index} className="whitespace-pre-wrap">
+        <span key={index} className="whitespace-pre-wrap break-words">
           {inlineParts.map((subPart, subIdx) => {
             if (subPart.startsWith("`") && subPart.endsWith("`")) {
               return (
                 <code
                   key={subIdx}
-                  className="px-1.5 py-0.5 rounded bg-accent text-secondary font-mono text-xs"
+                  className="px-1.5 py-0.5 rounded bg-accent text-secondary font-mono text-xs break-all"
                 >
                   {subPart.slice(1, -1)}
                 </code>
@@ -132,12 +139,21 @@ export default function ChatInterface() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] rounded-2xl border border-border overflow-hidden bg-card/40 max-w-6xl mx-auto relative">
+    <div className="flex h-[calc(100vh-6rem)] md:h-[calc(100vh-8rem)] rounded-2xl border border-border overflow-hidden bg-card/40 max-w-6xl mx-auto relative">
       {/* Neural background for entire chat */}
       <NeuralNetworkBackground />
+      
+      {/* Mobile Sidebar Overlay */}
+      {isChatSidebarOpen && (
+        <div 
+          className="md:hidden absolute inset-0 bg-background/80 backdrop-blur-sm z-20"
+          onClick={() => setIsChatSidebarOpen(false)}
+        />
+      )}
+
       {/* 1. Conversations List Sidebar */}
-      <div className="w-64 border-r border-border bg-card/80 flex flex-col h-full">
-        <div className="p-4 border-b border-border">
+      <div className={`absolute md:relative z-30 w-64 md:w-64 border-r border-border bg-card/95 md:bg-card/80 flex flex-col h-full transition-transform duration-300 ${isChatSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
+        <div className="p-4 border-b border-border flex justify-between items-center">
           <Button
             onClick={handleCreateNewSession}
             className="w-full bg-primary/10 hover:bg-primary/20 text-primary font-semibold flex items-center justify-center gap-2 border border-primary/20 cursor-pointer"
@@ -232,7 +248,19 @@ export default function ChatInterface() {
       </div>
 
       {/* 2. Main Chat Panel */}
-      <div className="flex-1 flex flex-col bg-card/40 h-full relative">
+      <div className="flex-1 flex flex-col bg-card/40 h-full relative max-w-full w-full">
+        {/* Mobile Header for Sessions Toggle */}
+        <div className="md:hidden absolute top-3 left-3 z-20">
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-9 w-9 bg-background/80 backdrop-blur-sm border-border"
+            onClick={() => setIsChatSidebarOpen(true)}
+          >
+            <MessageSquare className="h-4 w-4 text-foreground" />
+          </Button>
+        </div>
+
         {/* AI Orb status indicator */}
         <div className="absolute top-3 right-3 z-20">
           <HologramOrb

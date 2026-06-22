@@ -378,7 +378,7 @@ export default function SettingsPage() {
           {/* Skill Level */}
           <div className="bg-card border border-border rounded-2xl p-6">
             <label className="text-sm font-medium text-foreground block mb-3">Skill Level</label>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {["Beginner", "Intermediate", "Advanced"].map(level => (
                 <button
                   key={level}
@@ -410,7 +410,7 @@ export default function SettingsPage() {
           {/* Daily Study Time */}
           <div className="bg-card border border-border rounded-2xl p-6">
             <label className="text-sm font-medium text-foreground block mb-3">Daily Study Time (minutes)</label>
-            <div className="grid grid-cols-4 gap-3 mb-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
               {["15", "30", "60", "90"].map(min => (
                 <button
                   key={min}

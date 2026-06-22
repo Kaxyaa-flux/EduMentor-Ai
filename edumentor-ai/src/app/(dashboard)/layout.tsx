@@ -26,9 +26,9 @@ export default async function DashboardLayout({
   return (
     <div className="min-h-screen bg-background text-foreground flex">
       <Sidebar />
-      <div className="flex-1 flex flex-col pl-64 min-h-screen">
+      <div className="flex-1 flex flex-col pl-0 md:pl-64 min-h-screen">
         <TopNav />
-        <main className="flex-grow p-8 animate-fade-in">
+        <main className="flex-grow p-4 md:p-8 animate-fade-in overflow-x-hidden">
           {children}
         </main>
       </div>
