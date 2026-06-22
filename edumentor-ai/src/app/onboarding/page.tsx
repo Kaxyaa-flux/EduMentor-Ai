@@ -6,6 +6,7 @@ import { Terminal, Award, BookOpen, Clock, ArrowRight, Check } from "lucide-reac
 import { useAppStore } from "@/store/useAppStore"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { ScrollReveal } from "@/components/ui/ScrollReveal"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 
@@ -40,7 +41,7 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen bg-[#0A0F1E] text-slate-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <ScrollReveal variant="slideUp" className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
           <div className="p-2 bg-[#10B981]/10 rounded-lg text-[#10B981]">
             <Terminal className="h-6 w-6" />
@@ -55,9 +56,9 @@ export default function OnboardingPage() {
         <p className="mt-2 text-center text-slate-400">
           Let&apos;s personalize your learning experience.
         </p>
-      </div>
+      </ScrollReveal>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
+      <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
         <Card className="border-[#1F2937] bg-[#111827]">
           <form onSubmit={handleSubmit}>
             <CardHeader>
@@ -200,7 +201,7 @@ export default function OnboardingPage() {
             </CardFooter>
           </form>
         </Card>
-      </div>
+      </ScrollReveal>
     </div>
   )
 }

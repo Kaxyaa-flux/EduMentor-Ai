@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as zod from "zod"
 import { Terminal, Key, Mail, User, AlertTriangle, Loader2 } from "lucide-react"
 
+import { ScrollReveal } from "@/components/ui/ScrollReveal"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -96,7 +97,7 @@ export default function RegisterPage() {
         Back to home
       </Link>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <ScrollReveal variant="slideUp" className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
           <div className="p-2 bg-[#10B981]/10 rounded-lg text-[#10B981]">
             <Terminal className="h-6 w-6" />
@@ -106,16 +107,16 @@ export default function RegisterPage() {
           </span>
         </div>
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
-          Create a new account
+          Create your account
         </h2>
-      </div>
+      </ScrollReveal>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
+      <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
         <Card className="border-[#1F2937] bg-[#111827]">
           <CardHeader>
-            <CardTitle className="text-white text-lg">Join EduMentor AI</CardTitle>
+            <CardTitle className="text-white text-lg">Join the Platform</CardTitle>
             <CardDescription className="text-slate-400">
-              Start learning with a customized AI tutor today.
+              Enter your details to start your personalized learning journey.
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -129,7 +130,7 @@ export default function RegisterPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-slate-300">
-                  Full name
+                  Full Name
                 </Label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-4 w-4 text-slate-500" />
@@ -199,10 +200,10 @@ export default function RegisterPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Registering account...
+                    Creating account...
                   </>
                 ) : (
-                  "Create Account"
+                  "Sign Up"
                 )}
               </Button>
               <div className="text-center text-sm text-slate-400">
@@ -211,13 +212,13 @@ export default function RegisterPage() {
                   href="/login"
                   className="text-[#10B981] hover:underline"
                 >
-                  Sign in instead
+                  Sign in
                 </Link>
               </div>
             </CardFooter>
           </form>
         </Card>
-      </div>
+      </ScrollReveal>
     </div>
   )
 }

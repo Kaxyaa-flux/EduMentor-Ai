@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as zod from "zod"
 import { Terminal, Key, Mail, AlertTriangle, Loader2 } from "lucide-react"
 
+import { ScrollReveal } from "@/components/ui/ScrollReveal"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -79,7 +80,7 @@ export default function LoginPage() {
         Back to home
       </Link>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <ScrollReveal variant="slideUp" className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
           <div className="p-2 bg-[#10B981]/10 rounded-lg text-[#10B981]">
             <Terminal className="h-6 w-6" />
@@ -91,9 +92,9 @@ export default function LoginPage() {
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
           Sign in to your account
         </h2>
-      </div>
+      </ScrollReveal>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
+      <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
         <Card className="border-[#1F2937] bg-[#111827]">
           <CardHeader>
             <CardTitle className="text-white text-lg">Welcome Back</CardTitle>
@@ -180,7 +181,7 @@ export default function LoginPage() {
             </CardFooter>
           </form>
         </Card>
-      </div>
+      </ScrollReveal>
     </div>
   )
 }
