@@ -33,6 +33,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { StreakFire } from "@/components/ui/StreakFire"
+import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 
 export default function ProgressPage() {
   const router = useRouter()
@@ -114,7 +116,11 @@ export default function ProgressPage() {
   })) || []
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
+    <div className="relative">
+      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.4 }}>
+        <NeuralNetworkBackground />
+      </div>
+      <div className="relative z-10 max-w-5xl mx-auto space-y-8">
       {/* Overview Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Streak */}
@@ -123,15 +129,9 @@ export default function ProgressPage() {
             <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
               Learning Streak
             </CardDescription>
-            <Flame className="h-5 w-5 text-orange-500" />
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-extrabold text-white flex items-baseline gap-1">
-              {streak} <span className="text-sm font-medium text-slate-500">days</span>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">
-              {streak > 0 ? "Keep the flame burning!" : "Take a quiz to start a streak!"}
-            </p>
+          <CardContent className="flex justify-center py-2">
+            <StreakFire streak={streak} />
           </CardContent>
         </Card>
 
@@ -323,7 +323,7 @@ export default function ProgressPage() {
                       {result.score} / {result.totalQuestions} ({result.percentage}%)
                     </td>
                     <td className="py-3.5 px-4 text-xs text-slate-500">
-                      {new Date(result.submittedAt).toLocaleString()}
+                      {new Date(result.submittedAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}
                     </td>
                   </tr>
                 ))}
@@ -332,6 +332,7 @@ export default function ProgressPage() {
           )}
         </CardContent>
       </Card>
+      </div>
     </div>
   )
 }

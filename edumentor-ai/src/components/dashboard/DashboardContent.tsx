@@ -30,8 +30,12 @@ import { useAppStore } from "@/store/useAppStore"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { staggerContainer, slideUpFade } from "@/lib/animations"
+import { staggerContainer, slideUpFade, cardHover } from "@/lib/animations"
 import { CountUp } from "@/components/ui/CountUp"
+import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
+import { StreakFire } from "@/components/ui/StreakFire"
+import { LearningGalaxy } from "@/components/ui/LearningGalaxy"
+import { ConstellationPath } from "@/components/ui/ConstellationPath"
 
 interface DashboardContentProps {
   userName: string
@@ -92,11 +96,17 @@ export default function DashboardContent({
   }
 
   return (
-    <motion.div 
-      variants={staggerContainer}
-      initial="initial"
-      animate="animate"
-      className="space-y-8 max-w-6xl mx-auto"
+    <div className="relative">
+      {/* Neural Network Background */}
+      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.5 }}>
+        <NeuralNetworkBackground />
+      </div>
+
+      <motion.div 
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+        className="relative z-10 space-y-8 max-w-6xl mx-auto"
     >
       {/* Welcome Banner */}
       <motion.div variants={slideUpFade} className="relative overflow-hidden rounded-2xl border border-[#1F2937] bg-gradient-to-r from-[#111827] via-[#111827]/80 to-[#10B981]/5 p-8">
@@ -128,7 +138,7 @@ export default function DashboardContent({
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Sessions */}
-        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+        <motion.div variants={slideUpFade} {...cardHover} className="h-full">
           <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#10B981]/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
@@ -146,7 +156,7 @@ export default function DashboardContent({
         </motion.div>
 
         {/* Messages */}
-        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+        <motion.div variants={slideUpFade} {...cardHover} className="h-full">
           <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#6366F1]/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
@@ -164,7 +174,7 @@ export default function DashboardContent({
         </motion.div>
 
         {/* Quizzes */}
-        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+        <motion.div variants={slideUpFade} {...cardHover} className="h-full">
           <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#10B981]/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
@@ -182,7 +192,7 @@ export default function DashboardContent({
         </motion.div>
 
         {/* Avg Quiz Score */}
-        <motion.div variants={slideUpFade} whileHover={{ y: -5 }} className="h-full">
+        <motion.div variants={slideUpFade} {...cardHover} className="h-full">
           <Card className="border-[#1F2937] bg-[#111827] h-full shadow-lg hover:shadow-[#6366F1]/10 transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardDescription className="text-slate-400 text-xs font-medium uppercase tracking-wider">
@@ -294,7 +304,7 @@ export default function DashboardContent({
                         {session.title}
                       </p>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        Active {new Date(session.updatedAt).toLocaleDateString()}
+                        Active {new Date(session.updatedAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}
                       </p>
                     </div>
                     <Button
@@ -311,6 +321,20 @@ export default function DashboardContent({
           </Card>
         </motion.div>
       </div>
+
+      {/* Learning Galaxy */}
+      <motion.div variants={slideUpFade}>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-white font-bold text-base">🌌 Learning Galaxy</span>
+          <span className="text-slate-400 text-sm">Your subject universe — click planets to explore</span>
+        </div>
+        <LearningGalaxy className="h-80" />
+      </motion.div>
+
+      {/* Constellation Learning Path */}
+      <motion.div variants={slideUpFade}>
+        <ConstellationPath />
+      </motion.div>
 
       {/* Weak Topics & Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -368,6 +392,7 @@ export default function DashboardContent({
           </Card>
         </motion.div>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }

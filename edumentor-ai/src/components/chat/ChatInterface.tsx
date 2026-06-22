@@ -22,6 +22,8 @@ import { Input } from "@/components/ui/input"
 import { motion, AnimatePresence } from "framer-motion"
 import { slideUpFade } from "@/lib/animations"
 import { Bot } from "lucide-react"
+import { HologramOrb } from "@/components/ui/HologramOrb"
+import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 
 export default function ChatInterface() {
   const {
@@ -130,7 +132,9 @@ export default function ChatInterface() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] rounded-2xl border border-[#1F2937] overflow-hidden bg-[#111827]/40 max-w-6xl mx-auto">
+    <div className="flex h-[calc(100vh-8rem)] rounded-2xl border border-[#1F2937] overflow-hidden bg-[#111827]/40 max-w-6xl mx-auto relative">
+      {/* Neural background for entire chat */}
+      <NeuralNetworkBackground />
       {/* 1. Conversations List Sidebar */}
       <div className="w-64 border-r border-[#1F2937] bg-[#111827]/80 flex flex-col h-full">
         <div className="p-4 border-b border-[#1F2937]">
@@ -228,7 +232,14 @@ export default function ChatInterface() {
       </div>
 
       {/* 2. Main Chat Panel */}
-      <div className="flex-1 flex flex-col bg-[#111827]/40 h-full">
+      <div className="flex-1 flex flex-col bg-[#111827]/40 h-full relative">
+        {/* AI Orb status indicator */}
+        <div className="absolute top-3 right-3 z-20">
+          <HologramOrb
+            state={isSendingMessage ? "responding" : activeConversationId ? "idle" : "thinking"}
+            size={36}
+          />
+        </div>
         {activeConversationId ? (
           <>
             {/* Messages Scroll Area */}
@@ -349,21 +360,54 @@ export default function ChatInterface() {
             </div>
           </>
         ) : (
-          <div className="h-full flex flex-col items-center justify-center text-center max-w-sm mx-auto p-8">
-            <MessageSquare className="h-10 w-10 text-slate-500 mb-4" />
-            <h3 className="text-white font-bold text-lg mb-2">
-              No Active Session
-            </h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Create a new room or select a conversation from the sidebar to start tutoring.
-            </p>
-            <Button
-              onClick={handleCreateNewSession}
-              className="bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold"
+          <motion.div
+            className="h-full flex flex-col items-center justify-center text-center max-w-sm mx-auto p-8"
+            initial="initial"
+            animate="animate"
+          >
+            {/* AI Mentor arrival animation */}
+            <motion.div
+              className="relative mb-6"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
             >
-              Start New Room
-            </Button>
-          </div>
+              {/* Particle gather effect */}
+              {Array.from({ length: 8 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1.5 h-1.5 rounded-full bg-emerald-400"
+                  style={{ top: "50%", left: "50%" }}
+                  initial={{
+                    x: Math.cos((i * Math.PI) / 4) * 60,
+                    y: Math.sin((i * Math.PI) / 4) * 60,
+                    opacity: 0,
+                    scale: 0,
+                  }}
+                  animate={{ x: 0, y: 0, opacity: [0, 1, 0], scale: [0, 1, 0] }}
+                  transition={{ duration: 1, delay: 0.1 + i * 0.07, ease: "easeIn" }}
+                />
+              ))}
+              <HologramOrb state="thinking" size={72} />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <h3 className="text-white font-bold text-lg mb-2">Your AI Mentor is Ready</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                Select a session on the left or create a new one to begin your learning journey.
+              </p>
+              <Button
+                onClick={handleCreateNewSession}
+                className="bg-[#10B981] hover:bg-[#059669] text-[#0A0F1E] font-bold"
+              >
+                Start New Session
+              </Button>
+            </motion.div>
+          </motion.div>
         )}
       </div>
     </div>
