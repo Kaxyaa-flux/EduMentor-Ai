@@ -1,5 +1,6 @@
 import { LandingHeader } from "@/components/layout/LandingHeader"
 import { LandingFooter } from "@/components/layout/LandingFooter"
+import { ScrollReveal } from "@/components/ui/ScrollReveal"
 
 export default function PrivacyPage() {
   return (
@@ -7,7 +8,7 @@ export default function PrivacyPage() {
       <LandingHeader />
 
       <main className="flex-1 pb-24 pt-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <ScrollReveal variant="slideUp" className="max-w-3xl mx-auto px-4 sm:px-6">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-2">Privacy Policy</h1>
           <p className="text-muted-foreground mb-12">Last updated: 22 Jun 2026</p>
           
@@ -39,7 +40,7 @@ export default function PrivacyPage() {
               </p>
             </section>
           </div>
-        </div>
+        </ScrollReveal>
       </main>
 
       <LandingFooter />
