@@ -78,7 +78,12 @@ export function FloatingOrb() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <motion.div 
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end"
+      drag
+      dragMomentum={false}
+      dragElastic={0.1}
+    >
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -228,6 +233,6 @@ export function FloatingOrb() {
           </motion.div>
         )}
       </motion.div>
-    </div>
+    </motion.div>
   )
 }
