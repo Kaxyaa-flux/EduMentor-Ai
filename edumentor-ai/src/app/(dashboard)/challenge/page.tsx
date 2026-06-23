@@ -19,6 +19,7 @@ export default function ChallengePage() {
   const [hintsRevealed, setHintsRevealed] = useState(0)
   const [showSolution, setShowSolution] = useState(false)
   const [userCode, setUserCode] = useState("")
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (session) loadChallenge(language)
@@ -29,10 +30,17 @@ export default function ChallengePage() {
     setHintsRevealed(0)
     setShowSolution(false)
     setUserCode("")
+    setError(null)
     try {
       const res = await fetch(`/api/challenge?language=${encodeURIComponent(lang)}`)
       const data = await res.json()
-      if (res.ok) setStatus(data)
+      if (res.ok) {
+        setStatus(data)
+      } else {
+        setError(data.error || "Failed to load challenge. Please check your Groq API key in Settings.")
+      }
+    } catch {
+      setError("Network error. Please refresh the page.")
     } finally {
       setIsLoading(false)
     }
@@ -63,6 +71,37 @@ export default function ChallengePage() {
         <div className="text-center space-y-3">
           <Loader2 className="h-8 w-8 text-primary animate-spin mx-auto" />
           <p className="text-sm text-muted-foreground">Generating today&apos;s challenge...</p>
+          <p className="text-xs text-muted-foreground/60">This may take 5-10 seconds on first load</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-3xl mx-auto space-y-8">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/20">
+            <Flame className="h-6 w-6 text-orange-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">Daily Challenge</h1>
+            <p className="text-sm text-muted-foreground">{today}</p>
+          </div>
+        </div>
+        <div className="p-6 rounded-2xl border border-red-500/20 bg-red-500/5 space-y-3">
+          <p className="text-sm font-bold text-red-400">⚠ Could not load challenge</p>
+          <p className="text-sm text-muted-foreground">{error}</p>
+          <p className="text-xs text-muted-foreground/70">
+            Make sure your <strong className="text-foreground">GROQ_API_KEY</strong> is valid in your <code className="bg-accent px-1 rounded">.env.local</code> file, or add a personal key in{" "}
+            <a href="/settings" className="text-primary underline">Settings → API Key</a>.
+          </p>
+          <button
+            onClick={() => loadChallenge(language)}
+            className="mt-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm font-semibold hover:bg-primary/20 transition-colors cursor-pointer"
+          >
+            Try Again
+          </button>
         </div>
       </div>
     )
