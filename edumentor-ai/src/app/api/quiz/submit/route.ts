@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Quiz not found" }, { status: 404 })
     }
 
-    const quizData = JSON.parse(quiz.quizData as string)
+    const quizData = quiz.quizData as any
     const questions = quizData.questions || []
     if (questions.length === 0) {
       return NextResponse.json(

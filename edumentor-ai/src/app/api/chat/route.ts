@@ -26,7 +26,8 @@ export async function POST(req: Request) {
     })
 
     // 2. Check api_usage — limit to 100 chatRequests per day
-    const today = new Date().toISOString().split('T')[0]
+    const todayStr = new Date().toISOString().split('T')[0]
+    const today = new Date(`${todayStr}T00:00:00.000Z`)
 
     const apiUsage = await prisma.apiUsage.findUnique({
       where: {

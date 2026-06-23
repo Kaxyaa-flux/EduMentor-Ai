@@ -34,8 +34,9 @@ export async function POST(req: Request) {
       apiKey: user?.groqApiKey || process.env.GROQ_API_KEY!
     })
 
-    // 2. Check api_usage — limit to 50 quizGenerations per day
-    const today = new Date().toISOString().split('T')[0]
+    // 2. Check API limits (max 20 quizzes per day)
+    const todayStr = new Date().toISOString().split('T')[0]
+    const today = new Date(`${todayStr}T00:00:00.000Z`)
 
     const apiUsage = await prisma.apiUsage.findUnique({
       where: {
@@ -138,7 +139,7 @@ Return ONLY the raw JSON object. Do not include markdown codeblocks or other for
           userId,
           topic,
           difficulty,
-          quizData: JSON.stringify(quizData),
+          quizData: quizData,
         },
       }),
       prisma.apiUsage.upsert({

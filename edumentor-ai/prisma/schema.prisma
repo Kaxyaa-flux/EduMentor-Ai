@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -65,7 +65,7 @@ model Quiz {
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   topic       String
   difficulty  String
-  quizData    String
+  quizData    Json
   createdAt   DateTime     @default(now())
   results     QuizResult[]
 }
@@ -111,7 +111,7 @@ model ApiUsage {
   id               String   @id @default(cuid())
   userId           String
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  usageDate        String   @default("")
+  usageDate        DateTime @db.Date
   chatRequests     Int      @default(0)
   quizGenerations  Int      @default(0)
   createdAt        DateTime @default(now())
@@ -124,7 +124,7 @@ model KnowledgeChunk {
   topic     String
   title     String
   content   String
-  // Storing as JSON string in SQLite since pgvector isn't supported
+  // PostgreSQL supports pgvector, but we'll stick to string for now to avoid needing the pgvector extension unless required
   embedding String?
   createdAt DateTime @default(now())
 }
