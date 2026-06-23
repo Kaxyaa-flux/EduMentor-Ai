@@ -15,15 +15,15 @@ import {
   Sparkles,
   RefreshCw,
   Loader2,
+  Bot,
+  User,
 } from "lucide-react"
 import { useAppStore } from "@/store/useAppStore"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { motion, AnimatePresence } from "framer-motion"
 import { slideUpFade } from "@/lib/animations"
-import { Bot } from "lucide-react"
 import { HologramOrb } from "@/components/ui/HologramOrb"
-import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 
@@ -97,9 +97,8 @@ export default function ChatInterface() {
 
   return (
     <div className="flex h-[calc(100vh-6rem)] md:h-[calc(100vh-8rem)] rounded-2xl border border-border overflow-hidden bg-card/40 max-w-6xl mx-auto relative">
-      {/* Neural background for entire chat */}
-      <NeuralNetworkBackground />
-      
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background/20 pointer-events-none z-0" />
       {/* Mobile Sidebar Overlay */}
       {isChatSidebarOpen && (
         <div 

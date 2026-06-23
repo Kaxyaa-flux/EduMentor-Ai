@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import NextAuthProvider from "@/components/providers/NextAuthProvider"
 import { ThemeProvider } from "@/components/providers/ThemeProvider"
+import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 
 export const metadata: Metadata = {
   title: "EduMentor AI - Personalized AI Tutor",
@@ -23,7 +24,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextAuthProvider>{children}</NextAuthProvider>
+          <NextAuthProvider>
+            <div className="fixed inset-0 z-[-1] pointer-events-none">
+              <NeuralNetworkBackground />
+            </div>
+            {children}
+          </NextAuthProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useRef, useEffect } from "react"
-import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 
 interface Planet {
   id: string
@@ -231,7 +230,6 @@ export function LearningGalaxy({ activeTopic = "Python", globalMastery = 0, clas
       className={`relative w-full overflow-hidden rounded-2xl border border-border bg-card ${className}`}
       style={{ minHeight: 340 }}
     >
-      <NeuralNetworkBackground />
 
       {/* Stars background */}
       <div className="absolute inset-0 pointer-events-none">

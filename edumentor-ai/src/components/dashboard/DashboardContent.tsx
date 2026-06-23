@@ -34,7 +34,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { motion } from "framer-motion"
 import { staggerContainer, slideUpFade, cardHover } from "@/lib/animations"
 import { CountUp } from "@/components/ui/CountUp"
-import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 import { StreakFire } from "@/components/ui/StreakFire"
 import { LearningGalaxy } from "@/components/ui/LearningGalaxy"
 import { ConstellationPath } from "@/components/ui/ConstellationPath"
@@ -100,10 +99,11 @@ export default function DashboardContent({
   }
 
   return (
-    <div className="relative">
-      {/* Neural Network Background */}
-      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.5 }}>
-        <NeuralNetworkBackground />
+    <div className="max-w-7xl mx-auto space-y-8 relative min-h-[calc(100vh-6rem)]">
+      {/* Background Effects */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] mix-blend-screen" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px] mix-blend-screen" />
       </div>
 
       <motion.div 

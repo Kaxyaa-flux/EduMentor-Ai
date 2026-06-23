@@ -34,7 +34,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { StreakFire } from "@/components/ui/StreakFire"
-import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 import MistakePatterns from "@/components/dashboard/MistakePatterns"
 
 export default function ProgressPage() {
@@ -119,10 +118,10 @@ export default function ProgressPage() {
 
   return (
     <div className="relative">
-      <div className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.4 }}>
-        <NeuralNetworkBackground />
-      </div>
-      <div className="relative z-10 max-w-5xl mx-auto space-y-8">
+      {/* Background & Decor */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-background via-background to-background" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto space-y-8">
       {/* Overview Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Streak */}
