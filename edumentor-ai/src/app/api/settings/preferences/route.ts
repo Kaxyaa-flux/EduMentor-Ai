@@ -15,6 +15,11 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Invalid skill level" }, { status: 400 })
   }
 
+  const validLanguages = ["Python", "JavaScript", "Java", "C", "C++", "HTML/CSS"]
+  if (learningTopic && !validLanguages.includes(learningTopic)) {
+    return NextResponse.json({ error: "Invalid language" }, { status: 400 })
+  }
+
   const updated = await prisma.userPreference.upsert({
     where: { userId: session.user.id },
     update: {
