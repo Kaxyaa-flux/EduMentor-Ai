@@ -5,6 +5,8 @@ import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
 
+export const dynamic = 'force-dynamic'
+
 // GET — fetch user's mistake patterns
 export async function GET() {
   try {

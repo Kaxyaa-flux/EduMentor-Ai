@@ -5,6 +5,8 @@ import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
 
+export const dynamic = 'force-dynamic'
+
 // GET — fetch today's challenge + completion status + streak
 export async function GET(req: NextRequest) {
   try {
@@ -24,7 +26,7 @@ export async function GET(req: NextRequest) {
     // If not, generate it
     if (!challenge) {
       const user = await prisma.user.findUnique({ where: { id: userId }, select: { groqApiKey: true } })
-      const groqClient = new Groq({ apiKey: user?.groqApiKey || process.env.GROQ_API_KEY! })
+      const groqClient = new Groq({ apiKey: user?.groqApiKey || process.env.GROQ_API_KEY || 'build-placeholder' })
 
       const preferences = await prisma.userPreference.findUnique({ where: { userId } })
       const skillLevel = preferences?.skillLevel || "Beginner"

@@ -5,6 +5,8 @@ import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -17,7 +19,8 @@ export async function POST(req: NextRequest) {
 
     // Use user's personal Groq key if set
     const user = await prisma.user.findUnique({ where: { id: userId }, select: { groqApiKey: true } })
-    const groqClient = new Groq({ apiKey: user?.groqApiKey || process.env.GROQ_API_KEY! })
+    const apiKey = user?.groqApiKey || process.env.GROQ_API_KEY || 'build-placeholder'
+    const groqClient = new Groq({ apiKey })
 
     const prompt = `You are an expert ${language} code analyzer and teacher.
 Analyze this ${language} code and explain it in a way that helps students learn.

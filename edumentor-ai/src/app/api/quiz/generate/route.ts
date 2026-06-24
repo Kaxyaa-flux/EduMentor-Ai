@@ -5,6 +5,8 @@ import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: Request) {
   try {
     // 1. Validate session
