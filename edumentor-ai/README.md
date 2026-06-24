@@ -69,15 +69,19 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 
 ---
 
-## ☁️ Deployment (Render)
+## ☁️ Deployment (Vercel & Neon)
 
-This project includes a `render.yaml` configuration file for zero-config deployment to Render. 
-The configuration provisions both a Node web service and a managed PostgreSQL database.
+This project is optimized for deployment on Vercel with a Neon Serverless Postgres database.
 
-1. Connect your GitHub repository to Render.
-2. Render will automatically detect `render.yaml`.
-3. Provide your `GROQ_API_KEY` and `NEXTAUTH_SECRET` in the Render dashboard environment variables.
-4. Deploy!
+1. Create a free Postgres database on [Neon.tech](https://neon.tech/) and copy your Connection String.
+2. Push your code to GitHub.
+3. Import your repository into [Vercel](https://vercel.com).
+4. Add the following Environment Variables in Vercel before deploying:
+   - `DATABASE_URL` (Your Neon connection string)
+   - `NEXTAUTH_SECRET` (Your random secret string)
+   - `NEXTAUTH_URL` (Set to your Vercel project URL, e.g., `https://my-app.vercel.app`)
+   - `GROQ_API_KEY` (Your Groq API key)
+5. Deploy! Vercel will automatically run `prisma generate && next build`.
 
 ---
 
