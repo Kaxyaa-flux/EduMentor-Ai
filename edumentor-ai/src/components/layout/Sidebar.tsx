@@ -72,7 +72,7 @@ export default function Sidebar() {
       )}
 
       {/* Sidebar */}
-      <aside className={`w-64 border-r border-sidebar-border bg-sidebar flex flex-col h-screen fixed left-0 top-0 z-50 transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+      <aside className={`w-64 border-r border-sidebar-border bg-sidebar flex flex-col fixed inset-y-0 left-0 h-[100dvh] z-50 transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
         {/* Brand Logo */}
         <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
           <div className="flex items-center gap-2">
