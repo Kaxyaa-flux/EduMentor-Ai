@@ -119,7 +119,7 @@ export default function RegisterPage() {
               Enter your details to start your personalized learning journey.
             </CardDescription>
           </CardHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <CardContent className="space-y-6">
               {error && (
                 <div className="p-3 bg-red-500/10 border border-red-500/20 text-destructive rounded-lg text-sm flex items-center gap-2">
