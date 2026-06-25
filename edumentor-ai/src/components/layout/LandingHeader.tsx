@@ -26,7 +26,7 @@ export async function LandingHeader() {
           <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <ThemeToggle />
           {session ? (
             <Link
@@ -48,7 +48,8 @@ export async function LandingHeader() {
                 href="/register"
                 className="whitespace-nowrap px-3 sm:px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs sm:text-sm font-medium transition-all duration-200 shadow-lg shadow-primary/10"
               >
-                Start Learning Free
+                <span className="hidden sm:inline">Start Learning Free</span>
+                <span className="sm:hidden">Start Free</span>
               </Link>
             </>
           )}

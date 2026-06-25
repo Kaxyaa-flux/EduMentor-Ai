@@ -19,7 +19,7 @@ export default async function LandingPage() {
   const session = await getServerSession(authOptions)
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col overflow-x-hidden">
       <LandingHeader />
 
       {/* Hero Section */}
