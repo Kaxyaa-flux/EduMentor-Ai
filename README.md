@@ -194,8 +194,10 @@ Open [http://localhost:3000](http://localhost:3000) to see the app.
 
 ## 👥 Team
 
-- **Kanak** — Full-stack development
-- **Akhil** — Full-stack development
+- **Kanak Bharara** — [@Kaxyaa-flux](https://github.com/Kaxyaa-flux)
+- **Akhil Biju Varghese** — [@DeadlyPro34](https://github.com/DeadlyPro34)
+- **Shivaxi Dave** — [@shivaxidave510-ui](https://github.com/shivaxidave510-ui)
+- **Ayushi Bhundiya**
 
 ---
 
