@@ -71,7 +71,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-background flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-x-hidden">
       <Link 
         href="/" 
         className="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
@@ -80,7 +80,7 @@ export default function LoginPage() {
         Back to home
       </Link>
 
-      <ScrollReveal variant="slideUp" className="sm:mx-auto sm:w-full sm:max-w-md">
+      <ScrollReveal variant="slideUp" className="w-full max-w-md mx-auto">
         <div className="flex justify-center items-center gap-2">
           <div className="p-2 bg-primary/10 rounded-lg text-primary">
             <Terminal className="h-6 w-6" />
@@ -94,7 +94,7 @@ export default function LoginPage() {
         </h2>
       </ScrollReveal>
 
-      <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
+      <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 w-full max-w-md mx-auto">
         <Card className="border-border bg-card">
           <CardHeader>
             <CardTitle className="text-foreground text-lg">Welcome Back</CardTitle>
