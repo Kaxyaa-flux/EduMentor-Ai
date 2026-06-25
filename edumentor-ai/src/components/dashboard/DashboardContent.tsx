@@ -99,7 +99,7 @@ export default function DashboardContent({
   }
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 relative min-h-[calc(100vh-6rem)]">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 relative min-h-[calc(100vh-6rem)]">
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] mix-blend-screen" />
@@ -113,7 +113,7 @@ export default function DashboardContent({
         className="relative z-10 space-y-8 max-w-6xl mx-auto"
     >
       {/* Welcome Banner */}
-      <motion.div variants={slideUpFade} className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-r from-card via-card/80 to-primary/5 p-8">
+      <motion.div variants={slideUpFade} className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-r from-card via-card/80 to-primary/5 p-6 md:p-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none" />
         <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
@@ -140,7 +140,7 @@ export default function DashboardContent({
       </motion.div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Sessions */}
         <motion.div variants={slideUpFade} {...cardHover} className="h-full">
           <Card className="border-border bg-card h-full shadow-lg hover:shadow-primary/10 transition-shadow">
@@ -234,38 +234,42 @@ export default function DashboardContent({
             </CardHeader>
             <CardContent className="h-80 pb-4">
               {mounted ? (
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={progressData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                    <XAxis
-                      dataKey="topic"
-                      stroke="#9CA3AF"
-                      fontSize={11}
-                      tickLine={false}
-                    />
-                    <YAxis
-                      stroke="#9CA3AF"
-                      fontSize={11}
-                      tickLine={false}
-                      domain={[0, 100]}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "var(--card)",
-                        borderColor: "var(--border)",
-                        borderRadius: "8px",
-                        color: "#fff",
-                      }}
-                      itemStyle={{ color: "var(--primary)" }}
-                    />
-                    <Bar
-                      dataKey="mastery"
-                      fill="var(--primary)"
-                      radius={[4, 4, 0, 0]}
-                      name="Mastery Score (%)"
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
+                <div className="w-full h-full overflow-x-auto pb-2">
+                  <div className="min-w-[500px] h-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={progressData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                        <XAxis
+                          dataKey="topic"
+                          stroke="#9CA3AF"
+                          fontSize={11}
+                          tickLine={false}
+                        />
+                        <YAxis
+                          stroke="#9CA3AF"
+                          fontSize={11}
+                          tickLine={false}
+                          domain={[0, 100]}
+                        />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: "var(--card)",
+                            borderColor: "var(--border)",
+                            borderRadius: "8px",
+                            color: "#fff",
+                          }}
+                          itemStyle={{ color: "var(--primary)" }}
+                        />
+                        <Bar
+                          dataKey="mastery"
+                          fill="var(--primary)"
+                          radius={[4, 4, 0, 0]}
+                          name="Mastery Score (%)"
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
               ) : (
                 <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
                   Loading analytics...
