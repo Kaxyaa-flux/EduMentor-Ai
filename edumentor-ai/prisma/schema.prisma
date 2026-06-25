@@ -114,6 +114,7 @@ model ApiUsage {
   usageDate        DateTime @db.Date
   chatRequests     Int      @default(0)
   quizGenerations  Int      @default(0)
+  analyzeRequests  Int      @default(0)
   createdAt        DateTime @default(now())
 
   @@unique([userId, usageDate])

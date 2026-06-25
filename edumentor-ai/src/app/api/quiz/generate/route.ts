@@ -4,6 +4,11 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
+import { z } from "zod"
+
+const generateSchema = z.object({
+  topic: z.string().min(1, "Topic is required").max(100, "Topic is too long. Maximum 100 characters allowed."),
+})
 
 export const dynamic = 'force-dynamic'
 
@@ -17,13 +22,18 @@ export async function POST(req: Request) {
     const userId = session.user.id
 
     // Parse request body
-    const { topic } = await req.json()
-    if (!topic) {
-      return NextResponse.json(
-        { error: "Missing topic parameter" },
-        { status: 400 }
-      )
+    let reqBody
+    try {
+      reqBody = await req.json()
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
     }
+
+    const parseResult = generateSchema.safeParse(reqBody)
+    if (!parseResult.success) {
+      return NextResponse.json({ error: parseResult.error.errors[0].message }, { status: 400 })
+    }
+    const { topic } = parseResult.data
 
     // Fetch user's personal Groq key (if any)
     const user = await prisma.user.findUnique({

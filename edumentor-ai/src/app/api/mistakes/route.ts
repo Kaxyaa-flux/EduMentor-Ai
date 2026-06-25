@@ -4,6 +4,13 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
+import { z } from "zod"
+
+const mistakeSchema = z.object({
+  userMessage: z.string().min(1).max(5000),
+  aiResponse: z.string().min(1).max(5000),
+  language: z.string().min(1).max(50),
+})
 
 export const dynamic = 'force-dynamic'
 
@@ -32,8 +39,18 @@ export async function POST(req: NextRequest) {
     if (!session?.user?.id) return NextResponse.json({ ok: true })
     const userId = session.user.id
 
-    const { userMessage, aiResponse, language } = await req.json()
-    if (!userMessage || !aiResponse || !language) return NextResponse.json({ ok: true })
+    let reqBody
+    try {
+      reqBody = await req.json()
+    } catch {
+      return NextResponse.json({ ok: true })
+    }
+
+    const parseResult = mistakeSchema.safeParse(reqBody)
+    if (!parseResult.success) {
+      return NextResponse.json({ ok: true })
+    }
+    const { userMessage, aiResponse, language } = parseResult.data
 
     // Use user's personal Groq key if set
     const user = await prisma.user.findUnique({ where: { id: userId }, select: { groqApiKey: true } })

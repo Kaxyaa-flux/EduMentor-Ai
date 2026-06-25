@@ -4,6 +4,12 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
+import { z } from "zod"
+
+const chatSchema = z.object({
+  message: z.string().min(1, "Message is required").max(2000, "Message is too long. Maximum 2000 characters allowed."),
+  conversationId: z.string().min(1, "Conversation ID is required")
+})
 
 export const dynamic = 'force-dynamic'
 
@@ -48,13 +54,18 @@ export async function POST(req: Request) {
     }
 
     // Parse request body
-    const { message, conversationId } = await req.json()
-    if (!message || !conversationId) {
-      return NextResponse.json(
-        { error: "Missing message or conversationId" },
-        { status: 400 }
-      )
+    let reqBody
+    try {
+      reqBody = await req.json()
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
     }
+
+    const parseResult = chatSchema.safeParse(reqBody)
+    if (!parseResult.success) {
+      return NextResponse.json({ error: parseResult.error.errors[0].message }, { status: 400 })
+    }
+    const { message, conversationId } = parseResult.data
 
     // Verify conversation ownership
     const conversation = await prisma.conversation.findFirst({

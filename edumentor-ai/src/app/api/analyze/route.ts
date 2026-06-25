@@ -4,6 +4,12 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import Groq from "groq-sdk"
 import { GROQ_MODEL } from "@/lib/groq"
+import { z } from "zod"
+
+const analyzeSchema = z.object({
+  code: z.string().min(1, "Code is required").max(5000, "Code is too long. Maximum 5000 characters allowed."),
+  language: z.string().min(1, "Language is required").max(50, "Language string too long."),
+})
 
 export const dynamic = 'force-dynamic'
 
@@ -13,9 +19,34 @@ export async function POST(req: NextRequest) {
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     const userId = session.user.id
 
-    const { code, language } = await req.json()
-    if (!code || !language) return NextResponse.json({ error: "Missing code or language" }, { status: 400 })
-    if (code.length > 5000) return NextResponse.json({ error: "Code too long. Max 5000 characters." }, { status: 400 })
+    let reqBody
+    try {
+      reqBody = await req.json()
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
+    }
+
+    const parseResult = analyzeSchema.safeParse(reqBody)
+    if (!parseResult.success) {
+      return NextResponse.json({ error: parseResult.error.errors[0].message }, { status: 400 })
+    }
+    const { code, language } = parseResult.data
+
+    const todayStr = new Date().toISOString().split('T')[0]
+    const today = new Date(`${todayStr}T00:00:00.000Z`)
+
+    const apiUsage = await prisma.apiUsage.findUnique({
+      where: {
+        userId_usageDate: { userId, usageDate: today },
+      },
+    })
+
+    if (apiUsage && apiUsage.analyzeRequests >= 50) {
+      return NextResponse.json(
+        { error: "Daily code analysis limit reached (50 requests/day)" },
+        { status: 429 }
+      )
+    }
 
     // Use user's personal Groq key if set
     const user = await prisma.user.findUnique({ where: { id: userId }, select: { groqApiKey: true } })
@@ -70,6 +101,14 @@ Only include non-empty lines in the lines array. Skip blank lines.`
     } catch {
       return NextResponse.json({ error: "Failed to parse analysis. Please try again." }, { status: 500 })
     }
+
+    await prisma.apiUsage.upsert({
+      where: {
+        userId_usageDate: { userId, usageDate: today },
+      },
+      update: { analyzeRequests: { increment: 1 } },
+      create: { userId, usageDate: today, analyzeRequests: 1 },
+    })
 
     return NextResponse.json(analysis)
   } catch (error: any) {
