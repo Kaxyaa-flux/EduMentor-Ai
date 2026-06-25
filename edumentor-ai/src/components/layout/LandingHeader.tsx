@@ -46,7 +46,7 @@ export async function LandingHeader() {
               </Link>
               <Link
                 href="/register"
-                className="px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-all duration-200 shadow-lg shadow-primary/10"
+                className="whitespace-nowrap px-3 sm:px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs sm:text-sm font-medium transition-all duration-200 shadow-lg shadow-primary/10"
               >
                 Start Learning Free
               </Link>

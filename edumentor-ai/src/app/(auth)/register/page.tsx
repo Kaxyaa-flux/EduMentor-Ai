@@ -120,7 +120,7 @@ export default function RegisterPage() {
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               {error && (
                 <div className="p-3 bg-red-500/10 border border-red-500/20 text-destructive rounded-lg text-sm flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4 shrink-0" />
@@ -128,7 +128,7 @@ export default function RegisterPage() {
                 </div>
               )}
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <Label htmlFor="name" className="text-muted-foreground">
                   Full Name
                 </Label>
@@ -144,11 +144,11 @@ export default function RegisterPage() {
                   />
                 </div>
                 {errors.name && (
-                  <p className="text-xs text-destructive">{errors.name.message}</p>
+                  <p className="text-xs text-destructive mt-1">{errors.name.message}</p>
                 )}
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <Label htmlFor="email" className="text-muted-foreground">
                   Email address
                 </Label>
@@ -164,11 +164,11 @@ export default function RegisterPage() {
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-xs text-destructive">{errors.email.message}</p>
+                  <p className="text-xs text-destructive mt-1">{errors.email.message}</p>
                 )}
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <Label htmlFor="password" className="text-muted-foreground">
                   Password
                 </Label>
@@ -184,7 +184,7 @@ export default function RegisterPage() {
                   />
                 </div>
                 {errors.password && (
-                  <p className="text-xs text-destructive">
+                  <p className="text-xs text-destructive mt-1">
                     {errors.password.message}
                   </p>
                 )}
