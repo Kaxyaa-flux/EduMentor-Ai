@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import NextAuthProvider from "@/components/providers/NextAuthProvider"
 import { ThemeProvider } from "@/components/providers/ThemeProvider"
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider"
 import { NeuralNetworkBackground } from "@/components/ui/NeuralNetworkBackground"
 
 export const metadata: Metadata = {
@@ -18,19 +19,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased min-h-screen transition-colors duration-300">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextAuthProvider>
-            <div className="fixed inset-0 z-[-1] pointer-events-none">
-              <NeuralNetworkBackground />
-            </div>
-            {children}
-          </NextAuthProvider>
-        </ThemeProvider>
+        <SmoothScrollProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextAuthProvider>
+              <div className="fixed inset-0 z-[-1] pointer-events-none">
+                <NeuralNetworkBackground />
+              </div>
+              {children}
+            </NextAuthProvider>
+          </ThemeProvider>
+        </SmoothScrollProvider>
       </body>
     </html>
   )
