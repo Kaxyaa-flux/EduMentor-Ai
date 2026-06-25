@@ -230,8 +230,8 @@ export function LearningGalaxy({ activeTopic = "Python", globalMastery = 0, clas
       className={`relative w-full overflow-hidden rounded-2xl border border-border bg-card ${className}`}
       style={{ minHeight: 340 }}
     >
-
-      {/* Stars background */}
+      <div className="w-full h-full overflow-x-auto">
+        <div className="min-w-[600px] h-full relative">
       <div className="absolute inset-0 pointer-events-none">
         {Array.from({ length: 60 }).map((_, i) => (
           <motion.div
@@ -251,7 +251,7 @@ export function LearningGalaxy({ activeTopic = "Python", globalMastery = 0, clas
       </div>
 
       {/* Galaxy SVG */}
-      <svg width={svgSize.w} height={svgSize.h} className="relative z-10">
+      <svg width={Math.max(600, svgSize.w)} height={svgSize.h} className="relative z-10">
         {planets.map((planet, i) => (
           <PlanetCard
             key={planet.id}
@@ -317,9 +317,7 @@ export function LearningGalaxy({ activeTopic = "Python", globalMastery = 0, clas
           </motion.div>
         )}
       </AnimatePresence>
-
-      <div className="absolute top-3 left-4 text-xs text-muted-foreground font-medium z-10">
-        🌌 Learning Galaxy — click a planet to explore
+        </div>
       </div>
     </div>
   )

@@ -162,12 +162,14 @@ export function ConstellationPath({ activeTopic = "Python", progressData = [], c
 
   return (
     <div className={`w-full rounded-2xl border border-border bg-card overflow-hidden p-4 ${className}`}>
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center items-start gap-1 sm:gap-2 mb-3">
         <span className="text-primary text-sm font-semibold">✨ {activeTopic} Constellation</span>
         <span className="text-xs text-muted-foreground">Your path through the curriculum</span>
       </div>
 
-      <svg ref={svgRef} width="100%" height={140} viewBox={`0 0 ${svgWidth} 140`}>
+      <div className="w-full overflow-x-auto pb-2">
+        <div className="min-w-[700px]">
+          <svg ref={svgRef} width="100%" height={140} viewBox={`0 0 ${Math.max(700, svgWidth)} 140`}>
         {/* Dashed connection lines first (below stars) */}
         {scaledStars.map((star, i) => {
           const next = scaledStars[i + 1]
@@ -192,8 +194,10 @@ export function ConstellationPath({ activeTopic = "Python", progressData = [], c
         {/* Stars */}
         {scaledStars.map((star, i) => (
           <TwinklingStar key={star.id} star={star} index={i} totalStars={scaledStars.length} />
-        ))}
-      </svg>
+          ))}
+        </svg>
+      </div>
+    </div>
 
       {/* Legend */}
       <div className="flex items-center gap-4 mt-2 px-2">

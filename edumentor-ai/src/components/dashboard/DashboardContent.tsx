@@ -331,8 +331,8 @@ export default function DashboardContent({
       </div>
 
       {/* Learning Galaxy */}
-      <motion.div variants={slideUpFade}>
-        <div className="flex items-center gap-2 mb-3">
+      <motion.div variants={slideUpFade} className="min-w-0">
+        <div className="flex flex-col sm:flex-row sm:items-center items-start gap-1 sm:gap-2 mb-3">
           <span className="text-foreground font-bold text-base">🌌 Learning Galaxy</span>
           <span className="text-muted-foreground text-sm">Your subject universe — click planets to explore</span>
         </div>
@@ -344,7 +344,7 @@ export default function DashboardContent({
       </motion.div>
 
       {/* Constellation Learning Path */}
-      <motion.div variants={slideUpFade}>
+      <motion.div variants={slideUpFade} className="min-w-0">
         <ConstellationPath 
           activeTopic={learningTopic}
           progressData={progressData}
