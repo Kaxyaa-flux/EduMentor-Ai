@@ -60,7 +60,7 @@ export default function OnboardingPage() {
 
       <ScrollReveal variant="slideUp" delay={0.1} className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
         <Card className="border-border bg-card">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <CardHeader>
               <CardTitle className="text-foreground text-lg flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-primary" />
