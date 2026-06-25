@@ -224,8 +224,8 @@ export default function DashboardContent({
       {/* Main Grid: Chart & Sessions */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left 2/3: Mastery Bar Chart */}
-        <motion.div variants={slideUpFade} className="lg:col-span-2">
-          <Card className="border-border bg-card h-full">
+        <motion.div variants={slideUpFade} className="lg:col-span-2 min-w-0">
+          <Card className="border-border bg-card h-full overflow-hidden">
             <CardHeader>
               <CardTitle className="text-foreground text-base">Topic Mastery Overview</CardTitle>
               <CardDescription className="text-muted-foreground text-xs">
